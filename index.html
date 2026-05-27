@@ -403,7 +403,22 @@
 
   .pub-group { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); padding: 36px 32px; display: flex; flex-direction: column; }
   .pub-group-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  /* Garante que todos os links dentro de .pub-title fiquem brancos */
+  .pub-title a {
+      color: #ffffff;
+      text-decoration: none; /* Opcional: remove o sublinhado */
+  }
 
+  /* Opcional: define a cor quando o mouse passa por cima (hover) */
+  .pub-title a:hover {
+      color: #cccccc; /* Muda para um tom de cinza claro ao passar o mouse */
+      text-decoration: underline;
+  }
+
+  /* Opcional: remove a cor de 'visitado' */
+  .pub-title a:visited {
+      color: #ffffff;
+  }
   .pub-entry { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .pub-entry:last-child { border-bottom: none; padding-bottom: 0; }
   .pub-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
@@ -743,17 +758,21 @@
     <p class="section-body reveal">Nosso trabalho não é só metodológico — é também autoral. Conhecemos o processo editorial por dentro porque já percorremos esse caminho.</p>
   </div>
 
-  <div class="pub-block reveal">
+  <div class="pub-block reveal" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
     <div class="pub-group">
       <div class="pub-group-label">Artigos em periódicos indexados</div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">International Journal of Data Science and Analytics</span><span class="pub-year">2025</span></div>
-        <div class="pub-title">Active learning in process mining: an active sampling using dimensionality reduction and iterative selection</div>
+        <div class="pub-title">
+          <a href="https://link.springer.com/article/10.1007/s41060-025-00770-7" target="_blank" rel="noopener">Active learning in process mining: an active sampling using dimensionality reduction and iterative selection</a>
+        </div>
         <div class="pub-authors">Aguilar Magalhães, R.; Andolfato Filho, A.; Portela Santos, E. A.; Ara, A.</div>
       </div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Healthcare · MDPI</span><span class="pub-year">2026</span></div>
-        <div class="pub-title">Psoriasis in the Brazilian Public Health System: A Nationwide Analysis of Healthcare Utilization and Inequalities, 2014–2024</div>
+        <div class="pub-title">
+          <a href="https://www.mdpi.com/2227-9032/14/10/1338" target="_blank" rel="noopener">Psoriasis in the Brazilian Public Health System: A Nationwide Analysis of Healthcare Utilization and Inequalities, 2014–2024</a>
+        </div>
         <div class="pub-authors">Zuccolo De Bortoli, S. P.; Tanaka, A. A.; Magalhães, R. A.; Aques, J. V. G.; et al.</div>
       </div>
     </div>
@@ -762,12 +781,16 @@
       <div class="pub-group-label">Capítulos e anais</div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Proc. Series SBMAC</span><span class="pub-year">2018</span></div>
-        <div class="pub-title">A Hamiltoniana da Função de Produção MRW</div>
+        <div class="pub-title">
+          <a href="https://proceedings.sbmac.emnuvens.com.br/sbmac/article/view/2397" target="_blank" rel="noopener">A Hamiltoniana da Função de Produção MRW</a>
+        </div>
         <div class="pub-authors">Magalhães, R. A.; Coninck, J. C. P.</div>
       </div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Atena Editora</span><span class="pub-year">2021</span></div>
-        <div class="pub-title">Aprendizagem Baseada em Problemas em Processos de Formação na Área Tecnológica</div>
+        <div class="pub-title">
+          <a href="https://proceedings.sbmac.emnuvens.com.br/sbmac/article/view/2397" target="_blank" rel="noopener">Aprendizagem Baseada em Problemas em Processos de Formação na Área Tecnológica</a>
+        </div>
         <div class="pub-authors">Magalhães, R. A.; Araujo, A. M.</div>
       </div>
     </div>
