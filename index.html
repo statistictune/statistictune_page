@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Statistictune — Consultoria Estatística para Pesquisa em Saúde</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 
 <!-- SEO -->
 <meta name="description" content="Consultoria estatística ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras científicas e suporte até a publicação em periódico indexado.">
@@ -14,24 +12,27 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://statistictune.com.br">
 
-<!-- Open Graph (preview no WhatsApp, LinkedIn, Facebook) -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://statistictune.com.br">
 <meta property="og:title" content="Statistictune — Consultoria Estatística para Pesquisa em Saúde">
 <meta property="og:description" content="Do dado bruto ao artigo publicado. Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde.">
 <meta property="og:locale" content="pt_BR">
-
 <meta property="og:image" content="https://statistictune.com.br/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <!-- Twitter/X Card -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Statistictune — Consultoria Estatística para Pesquisa em Saúde">
 <meta name="twitter:description" content="Do dado bruto ao artigo publicado. Suporte metodológico ponta a ponta para pesquisadores da área da saúde.">
+<meta name="twitter:image" content="https://statistictune.com.br/og-image.png">
 
-<!-- Google Search Console — adicionar aqui quando tiver a tag -->
+<!-- Google Search Console — adicione aqui quando tiver a tag -->
 <!-- <meta name="google-site-verification" content="XXXXXXXXXXXXXXX" /> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
@@ -41,19 +42,6 @@
   gtag('js', new Date());
   gtag('config', 'G-VSWKF5XT2K');
 </script>
-
-<!-- Meta Pixel (Facebook/Instagram Ads) -->
-<!-- <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'SEU_PIXEL_ID');
-  fbq('track', 'PageView');
-</script> -->
 
 <style>
   :root {
@@ -65,7 +53,6 @@
     --gold-light: #E8C97A;
     --teal: #1B6B7B;
     --teal-light: #2A8FA3;
-    --sage: #2D5C4A;
     --text-muted: #6B6B80;
     --border: rgba(26,26,46,0.12);
     --border-light: rgba(26,26,46,0.07);
@@ -73,237 +60,70 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    overflow-x: hidden;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
 
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
+    pointer-events: none; z-index: 0; opacity: 0.5;
   }
 
-  /* ─── NAV ─── */
+  /* Garante que NENHUM link fora de .pub-title tenha estilo de hyperlink */
+  a { color: inherit; text-decoration: none; }
+
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 20px 60px;
     background: rgba(245,240,232,0.94);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     transition: padding 0.3s;
   }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    text-decoration: none;
-  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
   .nav-logo span { color: var(--teal); }
   .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-  }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); opacity: 0.6; transition: opacity 0.2s; }
   .nav-links a:hover { opacity: 1; }
-  .nav-cta {
-    background: var(--ink);
-    color: var(--cream) !important;
-    opacity: 1 !important;
-    padding: 10px 24px;
-    font-size: 0.78rem !important;
-    transition: background 0.2s !important;
-  }
+  .nav-cta { background: var(--ink); color: var(--cream) !important; opacity: 1 !important; padding: 10px 24px; font-size: 0.78rem !important; transition: background 0.2s !important; }
   .nav-cta:hover { background: var(--teal) !important; }
 
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    padding-top: 80px;
-  }
-  .hero-bg-deco {
-    position: absolute;
-    top: 0; right: 0;
-    width: 50%; height: 100%;
-    background: linear-gradient(135deg, var(--cream-dark) 0%, rgba(27,107,123,0.06) 100%);
-    z-index: 0;
-    pointer-events: none;
-  }
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 60px 80px 80px;
-    position: relative;
-    z-index: 1;
-  }
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s ease forwards;
-  }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; padding-top: 80px; }
+  .hero-bg-deco { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: linear-gradient(135deg, var(--cream-dark) 0%, rgba(27,107,123,0.06) 100%); z-index: 0; pointer-events: none; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 80px 80px; position: relative; z-index: 1; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards; }
   .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--teal); }
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 4vw, 4.2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.35s ease forwards;
-  }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 4vw, 4.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.35s ease forwards; }
   .hero-title em { font-style: italic; color: var(--teal); }
   .hero-title .line-gold { color: var(--gold); }
-  .hero-sub {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--ink-light);
-    max-width: 460px;
-    margin-bottom: 44px;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.5s ease forwards;
-  }
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.65s ease forwards;
-  }
-  .hero-right {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 60px 100px 40px;
-  }
-  .hero-visual {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    opacity: 0;
-    animation: fadeIn 1s 0.8s ease forwards;
-  }
-  .stat-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--teal);
-    padding: 22px 26px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+  .hero-sub { font-size: 1.05rem; line-height: 1.7; color: var(--ink-light); max-width: 460px; margin-bottom: 44px; font-weight: 300; opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; animation: fadeUp 0.8s 0.65s ease forwards; }
+  .hero-right { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; padding: 100px 60px 100px 40px; }
+  .hero-visual { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; opacity: 0; animation: fadeIn 1s 0.8s ease forwards; }
+  .stat-card { background: white; border: 1px solid var(--border); border-left: 3px solid var(--teal); padding: 22px 26px; transition: transform 0.3s, box-shadow 0.3s; }
   .stat-card:hover { transform: translateX(5px); box-shadow: -3px 4px 16px rgba(0,0,0,0.06); }
   .stat-card-accent { border-left-color: var(--gold); }
   .card-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
   .card-value { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 5px; }
   .card-desc { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
-  .formula-card {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 18px 24px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.7;
-  }
+  .formula-card { background: var(--ink); color: var(--cream); padding: 18px 24px; font-family: 'DM Mono', monospace; font-size: 0.75rem; line-height: 1.7; }
   .formula-card .fc-gold { color: var(--gold); }
 
-  /* ─── BOTÕES ─── */
-  .btn-primary {
-    background: var(--teal);
-    color: #fff;
-    padding: 16px 36px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
-  .btn-ghost {
-    color: var(--ink);
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .btn-primary { background: var(--teal); color: #fff; padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em; border: none; cursor: pointer; display: inline-block; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); color: #fff; }
+  .btn-ghost { color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
   .btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
 
-  /* ─── SECTIONS BASE ─── */
   section { position: relative; z-index: 1; }
-
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 20px;
-  }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px; }
   .section-title em { font-style: italic; color: var(--teal); }
   .section-body { font-size: 1rem; line-height: 1.75; color: var(--ink-light); font-weight: 300; max-width: 580px; }
 
-  /* ════════════════════════════════
-     SEÇÃO 1 — PARA QUEM  (ink escuro)
-  ════════════════════════════════ */
-  .target-section {
-    padding: 120px 80px;
-    background: var(--ink);
-    color: var(--cream);
-  }
+  .target-section { padding: 120px 80px; background: var(--ink); color: var(--cream); }
   .target-section .section-label { color: var(--gold); }
   .target-section .section-label::after { background: rgba(201,168,76,0.3); }
   .target-section .section-title { color: var(--cream); }
@@ -316,9 +136,6 @@
   .tc-desc { font-size: 0.88rem; line-height: 1.7; color: rgba(245,240,232,0.55); font-weight: 300; }
   .tc-tag { display: inline-block; margin-top: 20px; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 4px 10px; }
 
-  /* ════════════════════════════════
-     SEÇÃO 2 — SERVIÇOS  (cream claro)
-  ════════════════════════════════ */
   .services-section { padding: 120px 80px; background: var(--cream); }
   .services-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
   .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
@@ -332,9 +149,6 @@
   .si-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
   .si-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
 
-  /* ════════════════════════════════
-     SEÇÃO 3 — PROCESSO  (cream-dark)
-  ════════════════════════════════ */
   .process-section { padding: 120px 80px; background: var(--cream-dark); }
   .process-section .section-label { color: var(--teal); }
   .process-header { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; margin-bottom: 80px; }
@@ -345,9 +159,6 @@
   .ps-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
   .ps-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
 
-  /* ════════════════════════════════
-     SEÇÃO 4 — EQUIPE  (cream claro)
-  ════════════════════════════════ */
   .team-section { padding: 120px 80px; background: var(--cream); }
   .team-intro { max-width: 640px; margin-bottom: 80px; }
   .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -372,7 +183,6 @@
   .tc-tag-item { font-size: 0.7rem; letter-spacing: 0.08em; font-weight: 500; color: var(--teal); border: 1px solid rgba(27,107,123,0.25); padding: 4px 12px; background: rgba(27,107,123,0.04); }
   .card-pamela .tc-tag-item { color: #8B6914; border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
 
-  /* trajetória */
   .traj-wrapper { margin-top: 80px; border-top: 1px solid var(--border); padding-top: 64px; }
   .traj-header { display: flex; align-items: baseline; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
   .traj-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; font-style: italic; }
@@ -387,56 +197,32 @@
   .traj-dot-gold { background: var(--gold); }
   .traj-place { font-size: 0.83rem; font-weight: 400; color: var(--ink-light); line-height: 1.4; }
 
-  /* ════════════════════════════════
-     SEÇÃO 5 — PUBLICAÇÕES  (sage verde escuro)
-  ════════════════════════════════ */
   .pub-section { padding: 120px 80px; background: #1E3A2F; color: var(--cream); }
   .pub-section .section-label { color: var(--gold-light); }
   .pub-section .section-label::after { background: rgba(232,201,122,0.25); }
   .pub-section .section-title { color: var(--cream); }
   .pub-section .section-title em { color: var(--gold-light); }
   .pub-section .section-body { color: rgba(245,240,232,0.6); }
-
   .pub-section-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 72px; }
-
   .pub-block { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
-
   .pub-group { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); padding: 36px 32px; display: flex; flex-direction: column; }
   .pub-group-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  /* Garante que todos os links dentro de .pub-title fiquem brancos */
-  .pub-title a {
-      color: #ffffff;
-      text-decoration: none; /* Opcional: remove o sublinhado */
-  }
-
-  /* Opcional: define a cor quando o mouse passa por cima (hover) */
-  .pub-title a:hover {
-      color: #cccccc; /* Muda para um tom de cinza claro ao passar o mouse */
-      text-decoration: underline;
-  }
-
-  /* Opcional: remove a cor de 'visitado' */
-  .pub-title a:visited {
-      color: #ffffff;
-  }
   .pub-entry { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .pub-entry:last-child { border-bottom: none; padding-bottom: 0; }
   .pub-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
   .pub-journal-tag { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; color: var(--gold-light); border: 1px solid rgba(232,201,122,0.3); padding: 2px 8px; }
   .pub-year { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(245,240,232,0.3); }
   .pub-title { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 600; color: var(--cream); line-height: 1.45; margin-bottom: 6px; }
+  .pub-title a { color: var(--cream); text-decoration: none; border-bottom: 1px solid rgba(232,201,122,0.4); transition: color 0.2s, border-color 0.2s; }
+  .pub-title a:hover { color: var(--gold-light); border-color: var(--gold-light); }
   .pub-authors { font-size: 0.75rem; color: rgba(245,240,232,0.38); font-weight: 300; line-height: 1.5; font-style: italic; }
   .pub-note { font-size: 0.72rem; color: var(--gold-light); margin-top: 6px; }
-
   .award-entry { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .award-entry:last-child { border-bottom: none; padding-bottom: 0; }
   .award-icon { color: var(--gold-light); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
   .award-title { font-size: 0.87rem; font-weight: 500; color: var(--cream); line-height: 1.4; margin-bottom: 4px; }
   .award-org { font-size: 0.75rem; color: rgba(245,240,232,0.4); font-weight: 300; }
 
-  /* ════════════════════════════════
-     SEÇÃO 6 — ESCOPO  (ink escuro)
-  ════════════════════════════════ */
   .scope-section { padding: 120px 80px; background: var(--ink); color: var(--cream); }
   .scope-section .section-label { color: var(--gold); }
   .scope-section .section-label::after { background: rgba(201,168,76,0.3); }
@@ -457,14 +243,11 @@
   .sc-activities li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
   .scope-card.featured .sc-activities li { color: rgba(255,255,255,0.85); }
   .scope-card.featured .sc-activities li::before { color: rgba(255,255,255,0.5); }
-  .btn-scope { display: block; text-align: center; padding: 13px 24px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); color: var(--cream); transition: background 0.2s, border-color 0.2s; }
-  .btn-scope:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+  .btn-scope { display: block; text-align: center; padding: 13px 24px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; border: 1px solid rgba(255,255,255,0.2); color: var(--cream); transition: background 0.2s, border-color 0.2s; }
+  .btn-scope:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); color: var(--cream); }
   .scope-card.featured .btn-scope { background: var(--ink); border-color: var(--ink); }
   .scope-card.featured .btn-scope:hover { background: var(--cream); color: var(--ink); }
 
-  /* ════════════════════════════════
-     SEÇÃO 7 — DEPOIMENTOS  (cream-dark)
-  ════════════════════════════════ */
   .trust-section { padding: 100px 80px; background: var(--cream-dark); display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
   .trust-items { display: flex; flex-direction: column; gap: 2px; }
   .trust-item { background: white; border: 1px solid var(--border); padding: 26px 30px; transition: border-color 0.3s; }
@@ -474,9 +257,6 @@
   .ti-author { font-size: 0.77rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
   .ti-role { display: block; font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 0.74rem; margin-top: 2px; color: var(--teal); }
 
-  /* ════════════════════════════════
-     CTA FINAL  (cream)
-  ════════════════════════════════ */
   .cta-section { padding: 140px 80px; text-align: center; position: relative; overflow: hidden; background: var(--cream); }
   .cta-section::before { content: 'p < 0.05'; position: absolute; font-family: 'Playfair Display', serif; font-size: 18vw; font-weight: 800; color: rgba(26,26,46,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; }
   .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
@@ -488,24 +268,21 @@
   .cta-sub { font-size: 1rem; line-height: 1.7; color: var(--ink-light); font-weight: 300; margin-bottom: 48px; }
   .cta-buttons { display: flex; gap: 16px; justify-content: center; align-items: center; }
   .cta-contact { margin-top: 44px; font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
-  .cta-contact a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+  .cta-contact a { color: var(--teal); border-bottom: 1px solid var(--teal); }
 
-  /* ─── FOOTER ─── */
   footer { padding: 40px 80px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--ink); }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--cream); text-decoration: none; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--cream); }
   .footer-logo span { color: var(--gold); }
   .footer-copy { font-size: 0.78rem; color: rgba(245,240,232,0.4); font-weight: 300; }
   .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 0.78rem; color: rgba(245,240,232,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a { font-size: 0.78rem; color: rgba(245,240,232,0.5); transition: color 0.2s; }
   .footer-links a:hover { color: var(--gold); }
 
-  /* ─── ANIMAÇÕES ─── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ─── RESPONSIVO ─── */
   @media (max-width: 1100px) {
     nav { padding: 18px 40px; }
     .hero { grid-template-columns: 1fr; }
@@ -544,7 +321,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Statistic<span>tune</span></a>
   <ul class="nav-links">
@@ -557,19 +333,12 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg-deco"></div>
   <div class="hero-left">
     <span class="hero-eyebrow">Consultoria Estatística para Saúde</span>
-    <h1 class="hero-title">
-      Do dado bruto<br>
-      ao <em>artigo</em><br>
-      <span class="line-gold">publicado.</span>
-    </h1>
-    <p class="hero-sub">
-      Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras prontas para publicação e acompanhamento até o aceite.
-    </p>
+    <h1 class="hero-title">Do dado bruto<br>ao <em>artigo</em><br><span class="line-gold">publicado.</span></h1>
+    <p class="hero-sub">Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras prontas para publicação e acompanhamento até o aceite.</p>
     <div class="hero-actions">
       <a href="#contato" class="btn-primary">Solicitar proposta</a>
       <a href="#servicos" class="btn-ghost">Ver serviços →</a>
@@ -577,57 +346,25 @@
   </div>
   <div class="hero-right">
     <div class="hero-visual">
-      <div class="stat-card">
-        <div class="card-label">Publicação recente</div>
-        <div class="card-value">Healthcare</div>
-        <div class="card-desc">Psoriasis in the Brazilian Public Health System · 2026</div>
-      </div>
-      <div class="stat-card stat-card-accent">
-        <div class="card-label">Análises realizadas</div>
-        <div class="card-value">Cox · PSM · GLM</div>
-        <div class="card-desc">Modelos de sobrevivência, riscos competitivos, propensity score</div>
-      </div>
-      <div class="stat-card">
-        <div class="card-label">Artigo em periódico indexado</div>
-        <div class="card-value">IJDSA · 2025</div>
-        <div class="card-desc">Active learning in process mining — citado internacionalmente</div>
-      </div>
-      <div class="formula-card">
-        h(t) = h<span class="fc-gold">₀</span>(t) · exp(<span class="fc-gold">βX</span>)<br>
-        <span class="fc-gold"># Cox Proportional Hazards Model</span>
-      </div>
+      <div class="stat-card"><div class="card-label">Publicação recente</div><div class="card-value">Healthcare</div><div class="card-desc">Psoriasis in the Brazilian Public Health System · 2026</div></div>
+      <div class="stat-card stat-card-accent"><div class="card-label">Análises realizadas</div><div class="card-value">Cox · PSM · GLM</div><div class="card-desc">Modelos de sobrevivência, riscos competitivos, propensity score</div></div>
+      <div class="stat-card"><div class="card-label">Artigo em periódico indexado</div><div class="card-value">IJDSA · 2025</div><div class="card-desc">Active learning in process mining — citado internacionalmente</div></div>
+      <div class="formula-card">h(t) = h<span class="fc-gold">₀</span>(t) · exp(<span class="fc-gold">βX</span>)<br><span class="fc-gold"># Cox Proportional Hazards Model</span></div>
     </div>
   </div>
 </section>
 
-<!-- 1. PARA QUEM — ink -->
 <section class="target-section" id="para-quem">
   <div class="section-label reveal">Para quem é</div>
   <h2 class="section-title reveal">Você se reconhece<br><em>em algum cenário?</em></h2>
   <p class="section-body reveal">A pesquisa em saúde exige rigor metodológico que vai além do currículo da graduação ou pós. É aqui que entramos.</p>
   <div class="target-grid">
-    <div class="target-card reveal">
-      <div class="tc-number">01</div>
-      <div class="tc-title">Graduando com TCC em saúde</div>
-      <div class="tc-desc">Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa. Precisa de alguém que explique e execute junto.</div>
-      <span class="tc-tag">TCC / Monografia</span>
-    </div>
-    <div class="target-card reveal">
-      <div class="tc-number">02</div>
-      <div class="tc-title">Mestrando com prazo apertado</div>
-      <div class="tc-desc">A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos e defensáveis, rapidamente.</div>
-      <span class="tc-tag">Mestrado</span>
-    </div>
-    <div class="target-card reveal">
-      <div class="tc-number">03</div>
-      <div class="tc-title">Doutorando visando publicação</div>
-      <div class="tc-desc">Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico indexado.</div>
-      <span class="tc-tag">Doutorado · Publicação</span>
-    </div>
+    <div class="target-card reveal"><div class="tc-number">01</div><div class="tc-title">Graduando com TCC em saúde</div><div class="tc-desc">Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa. Precisa de alguém que explique e execute junto.</div><span class="tc-tag">TCC / Monografia</span></div>
+    <div class="target-card reveal"><div class="tc-number">02</div><div class="tc-title">Mestrando com prazo apertado</div><div class="tc-desc">A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos e defensáveis, rapidamente.</div><span class="tc-tag">Mestrado</span></div>
+    <div class="target-card reveal"><div class="tc-number">03</div><div class="tc-title">Doutorando visando publicação</div><div class="tc-desc">Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico indexado.</div><span class="tc-tag">Doutorado · Publicação</span></div>
   </div>
 </section>
 
-<!-- 2. SERVIÇOS — cream -->
 <section class="services-section" id="servicos">
   <div class="services-intro">
     <div>
@@ -652,7 +389,6 @@
   </div>
 </section>
 
-<!-- 3. PROCESSO — cream-dark -->
 <section class="process-section" id="processo">
   <div class="process-header">
     <div>
@@ -669,14 +405,12 @@
   </div>
 </section>
 
-<!-- 4. EQUIPE — cream -->
 <section class="team-section" id="sobre">
   <div class="team-intro">
     <div class="section-label reveal">Quem está por trás</div>
     <h2 class="section-title reveal">Pesquisa rigorosa começa<br>por quem <em>entende</em><br>os dois lados.</h2>
     <p class="section-body reveal">A Statistictune reúne formação estatística avançada e expertise clínica na área da saúde. Não é só análise de dados — é compreensão real do que os dados representam dentro do contexto assistencial e acadêmico.</p>
   </div>
-
   <div class="team-grid">
     <div class="team-card reveal">
       <div class="tc-role-badge">Métodos Quantitativos & Inferência</div>
@@ -690,15 +424,9 @@
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong>Especialização em Ciência de Dados</strong> — PUC-PR (2022) · <strong>Licenciatura em Matemática</strong> — UTFPR (2018)</div></div>
       </div>
       <div class="tc-tags">
-        <span class="tc-tag-item">Inferência Bayesiana</span>
-        <span class="tc-tag-item">Análise de Sobrevivência</span>
-        <span class="tc-tag-item">Dados SUS</span>
-        <span class="tc-tag-item">R · Python</span>
-        <span class="tc-tag-item">Epidemiologia Observacional</span>
-        <span class="tc-tag-item">Propensity Score</span>
+        <span class="tc-tag-item">Inferência Bayesiana</span><span class="tc-tag-item">Análise de Sobrevivência</span><span class="tc-tag-item">Dados SUS</span><span class="tc-tag-item">R · Python</span><span class="tc-tag-item">Epidemiologia Observacional</span><span class="tc-tag-item">Propensity Score</span>
       </div>
     </div>
-
     <div class="team-card card-pamela reveal">
       <div class="tc-role-badge">Expertise Clínica & Saúde</div>
       <div class="tc-name">Pâmela<br>Almeida Magalhães</div>
@@ -711,12 +439,7 @@
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong>Bacharelado em Fisioterapia</strong> — Universidade Positivo (2016)</div></div>
       </div>
       <div class="tc-tags">
-        <span class="tc-tag-item">Fisioterapia Intensiva</span>
-        <span class="tc-tag-item">UTI Neonatal · Adulto</span>
-        <span class="tc-tag-item">Dados Clínicos</span>
-        <span class="tc-tag-item">Medicina Interna</span>
-        <span class="tc-tag-item">Saúde Coletiva</span>
-        <span class="tc-tag-item">Pesquisa em Saúde</span>
+        <span class="tc-tag-item">Fisioterapia Intensiva</span><span class="tc-tag-item">UTI Neonatal · Adulto</span><span class="tc-tag-item">Dados Clínicos</span><span class="tc-tag-item">Medicina Interna</span><span class="tc-tag-item">Saúde Coletiva</span><span class="tc-tag-item">Pesquisa em Saúde</span>
       </div>
     </div>
   </div>
@@ -748,7 +471,6 @@
   </div>
 </section>
 
-<!-- 5. PUBLICAÇÕES — verde escuro -->
 <section class="pub-section" id="publicacoes">
   <div class="pub-section-header">
     <div>
@@ -757,64 +479,42 @@
     </div>
     <p class="section-body reveal">Nosso trabalho não é só metodológico — é também autoral. Conhecemos o processo editorial por dentro porque já percorremos esse caminho.</p>
   </div>
-
-  <div class="pub-block reveal" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+  <div class="pub-block reveal">
     <div class="pub-group">
       <div class="pub-group-label">Artigos em periódicos indexados</div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">International Journal of Data Science and Analytics</span><span class="pub-year">2025</span></div>
-        <div class="pub-title">
-          <a href="https://link.springer.com/article/10.1007/s41060-025-00770-7" target="_blank" rel="noopener">Active learning in process mining: an active sampling using dimensionality reduction and iterative selection</a>
-        </div>
+        <div class="pub-title"><a href="https://link.springer.com/article/10.1007/s41060-025-00770-7" target="_blank" rel="noopener">Active learning in process mining: an active sampling using dimensionality reduction and iterative selection</a></div>
         <div class="pub-authors">Aguilar Magalhães, R.; Andolfato Filho, A.; Portela Santos, E. A.; Ara, A.</div>
+        <div class="pub-note">⬡ 1 citação · Web of Science</div>
       </div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Healthcare · MDPI</span><span class="pub-year">2026</span></div>
-        <div class="pub-title">
-          <a href="https://www.mdpi.com/2227-9032/14/10/1338" target="_blank" rel="noopener">Psoriasis in the Brazilian Public Health System: A Nationwide Analysis of Healthcare Utilization and Inequalities, 2014–2024</a>
-        </div>
+        <div class="pub-title"><a href="https://www.mdpi.com/2227-9032/14/10/1338" target="_blank" rel="noopener">Psoriasis in the Brazilian Public Health System: A Nationwide Analysis of Healthcare Utilization and Inequalities, 2014–2024</a></div>
         <div class="pub-authors">Zuccolo De Bortoli, S. P.; Tanaka, A. A.; Magalhães, R. A.; Aques, J. V. G.; et al.</div>
       </div>
     </div>
-
     <div class="pub-group">
       <div class="pub-group-label">Capítulos e anais</div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Proc. Series SBMAC</span><span class="pub-year">2018</span></div>
-        <div class="pub-title">
-          <a href="https://proceedings.sbmac.emnuvens.com.br/sbmac/article/view/2397" target="_blank" rel="noopener">A Hamiltoniana da Função de Produção MRW</a>
-        </div>
+        <div class="pub-title"><a href="https://proceedings.sbmac.emnuvens.com.br/sbmac/article/view/2397" target="_blank" rel="noopener">A Hamiltoniana da Função de Produção MRW</a></div>
         <div class="pub-authors">Magalhães, R. A.; Coninck, J. C. P.</div>
       </div>
       <div class="pub-entry">
         <div class="pub-meta"><span class="pub-journal-tag">Atena Editora</span><span class="pub-year">2021</span></div>
-        <div class="pub-title">
-          <a href="https://atenaeditora.com.br/index.php/catalogo/post/aprendizagem-baseada-em-problemas-em-processos-de-formacao-na-area-tecnologica">        </div>
+        <div class="pub-title"><a href="https://atenaeditora.com.br/index.php/catalogo/post/aprendizagem-baseada-em-problemas-em-processos-de-formacao-na-area-tecnologica" target="_blank" rel="noopener">Aprendizagem Baseada em Problemas em Processos de Formação na Área Tecnológica</a></div>
         <div class="pub-authors">Magalhães, R. A.; Araujo, A. M.</div>
       </div>
     </div>
-
     <div class="pub-group">
       <div class="pub-group-label">Prêmios e distinções</div>
-      <div class="award-entry">
-        <div class="award-icon">◈</div>
-        <div class="award-content">
-          <div class="award-title">Melhor Pôster — 1st SouthStat Meeting</div>
-          <div class="award-org">Sociedade Brasileira de Estatística · 2023</div>
-        </div>
-      </div>
-      <div class="award-entry">
-        <div class="award-icon">◈</div>
-        <div class="award-content">
-          <div class="award-title">Melhores Pôsteres — Sessão Técnica de Painéis de IC</div>
-          <div class="award-org">XXXVIII Congresso Nacional de Matemática Aplicada e Computacional · 2018</div>
-        </div>
-      </div>
+      <div class="award-entry"><div class="award-icon">◈</div><div class="award-content"><div class="award-title">Melhor Pôster — 1st SouthStat Meeting</div><div class="award-org">Sociedade Brasileira de Estatística · 2023</div></div></div>
+      <div class="award-entry"><div class="award-icon">◈</div><div class="award-content"><div class="award-title">Melhores Pôsteres — Sessão Técnica de Painéis de IC</div><div class="award-org">XXXVIII Congresso Nacional de Matemática Aplicada e Computacional · 2018</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- 6. ESCOPO — ink -->
 <section class="scope-section" id="escopo">
   <div class="section-label reveal">Escopo</div>
   <h2 class="section-title reveal">Três formas de<br><em>trabalharmos juntos</em></h2>
@@ -863,32 +563,18 @@
   </div>
 </section>
 
-<!-- 7. DEPOIMENTOS — cream-dark -->
-<section class="trust-section">
+<!-- <section class="trust-section">
   <div>
     <div class="section-label reveal">Depoimentos</div>
     <h2 class="section-title reveal" style="font-size: 2rem;">O que dizem<br><em>pesquisadores</em><br>que trabalharam<br>conosco.</h2>
   </div>
   <div class="trust-items">
-    <div class="trust-item reveal">
-      <span class="ti-quote">"</span>
-      <p class="ti-text">O Rafael entrou no projeto quando eu já estava com os dados em mãos mas travada na metodologia. Além de executar toda a análise epidemiológica, me ajudou a entender cada decisão — o que foi fundamental para defender os métodos na banca.</p>
-      <div class="ti-author">Suzi Z. — Doutoranda<span class="ti-role">Pesquisa sobre psoríase e artrite psoriásica · Dados SUS</span></div>
-    </div>
-    <div class="trust-item reveal">
-      <span class="ti-quote">"</span>
-      <p class="ti-text">Precisava de análises de sobrevivência para uma casuística clínica complexa. O trabalho foi entregue com código limpo, figuras publicáveis e uma explicação que consegui replicar sozinha.</p>
-      <div class="ti-author">Pesquisadora anônima<span class="ti-role">Mestrado em Medicina · UFPR</span></div>
-    </div>
-    <div class="trust-item reveal">
-      <span class="ti-quote">"</span>
-      <p class="ti-text">A objetividade no escopo e a clareza na comunicação me deram segurança desde o início. Sabia exatamente o que estava sendo feito e por quê cada escolha metodológica foi tomada.</p>
-      <div class="ti-author">Pesquisador anônimo<span class="ti-role">Doutorado · Epidemiologia clínica</span></div>
-    </div>
+    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text">O Rafael entrou no projeto quando eu já estava com os dados em mãos mas travada na metodologia. Além de executar toda a análise epidemiológica, me ajudou a entender cada decisão — o que foi fundamental para defender os métodos na banca.</p><div class="ti-author">Suzi Z. — Doutoranda<span class="ti-role">Pesquisa sobre psoríase e artrite psoriásica · Dados SUS</span></div></div>
+    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text">Precisava de análises de sobrevivência para uma casuística clínica complexa. O trabalho foi entregue com código limpo, figuras publicáveis e uma explicação que consegui replicar sozinha.</p><div class="ti-author">Pesquisadora anônima<span class="ti-role">Mestrado em Medicina · UFPR</span></div></div>
+    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text">A objetividade no escopo e a clareza na comunicação me deram segurança desde o início. Sabia exatamente o que estava sendo feito e por quê cada escolha metodológica foi tomada.</p><div class="ti-author">Pesquisador anônimo<span class="ti-role">Doutorado · Epidemiologia clínica</span></div></div>
   </div>
-</section>
+</section> -->
 
-<!-- CTA FINAL -->
 <section class="cta-section" id="contato">
   <div class="cta-inner">
     <div class="section-label reveal">Próximo passo</div>
@@ -907,7 +593,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <a href="#" class="footer-logo">Statistic<span>tune</span></a>
   <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
