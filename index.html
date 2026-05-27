@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistictune — Consultoria Estatística para Pesquisa em Saúde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!-- Google Analytics — substitua G-XXXXXXXXXX pelo seu ID real -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
+
+<!-- Meta Pixel (Facebook/Instagram Ads) — substitua pelo seu Pixel ID -->
+<!-- <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'SEU_PIXEL_ID');
+  fbq('track', 'PageView');
+</script> -->
+
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE7D9;
+    --ink: #1A1A2E;
+    --ink-light: #2E2E4A;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --teal: #1B6B7B;
+    --teal-light: #2A8FA3;
+    --text-muted: #6B6B80;
+    --border: rgba(26,26,46,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(245,240,232,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--teal); }
+
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--cream) !important;
+    opacity: 1 !important;
+    padding: 10px 24px;
+    font-size: 0.8rem !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    padding-top: 80px;
+  }
+
+  .hero-bg-deco {
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, rgba(27,107,123,0.06) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s ease forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--teal); }
+  .hero-title .line-gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-light);
+    max-width: 460px;
+    margin-bottom: 44px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s ease forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s ease forwards;
+  }
+
+  /* ─── HERO RIGHT — cards sem sobreposição ─── */
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 60px 100px 40px;
+  }
+
+  .hero-visual {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s 0.8s ease forwards;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--teal);
+    padding: 22px 26px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .stat-card:hover { transform: translateX(5px); box-shadow: -3px 4px 16px rgba(0,0,0,0.06); }
+  .stat-card-accent { border-left-color: var(--gold); }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .card-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* formula como card normal, sem absolute */
+  .formula-card {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 18px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.7;
+  }
+  .formula-card .fc-gold { color: var(--gold); }
+
+  /* ─── BOTÕES ─── */
+  .btn-primary {
+    background: var(--teal);
+    color: #fff;
+    padding: 16px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
+
+  /* ─── SECTIONS ─── */
+  section { position: relative; z-index: 1; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+
+  .section-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--ink-light);
+    font-weight: 300;
+    max-width: 580px;
+  }
+
+  /* ─── PARA QUEM ─── */
+  .target-section {
+    padding: 120px 80px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .target-section .section-label { color: var(--gold); }
+  .target-section .section-label::after { background: rgba(201,168,76,0.3); }
+  .target-section .section-title { color: var(--cream); }
+  .target-section .section-body { color: rgba(245,240,232,0.7); max-width: 100%; }
+
+  .target-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  .target-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 36px;
+    transition: background 0.3s;
+  }
+  .target-card:hover { background: rgba(255,255,255,0.08); }
+
+  .tc-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .tc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .tc-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.55);
+    font-weight: 300;
+  }
+  .tc-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 10px;
+  }
+
+  /* ─── SERVIÇOS ─── */
+  .services-section { padding: 120px 80px; }
+
+  .services-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 80px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+  }
+
+  .service-item {
+    padding: 36px 28px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-item:hover { background: rgba(27,107,123,0.04); }
+  .service-item:nth-child(4n) { border-right: none; }
+  .service-item:nth-last-child(-n+4) { border-bottom: none; }
+
+  .service-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--teal);
+    transition: width 0.4s ease;
+  }
+  .service-item:hover::before { width: 100%; }
+
+  .si-icon { font-size: 1.3rem; margin-bottom: 16px; display: block; }
+  .si-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .si-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
+
+  /* ─── PROCESSO ─── */
+  .process-section {
+    padding: 120px 80px;
+    background: var(--cream-dark);
+  }
+
+  .process-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 80px;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 27px; left: 8%; right: 8%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .process-step { position: relative; padding: 0 16px; z-index: 1; }
+
+  .ps-dot {
+    width: 54px; height: 54px;
+    background: var(--cream-dark);
+    border: 2px solid var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--teal);
+    margin-bottom: 22px;
+  }
+  .ps-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+  .ps-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
+
+  /* ─── EQUIPE ─── */
+  .team-section {
+    padding: 120px 80px;
+    background: var(--cream-dark);
+  }
+
+  .team-intro {
+    max-width: 640px;
+    margin-bottom: 80px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .team-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 52px 48px;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+  .team-card:hover { box-shadow: 0 8px 40px rgba(26,26,46,0.07); }
+
+  .team-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--teal);
+  }
+  .team-card.card-pamela::before { background: var(--gold); }
+
+  .tc-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+  .card-pamela .tc-role-badge { color: var(--gold); }
+  .tc-role-badge::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: currentColor;
+  }
+
+  .tc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .tc-title-line {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .tc-bio {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--ink-light);
+    font-weight: 300;
+    margin-bottom: 36px;
+  }
+
+  .tc-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+    margin-bottom: 28px;
+  }
+
+  .tcc-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .tcc-item:last-child { border-bottom: none; }
+
+  .tcc-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .card-pamela .tcc-dot { background: var(--gold); }
+
+  .tcc-text {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--ink-light);
+    font-weight: 300;
+  }
+  .tcc-text strong { font-weight: 500; color: var(--ink); }
+
+  .tc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tc-tag-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--teal);
+    border: 1px solid rgba(27,107,123,0.25);
+    padding: 4px 12px;
+    background: rgba(27,107,123,0.04);
+  }
+  .card-pamela .tc-tag-item {
+    color: #8B6914;
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .pub-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-item strong { color: var(--ink); font-weight: 500; display: block; margin-bottom: 2px; }
+  .pub-journal { font-style: italic; color: var(--teal); font-size: 0.77rem; }
+
+  /* ─── ESCOPO (substituindo pricing) ─── */
+  .scope-section {
+    padding: 120px 80px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .scope-section .section-label { color: var(--gold); }
+  .scope-section .section-label::after { background: rgba(201,168,76,0.3); }
+  .scope-section .section-title { color: var(--cream); }
+  .scope-section .section-body { color: rgba(245,240,232,0.65); }
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  .scope-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 44px 36px;
+    transition: background 0.3s;
+  }
+  .scope-card:hover { background: rgba(255,255,255,0.09); }
+  .scope-card.featured { background: var(--teal); border-color: var(--teal); }
+  .scope-card.featured:hover { background: var(--teal-light); }
+
+  .sc-badge {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .scope-card.featured .sc-badge { color: rgba(255,255,255,0.75); }
+
+  .sc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .sc-desc {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.55);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .scope-card.featured .sc-desc { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.15); }
+
+  .sc-activities {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .sc-activities li {
+    font-size: 0.83rem;
+    color: rgba(245,240,232,0.65);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+  .sc-activities li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+  .scope-card.featured .sc-activities li { color: rgba(255,255,255,0.85); }
+  .scope-card.featured .sc-activities li::before { color: rgba(255,255,255,0.5); }
+
+  .btn-scope {
+    display: block;
+    text-align: center;
+    padding: 13px 24px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--cream);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-scope:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+  .scope-card.featured .btn-scope { background: var(--ink); border-color: var(--ink); }
+  .scope-card.featured .btn-scope:hover { background: var(--cream); color: var(--ink); }
+
+  /* ─── DEPOIMENTOS ─── */
+  .trust-section {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    border-top: 1px solid var(--border);
+  }
+
+  .trust-items { display: flex; flex-direction: column; gap: 2px; }
+
+  .trust-item {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 26px 30px;
+    transition: border-color 0.3s;
+  }
+  .trust-item:hover { border-color: var(--teal); }
+
+  .ti-quote { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--teal); line-height: 0.5; margin-bottom: 12px; display: block; }
+  .ti-text { font-size: 0.87rem; line-height: 1.7; color: var(--ink-light); font-style: italic; font-weight: 300; margin-bottom: 14px; }
+  .ti-author { font-size: 0.77rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+  .ti-role { display: block; font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 0.74rem; margin-top: 2px; color: var(--teal); }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    padding: 140px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'p < 0.05';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 18vw;
+    font-weight: 800;
+    color: rgba(26,26,46,0.03);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+  .cta-inner .section-label { justify-content: center; }
+  .cta-inner .section-label::after { display: none; }
+  .cta-inner .section-label::before { content: ''; width: 32px; height: 1px; background: var(--teal); }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .cta-title em { font-style: italic; color: var(--teal); }
+
+  .cta-sub { font-size: 1rem; line-height: 1.7; color: var(--ink-light); font-weight: 300; margin-bottom: 48px; }
+
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; align-items: center; }
+
+  .cta-contact { margin-top: 44px; font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
+  .cta-contact a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 80px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream-dark);
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--ink); text-decoration: none; }
+  .footer-logo span { color: var(--teal); }
+  .footer-copy { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--teal); }
+
+  /* ─── ANIMAÇÕES ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVO ─── */
+  @media (max-width: 1100px) {
+    nav { padding: 18px 40px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 40px; }
+    .services-intro { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .target-grid, .scope-grid { grid-template-columns: 1fr; gap: 2px; }
+    .team-grid { grid-template-columns: 1fr; }
+    .team-section { padding: 80px 40px; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .process-steps::before { display: none; }
+    .trust-section { grid-template-columns: 1fr; }
+    .target-section, .scope-section, .services-section, .process-section { padding: 80px 40px; }
+    .cta-section { padding: 100px 40px; }
+    footer { padding: 30px 40px; flex-direction: column; gap: 20px; text-align: center; }
+  }
+  @media (max-width: 700px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero-left { padding: 50px 20px; }
+    .services-section, .target-section, .scope-section, .process-section, .team-section { padding: 60px 20px; }
+    .trust-section { padding: 60px 20px; }
+    .cta-section { padding: 80px 20px; }
+    footer { padding: 24px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .cta-buttons { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#processo">Processo</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#escopo">Escopo</a></li>
+    <li><a href="#contato" class="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-deco"></div>
+
+  <div class="hero-left">
+    <span class="hero-eyebrow">Consultoria Estatística para Saúde</span>
+    <h1 class="hero-title">
+      Do dado bruto<br>
+      ao <em>artigo</em><br>
+      <span class="line-gold">publicado.</span>
+    </h1>
+    <p class="hero-sub">
+      Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras prontas para publicação e acompanhamento até o aceite.
+    </p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn-primary">Solicitar proposta</a>
+      <a href="#servicos" class="btn-ghost">Ver serviços →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="card-label">Publicação recente</div>
+        <div class="card-value">Healthcare</div>
+        <div class="card-desc">Psoriasis in the Brazilian Public Health System · 2026</div>
+      </div>
+      <div class="stat-card stat-card-accent">
+        <div class="card-label">Análises realizadas</div>
+        <div class="card-value">Cox · PSM · GLM</div>
+        <div class="card-desc">Modelos de sobrevivência, riscos competitivos, propensity score</div>
+      </div>
+      <div class="stat-card">
+        <div class="card-label">Artigo em periódico indexado</div>
+        <div class="card-value">IJDSA · 2025</div>
+        <div class="card-desc">Active learning in process mining — citado internacionalmente</div>
+      </div>
+      <div class="formula-card">
+        h(t) = h<span class="fc-gold">₀</span>(t) · exp(<span class="fc-gold">βX</span>)<br>
+        <span class="fc-gold"># Cox Proportional Hazards Model</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="target-section" id="para-quem">
+  <div class="section-label reveal">Para quem é</div>
+  <h2 class="section-title reveal">Você se reconhece<br><em>em algum cenário?</em></h2>
+  <p class="section-body reveal">A pesquisa em saúde exige rigor metodológico que vai além do currículo da graduação ou pós. É aqui que entro.</p>
+
+  <div class="target-grid">
+    <div class="target-card reveal">
+      <div class="tc-number">01</div>
+      <div class="tc-title">Graduando com TCC em saúde</div>
+      <div class="tc-desc">Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa. Precisa de alguém que explique e execute junto.</div>
+      <span class="tc-tag">TCC / Monografia</span>
+    </div>
+    <div class="target-card reveal">
+      <div class="tc-number">02</div>
+      <div class="tc-title">Mestrando com prazo apertado</div>
+      <div class="tc-desc">A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos e defensáveis, rapidamente.</div>
+      <span class="tc-tag">Mestrado</span>
+    </div>
+    <div class="target-card reveal">
+      <div class="tc-number">03</div>
+      <div class="tc-title">Doutorando visando publicação</div>
+      <div class="tc-desc">Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico indexado.</div>
+      <span class="tc-tag">Doutorado · Publicação</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="services-section" id="servicos">
+  <div class="services-intro">
+    <div>
+      <div class="section-label reveal">O que faço</div>
+      <h2 class="section-title reveal">Consultoria <em>completa,</em><br>da base ao periódico</h2>
+    </div>
+    <div>
+      <p class="section-body reveal">
+        Cada projeto é único. Trabalho desde a concepção do desenho do estudo até a resposta aos revisores — com documentação clara, código reprodutível e figuras prontas para submissão.
+      </p>
+      <br>
+      <p class="section-body reveal" style="font-size:0.88rem;">
+        Especialidade em dados do SUS (DATASUS / Techtrials), desfechos em saúde, análise de sobrevivência, modelos de riscos competitivos e epidemiologia observacional.
+      </p>
+    </div>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Desenho do Estudo</div>
+      <div class="si-desc">Definição de hipóteses, desfechos, critérios de inclusão/exclusão e checklist STROBE para estudos observacionais.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Construção de Bases</div>
+      <div class="si-desc">Identificação e linkage de pacientes em bases do SUS. Curadoria, limpeza e pipeline reprodutível para auditoria.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Análise de Sobrevivência</div>
+      <div class="si-desc">Modelos de Cox, Kaplan-Meier, Fine-Gray para riscos competitivos, Propensity Score Matching e ajuste por confundidores.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Modelos Preditivos</div>
+      <div class="si-desc">Regressão logística, GLM (Poisson, Binomial Negativo), modelos mistos e validação cruzada para dados clínicos.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Figuras Científicas</div>
+      <div class="si-desc">Curvas de sobrevivência, forest plots, mapas de calor — prontas para submissão conforme normas gráficas da revista-alvo.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Revisão Metodológica</div>
+      <div class="si-desc">Revisão crítica de seções de Métodos e Resultados. Identificação de problemas e sugestão de abordagens mais robustas.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Adaptação para Publicação</div>
+      <div class="si-desc">Adequação ao formato do periódico, suplemento de análises e revisão de tabelas para submissão a revistas indexadas.</div>
+    </div>
+    <div class="service-item reveal">
+      <span class="si-icon">⬡</span>
+      <div class="si-title">Suporte até o Aceite</div>
+      <div class="si-desc">Respostas ponto a ponto às rodadas de revisão e acompanhamento de todo o processo editorial.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section class="process-section" id="processo">
+  <div class="process-header">
+    <div>
+      <div class="section-label reveal">Como funciona</div>
+      <h2 class="section-title reveal">Um processo <em>claro</em><br>em 4 etapas</h2>
+    </div>
+    <p class="section-body reveal">
+      Começamos sempre pelo diagnóstico — entendendo o que você tem, o que você precisa, e o que é possível fazer com os dados disponíveis.
+    </p>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="ps-dot">01</div>
+      <div class="ps-title">Diagnóstico inicial</div>
+      <div class="ps-desc">Conversa de alinhamento: hipóteses, dados disponíveis, desfechos e objetivo. Definimos o escopo juntos.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-dot">02</div>
+      <div class="ps-title">Planejamento metodológico</div>
+      <div class="ps-desc">Proposta detalhada com métodos, testes, modelos e cronograma de entrega. Você aprova antes de começarmos.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-dot">03</div>
+      <div class="ps-title">Execução e análises</div>
+      <div class="ps-desc">Análises com código documentado (R/Python), figuras publicáveis e relatório técnico dos resultados.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-dot">04</div>
+      <div class="ps-title">Publicação e revisão</div>
+      <div class="ps-desc">Adequação ao periódico, respostas aos revisores e suporte até o aceite final.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section class="team-section" id="sobre">
+  <div class="team-intro">
+    <div class="section-label reveal">Quem está por trás</div>
+    <h2 class="section-title reveal">Pesquisa rigorosa começa<br>por quem <em>entende</em><br>os dois lados.</h2>
+    <p class="section-body reveal">
+      A Statistictune reúne formação estatística avançada e expertise clínica na área da saúde. Não é só análise de dados — é compreensão real do que os dados representam dentro do contexto assistencial e acadêmico.
+    </p>
+  </div>
+
+  <div class="team-grid">
+
+    <!-- RAFAEL -->
+    <div class="team-card reveal">
+      <div class="tc-role-badge">Métodos Quantitativos & Inferência</div>
+      <div class="tc-name">Rafael<br>Aguilar Magalhães</div>
+      <div class="tc-title-line">Mestre em Métodos Numéricos em Engenharia · PPGMNE/UFPR</div>
+      <p class="tc-bio">
+        Pesquisador no DataSci Labs (UFPR) com foco em aprendizado ativo Bayesiano e inferência estatística sequencial. Desenvolveu o framework ALFRED — uma abordagem de aquisição de dados baseada em energia livre de Helmholtz — e tem publicações em periódicos internacionais indexados. Atua no desenho metodológico, modelagem estatística e transformação de dados complexos em evidência publicável.
+      </p>
+      <div class="tc-credentials">
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Mestrado em Métodos Numéricos em Engenharia</strong> — PPGMNE · UFPR (2026)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Pesquisador — DataSci Labs · UFPR</strong> — Machine Learning Estatístico, Inferência Bayesiana, Active Learning (2023–)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Melhor Pôster · 1st SouthStat Meeting</strong> — Sociedade Brasileira de Estatística (2023)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Publicações:</strong> International Journal of Data Science and Analytics (2025), Healthcare · MDPI (2026), Proc. Series SBMAC (2018)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Licenciatura em Matemática</strong> — UTFPR (2018) · Especialização em Ciência de Dados — PUC-PR (2022)</div>
+        </div>
+      </div>
+      <div class="tc-tags">
+        <span class="tc-tag-item">Inferência Bayesiana</span>
+        <span class="tc-tag-item">Análise de Sobrevivência</span>
+        <span class="tc-tag-item">Dados SUS</span>
+        <span class="tc-tag-item">R · Python</span>
+        <span class="tc-tag-item">Epidemiologia Observacional</span>
+        <span class="tc-tag-item">Propensity Score</span>
+      </div>
+    </div>
+
+    <!-- PÂMELA -->
+    <div class="team-card card-pamela reveal">
+      <div class="tc-role-badge">Expertise Clínica & Saúde</div>
+      <div class="tc-name">Pâmela<br>Almeida Magalhães</div>
+      <div class="tc-title-line">Mestranda em Medicina Interna e Ciências da Saúde · UFPR</div>
+      <p class="tc-bio">
+        Fisioterapeuta com trajetória construída em contextos de alta complexidade — UTI adulto, UTI neonatal e pediátrica, reabilitação hospitalar. Sua vivência em ambientes clínicos reais fornece à Statistictune algo que análises puramente quantitativas raramente têm: a compreensão de como os dados de saúde são gerados, registrados e interpretados na prática assistencial. Traduz a pergunta clínica em hipótese testável.
+      </p>
+      <div class="tc-credentials">
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Mestrado em Medicina Interna e Ciências da Saúde</strong> — UFPR (em andamento, desde 2024)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Especialização em Terapia Intensiva Adulto</strong> — Faculdade Unyleya (2021)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Especialização em Fisioterapia em UTI Neonatal e Pediátrica</strong> — Faculdade Inspirar (2018–2020)</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Experiência hospitalar:</strong> Hospital Pequeno Príncipe · prontuários Tasy, rotinas multiprofissionais, dados clínicos e operacionais</div>
+        </div>
+        <div class="tcc-item">
+          <div class="tcc-dot"></div>
+          <div class="tcc-text"><strong>Bacharelado em Fisioterapia</strong> — Universidade Positivo (2012–2016)</div>
+        </div>
+      </div>
+      <div class="tc-tags">
+        <span class="tc-tag-item">Fisioterapia Intensiva</span>
+        <span class="tc-tag-item">UTI Neonatal · Adulto</span>
+        <span class="tc-tag-item">Dados Clínicos</span>
+        <span class="tc-tag-item">Medicina Interna</span>
+        <span class="tc-tag-item">Saúde Coletiva</span>
+        <span class="tc-tag-item">Pesquisa em Saúde</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ESCOPO DOS SERVIÇOS (sem preços) -->
+<section class="scope-section" id="escopo">
+  <div class="section-label reveal">Escopo</div>
+  <h2 class="section-title reveal">Três formas de<br><em>trabalharmos juntos</em></h2>
+  <p class="section-body reveal">Do atendimento pontual a um acompanhamento completo até a publicação. O escopo é definido caso a caso, conforme o projeto e o momento da sua pesquisa.</p>
+
+  <div class="scope-grid">
+    <div class="scope-card reveal">
+      <div class="sc-badge">Pontual</div>
+      <div class="sc-name">Análise Específica</div>
+      <div class="sc-desc">Para quem precisa resolver um problema metodológico bem delimitado — uma análise, um modelo, uma seção.</div>
+      <ul class="sc-activities">
+        <li>Execução de uma análise definida em conjunto</li>
+        <li>Código R ou Python documentado</li>
+        <li>Interpretação dos resultados</li>
+        <li>Uma rodada de revisão e ajustes</li>
+      </ul>
+      <a href="#contato" class="btn-scope">Solicitar</a>
+    </div>
+
+    <div class="scope-card featured reveal">
+      <div class="sc-badge">Completo</div>
+      <div class="sc-name">Ponta a Ponta</div>
+      <div class="sc-desc">Acompanhamento integral do projeto — do desenho metodológico até a submissão do artigo ao periódico.</div>
+      <ul class="sc-activities">
+        <li>Desenho do estudo e mapeamento de variáveis</li>
+        <li>Construção e curadoria da base de dados</li>
+        <li>Todas as análises estatísticas e simulações</li>
+        <li>Produção de figuras científicas publicáveis</li>
+        <li>Revisão das seções de Métodos e Resultados</li>
+        <li>Suporte às rodadas de revisão dos avaliadores</li>
+        <li>Coautoria na publicação (critérios ICMJE)</li>
+      </ul>
+      <a href="#contato" class="btn-scope">Solicitar proposta</a>
+    </div>
+
+    <div class="scope-card reveal">
+      <div class="sc-badge">Sob Medida</div>
+      <div class="sc-name">Projeto Customizado</div>
+      <div class="sc-desc">Para projetos com bases de dados complexas, múltiplos objetivos ou abordagens avançadas de inferência causal.</div>
+      <ul class="sc-activities">
+        <li>Dados administrativos (SUS, Techtrials)</li>
+        <li>Múltiplos artigos ou desfechos</li>
+        <li>Causal inference, matching avançado</li>
+        <li>Machine learning aplicado a dados clínicos</li>
+        <li>Escopo e cronograma definidos no diagnóstico</li>
+      </ul>
+      <a href="#contato" class="btn-scope">Agendar diagnóstico</a>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="trust-section">
+  <div>
+    <div class="section-label reveal">Depoimentos</div>
+    <h2 class="section-title reveal" style="font-size: 2rem;">O que dizem<br><em>pesquisadores</em><br>que trabalharam<br>comigo.</h2>
+  </div>
+
+  <div class="trust-items">
+    <div class="trust-item reveal">
+      <span class="ti-quote">"</span>
+      <p class="ti-text">O Rafael entrou no projeto quando eu já estava com os dados em mãos mas travada na metodologia. Além de executar toda a análise epidemiológica, me ajudou a entender cada decisão — o que foi fundamental para defender os métodos na banca.</p>
+      <div class="ti-author">Suzi Z. — Doutoranda<span class="ti-role">Pesquisa sobre psoríase e artrite psoriásica · Dados SUS</span></div>
+    </div>
+    <div class="trust-item reveal">
+      <span class="ti-quote">"</span>
+      <p class="ti-text">Precisava de análises de sobrevivência para uma casuística clínica complexa. O trabalho foi entregue com código limpo, figuras publicáveis e uma explicação que consegui replicar sozinha.</p>
+      <div class="ti-author">Pesquisadora anônima<span class="ti-role">Mestrado em Medicina · UFPR</span></div>
+    </div>
+    <div class="trust-item reveal">
+      <span class="ti-quote">"</span>
+      <p class="ti-text">A objetividade no escopo e a clareza na comunicação me deram segurança desde o início. Sabia exatamente o que estava sendo feito e por quê cada escolha metodológica foi tomada.</p>
+      <div class="ti-author">Pesquisador anônimo<span class="ti-role">Doutorado · Epidemiologia clínica</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="contato">
+  <div class="cta-inner">
+    <div class="section-label reveal">Próximo passo</div>
+    <h2 class="cta-title reveal">Pronto para levar<br>sua pesquisa<br><em>adiante?</em></h2>
+    <p class="cta-sub reveal">Mande uma mensagem com o contexto do seu projeto — dados disponíveis, desfecho de interesse e prazo. Faço um diagnóstico inicial gratuito e envio uma proposta em até 48 horas.</p>
+
+    <div class="cta-buttons reveal">
+      <a href="https://wa.me/5541998194868?text=Olá%20Rafael,%20gostaria%20de%20saber%20mais%20sobre%20a%20consultoria%20estatística%20para%20minha%20pesquisa." class="btn-primary" target="_blank">WhatsApp — falar agora</a>
+      <a href="mailto:aguilarafa2010@gmail.com" class="btn-ghost">Enviar e-mail →</a>
+    </div>
+
+    <p class="cta-contact reveal">
+      Conecte-se também:
+      <a href="https://www.linkedin.com/in/rafael-aguilar-magalhães-66725914b" target="_blank">LinkedIn</a>
+      ·
+      <a href="http://lattes.cnpq.br/9755474269763635" target="_blank">Lattes</a>
+      ·
+      <a href="https://orcid.org/0009-0004-8136-5307" target="_blank">ORCID</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Rafael Aguilar Magalhães · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#escopo">Escopo</a>
+    <a href="#contato">Contato</a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
+  });
+</script>
+</body>
+</html>
