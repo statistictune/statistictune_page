@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introdução à Análise de Sobrevivência: do conceito ao Kaplan-Meier — Statistictune Blog</title>
+<title>Introdução à Análise de Sobrevivência: do conceito ao Kaplan-Meier - Statistictune Blog</title>
 
 <meta name="description" content="O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo.">
 <meta name="author" content="Rafael Aguilar Magalhães">
@@ -196,7 +196,7 @@
     do conceito ao Kaplan-Meier
   </h1>
   <p class="post-lead">
-    O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo — do zero ao gráfico publicável em R.
+    O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo - do zero ao gráfico publicável em R.
   </p>
 </header>
 
@@ -205,10 +205,10 @@
 
     <h2>Por que métodos especiais?</h2>
     <p>
-      Em estudos clínicos, frequentemente o desfecho de interesse é o <strong>tempo até um evento</strong> — morte, recaída, hospitalização, progressão de doença. O problema central: nem todos os participantes experimentam o evento durante o período de acompanhamento. Alguns saem do estudo voluntariamente, outros são perdidos no seguimento, e outros simplesmente ainda não chegaram ao evento quando a coleta de dados encerrou.
+      Em estudos clínicos, frequentemente o desfecho de interesse é o <strong>tempo até um evento</strong> - morte, recaída, hospitalização, progressão de doença. O problema central: nem todos os participantes experimentam o evento durante o período de acompanhamento. Alguns saem do estudo voluntariamente, outros são perdidos no seguimento, e outros simplesmente ainda não chegaram ao evento quando a coleta de dados encerrou.
     </p>
     <p>
-      Esse fenômeno se chama <strong>censura</strong>. Ignorar pacientes censurados seria desperdiçar informação valiosa — sabemos que eles sobreviveram <em>pelo menos</em> até o momento da censura. Tratá-los como se tivessem experimentado o evento seria introduzir um viés grave na análise. É exatamente para lidar com isso que existem os métodos de análise de sobrevivência.
+      Esse fenômeno se chama <strong>censura</strong>. Ignorar pacientes censurados seria desperdiçar informação valiosa - sabemos que eles sobreviveram <em>pelo menos</em> até o momento da censura. Tratá-los como se tivessem experimentado o evento seria introduzir um viés grave na análise. É exatamente para lidar com isso que existem os métodos de análise de sobrevivência.
     </p>
 
     <div class="callout">
@@ -226,7 +226,7 @@
     </div>
 
     <p>
-      Note que S(t) é uma função monotonicamente decrescente que começa em 1 (ninguém experimentou o evento no tempo zero) e tende a zero conforme o tempo avança. Na prática, com dados reais e censura, precisamos <em>estimar</em> essa função — e é aí que entra o Kaplan-Meier.
+      Note que S(t) é uma função monotonicamente decrescente que começa em 1 (ninguém experimentou o evento no tempo zero) e tende a zero conforme o tempo avança. Na prática, com dados reais e censura, precisamos <em>estimar</em> essa função - e é aí que entra o Kaplan-Meier.
     </p>
 
     <h2>O estimador de Kaplan-Meier</h2>
@@ -295,22 +295,22 @@ ggsurvplot(
       Ao interpretar uma curva de Kaplan-Meier, atenção a quatro elementos:
     </p>
     <ul>
-      <li><strong>Mediana de sobrevivência:</strong> tempo em que S(t) = 0,5 — ou seja, metade dos indivíduos ainda não experimentou o evento. É preferível à média por ser robusta à censura.</li>
-      <li><strong>Intervalo de confiança:</strong> as bandas ao redor da curva. Alargam-se com o tempo porque há menos indivíduos em risco — as estimativas ficam menos precisas.</li>
+      <li><strong>Mediana de sobrevivência:</strong> tempo em que S(t) = 0,5 - ou seja, metade dos indivíduos ainda não experimentou o evento. É preferível à média por ser robusta à censura.</li>
+      <li><strong>Intervalo de confiança:</strong> as bandas ao redor da curva. Alargam-se com o tempo porque há menos indivíduos em risco - as estimativas ficam menos precisas.</li>
       <li><strong>Tabela de risco:</strong> mostra quantos indivíduos ainda estavam sendo acompanhados em cada ponto do tempo. Fundamental para avaliar a confiabilidade das estimativas na cauda da curva.</li>
       <li><strong>Teste log-rank:</strong> compara as curvas entre grupos. Testa H₀: S₁(t) = S₂(t) para todo t. Não assume forma paramétrica, mas é mais sensível a diferenças proporcionais (hazards proporcionais).</li>
     </ul>
 
     <div class="callout">
-      <strong>Atenção prática:</strong> Quando a tabela de risco mostra poucos indivíduos (n &lt; 5) na cauda da curva, as estimativas de S(t) naquela região são muito imprecisas. Evite interpretar ou comparar curvas nessa faixa — considere truncar o eixo x no tempo em que ainda há um número razoável de indivíduos em risco.
+      <strong>Atenção prática:</strong> Quando a tabela de risco mostra poucos indivíduos (n &lt; 5) na cauda da curva, as estimativas de S(t) naquela região são muito imprecisas. Evite interpretar ou comparar curvas nessa faixa - considere truncar o eixo x no tempo em que ainda há um número razoável de indivíduos em risco.
     </div>
 
     <h2>Próximos passos</h2>
     <p>
-      O Kaplan-Meier é descritivo — estima e visualiza a sobrevivência, mas não ajusta para covariáveis. Para modelagem com múltiplos preditores, o próximo passo natural é o <strong>modelo de Cox</strong>, que estima hazard ratios ajustados mantendo a não-parametricidade da função de sobrevivência de base.
+      O Kaplan-Meier é descritivo - estima e visualiza a sobrevivência, mas não ajusta para covariáveis. Para modelagem com múltiplos preditores, o próximo passo natural é o <strong>modelo de Cox</strong>, que estima hazard ratios ajustados mantendo a não-parametricidade da função de sobrevivência de base.
     </p>
     <p>
-      Quando há mais de um tipo de evento competindo (ex: morte por causa específica vs. outras causas), o modelo de <strong>Fine-Gray</strong> para riscos competitivos é a abordagem correta — o KM superestima a incidência cumulativa nesses cenários.
+      Quando há mais de um tipo de evento competindo (ex: morte por causa específica vs. outras causas), o modelo de <strong>Fine-Gray</strong> para riscos competitivos é a abordagem correta - o KM superestima a incidência cumulativa nesses cenários.
     </p>
 
     <blockquote>
