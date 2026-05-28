@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Survival Analysis: from concept to Kaplan-Meier — Statistictune Blog</title>
+
+<meta name="description" content="What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step — from zero to a publication-ready plot in R.">
+<meta name="author" content="Rafael Aguilar Magalhães">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/blog/posts/en/introduction-survival-analysis.html">
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="pt" href="https://statistictune.com.br/blog/posts/introducao-analise-sobrevivencia.html">
+<link rel="alternate" hreflang="en" href="https://statistictune.com.br/blog/posts/en/introduction-survival-analysis.html">
+<link rel="alternate" hreflang="x-default" href="https://statistictune.com.br/blog/posts/introducao-analise-sobrevivencia.html">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://statistictune.com.br/blog/posts/en/introduction-survival-analysis.html">
+<meta property="og:title" content="Introduction to Survival Analysis: from concept to Kaplan-Meier">
+<meta property="og:description" content="What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+<meta property="article:published_time" content="2026-05-28">
+<meta property="article:author" content="Rafael Aguilar Magalhães">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-VSWKF5XT2K');
+</script>
+
+<!-- CSS compartilhado (sobe três níveis) -->
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<style>
+  .post-header {
+    padding: 160px 80px 64px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .post-header .section-label { color: var(--gold); }
+  .post-header .section-label::after { background: rgba(201,168,76,0.3); }
+  .post-meta-line {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 28px; font-size: 0.78rem;
+    color: rgba(245,240,232,0.4); font-weight: 300;
+  }
+  .post-meta-line .sep { color: rgba(245,240,232,0.2); }
+  .post-tags-header { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .post-tag-h {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold-light);
+    border: 1px solid rgba(232,201,122,0.3); padding: 3px 10px;
+  }
+  .post-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--cream); max-width: 840px; margin-bottom: 24px;
+  }
+  .post-headline em { font-style: italic; color: var(--gold-light); }
+  .post-lead {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(245,240,232,0.65); font-weight: 300; max-width: 680px;
+  }
+
+  /* lang switcher inside post */
+  .post-lang-switch {
+    display: inline-flex; gap: 8px; align-items: center;
+    margin-top: 28px;
+  }
+  .post-lang-switch span {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(245,240,232,0.35); font-weight: 300;
+  }
+  .post-lang-switch a {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.15); color: rgba(245,240,232,0.6);
+    transition: all 0.2s;
+  }
+  .post-lang-switch a:hover { border-color: var(--gold-light); color: var(--gold-light); }
+  .post-lang-switch a.current { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 700; }
+
+  .post-body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 680px 1fr;
+    background: var(--cream);
+    padding: 80px 0;
+  }
+  .post-content { grid-column: 2; min-width: 0; }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.7rem;
+    font-weight: 800; line-height: 1.2; letter-spacing: -0.02em;
+    color: var(--ink); margin: 56px 0 20px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .post-content h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    font-weight: 700; color: var(--ink); margin: 36px 0 14px;
+  }
+  .post-content p {
+    font-size: 1rem; line-height: 1.85;
+    color: var(--ink-light); font-weight: 300; margin-bottom: 24px;
+  }
+  .post-content strong { font-weight: 500; color: var(--ink); }
+  .post-content em { font-style: italic; }
+
+  .post-content pre {
+    background: var(--ink); color: var(--cream);
+    padding: 24px 28px; font-family: 'DM Mono', monospace;
+    font-size: 0.82rem; line-height: 1.7; overflow-x: auto;
+    margin: 32px 0; border-left: 3px solid var(--teal);
+  }
+  .post-content code {
+    font-family: 'DM Mono', monospace; font-size: 0.85em;
+    background: var(--cream-dark); color: var(--teal);
+    padding: 2px 6px; border-radius: 2px;
+  }
+  .post-content pre code { background: none; color: var(--cream); padding: 0; font-size: 1em; }
+
+  .formula-block {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-left: 3px solid var(--gold); padding: 20px 24px;
+    font-family: 'DM Mono', monospace; font-size: 0.9rem;
+    margin: 32px 0; color: var(--ink); overflow-x: auto;
+  }
+  .formula-block .note {
+    font-size: 0.75rem; color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif; margin-top: 8px; font-style: italic;
+  }
+
+  .post-content blockquote {
+    border-left: 3px solid var(--teal); padding: 16px 24px;
+    margin: 32px 0; background: rgba(27,107,123,0.04);
+  }
+  .post-content blockquote p { color: var(--teal); font-size: 0.95rem; margin: 0; }
+
+  .callout {
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3);
+    border-left: 3px solid var(--gold); padding: 20px 24px;
+    margin: 32px 0; font-size: 0.88rem; color: var(--ink-light); line-height: 1.65;
+  }
+  .callout strong { color: var(--ink); }
+
+  .post-content ul, .post-content ol { padding-left: 24px; margin-bottom: 24px; }
+  .post-content li {
+    font-size: 1rem; line-height: 1.75;
+    color: var(--ink-light); font-weight: 300; margin-bottom: 6px;
+  }
+
+  .post-cta {
+    grid-column: 2; margin-top: 80px; padding-top: 48px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .post-cta-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+  .post-cta-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.25; }
+  .post-cta-text em { color: var(--teal); font-style: italic; }
+  .post-cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 1100px) {
+    .post-header { padding: 140px 40px 48px; }
+    .post-body-wrapper { grid-template-columns: 40px 1fr 40px; }
+  }
+  @media (max-width: 700px) {
+    .post-header { padding: 120px 20px 40px; }
+    .post-body-wrapper { grid-template-columns: 20px 1fr 20px; padding: 48px 0; }
+    .post-headline { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="/#servicos">Services</a></li>
+    <li><a href="/#processo">Process</a></li>
+    <li><a href="/#sobre">Team</a></li>
+    <li><a href="/#publicacoes">Publications</a></li>
+    <li><a href="/blog/" class="active">Blog</a></li>
+    <li>
+      <div class="lang-toggle" role="group">
+        <button class="lang-btn" id="btn-pt" onclick="window.location.href='../introducao-analise-sobrevivencia.html'">PT</button>
+        <button class="lang-btn active" id="btn-en">EN</button>
+      </div>
+    </li>
+    <li><a href="/#contato" class="nav-cta">Get in touch</a></li>
+  </ul>
+</nav>
+
+<header class="post-header">
+  <div class="post-tags-header">
+    <span class="post-tag-h">Survival Analysis</span>
+    <span class="post-tag-h">Kaplan-Meier</span>
+    <span class="post-tag-h">Introduction</span>
+  </div>
+  <div class="post-meta-line">
+    <span>May 28, 2026</span>
+    <span class="sep">·</span>
+    <span>Rafael Aguilar Magalhães</span>
+    <span class="sep">·</span>
+    <span>8 min read</span>
+  </div>
+  <h1 class="post-headline">
+    Introduction to <em>Survival Analysis:</em><br>
+    from concept to Kaplan-Meier
+  </h1>
+  <p class="post-lead">
+    What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step — from zero to a publication-ready plot in R.
+  </p>
+  <div class="post-lang-switch">
+    <span>Also available in:</span>
+    <a href="../introducao-analise-sobrevivencia.html">PT — Português</a>
+    <a href="#" class="current">EN — English</a>
+  </div>
+</header>
+
+<div class="post-body-wrapper">
+  <article class="post-content">
+
+    <h2>Why special methods?</h2>
+    <p>
+      In clinical studies, the outcome of interest is frequently the <strong>time until an event</strong> — death, relapse, hospitalization, disease progression. The central problem: not all participants experience the event during the follow-up period. Some drop out voluntarily, others are lost to follow-up, and others simply haven't reached the event by the time data collection ends.
+    </p>
+    <p>
+      This phenomenon is called <strong>censoring</strong>. Ignoring censored patients would waste valuable information — we know they survived <em>at least</em> until the censoring time. Treating them as if they had experienced the event would introduce serious bias. Survival analysis methods exist precisely to handle this situation.
+    </p>
+
+    <div class="callout">
+      <strong>Formal definition:</strong> Right censoring occurs when an individual's follow-up time ends before the event of interest is observed. The observed value is a lower bound for the true time to event.
+    </div>
+
+    <h2>The survival function</h2>
+    <p>
+      The central object of survival analysis is the <strong>survival function S(t)</strong>, representing the probability that an individual has not yet experienced the event by time t:
+    </p>
+
+    <div class="formula-block">
+      S(t) = P(T &gt; t) = 1 − F(t)
+      <div class="note">T = random variable representing time to event; F(t) = cumulative distribution function; S(0) = 1 and S(∞) → 0.</div>
+    </div>
+
+    <p>
+      S(t) is a monotonically decreasing function starting at 1 (nobody experienced the event at time zero) and tending toward zero as time progresses. In practice, with real data and censoring, we need to <em>estimate</em> this function — and that's where Kaplan-Meier comes in.
+    </p>
+
+    <h2>The Kaplan-Meier estimator</h2>
+    <p>
+      Proposed by Edward Kaplan and Paul Meier in 1958, the KM estimator is the standard non-parametric method for estimating S(t) from censored data. The key idea is to compute the survival probability as a <strong>product of conditional probabilities</strong>, updating the estimate only at times when events occur:
+    </p>
+
+    <div class="formula-block">
+      Ŝ(t) = ∏ (1 − dᵢ / nᵢ)
+             t(i) ≤ t
+      <div class="note">dᵢ = number of events at time t(i); nᵢ = number of individuals at risk immediately before t(i) (includes censored individuals still under follow-up).</div>
+    </div>
+
+    <p>
+      The elegance of the estimator lies in how it handles censoring: censored individuals contribute to the denominator (they were at risk) until they exit, but not to the numerator (they didn't experience the event). This preserves all available information without making assumptions about what would have happened after censoring.
+    </p>
+
+    <h3>A simple numerical example</h3>
+    <p>
+      Consider 5 patients with the following follow-up times (+ = censored):
+    </p>
+    <p>
+      <code>2, 3+, 5, 6+, 8</code>
+    </p>
+    <p>
+      Events occur at times 2, 5, and 8. The KM calculation:
+    </p>
+    <ul>
+      <li><strong>t = 2:</strong> 1 event, 5 at risk → S(2) = (1 − 1/5) = 0.80</li>
+      <li><strong>t = 5:</strong> 1 event, 3 at risk (censored patient at t=3 already exited) → S(5) = 0.80 × (1 − 1/3) ≈ 0.53</li>
+      <li><strong>t = 8:</strong> 1 event, 1 at risk → S(8) = 0.53 × (1 − 1/1) = 0.00</li>
+    </ul>
+
+    <h2>Implementation in R</h2>
+    <p>
+      The <code>survival</code> package is the standard for survival analysis in R. For visualization, <code>survminer</code> provides publication-ready curves with an integrated risk table:
+    </p>
+
+    <pre><code>install.packages(c("survival", "survminer"))
+
+library(survival)
+library(survminer)
+
+# Fit KM curve stratified by group
+km_fit <- survfit(Surv(time, status) ~ group, data = your_dataset)
+
+# Summary with median survival and 95% CI
+summary(km_fit)
+
+# Publication-ready visualization
+ggsurvplot(
+  km_fit,
+  data        = your_dataset,
+  pval        = TRUE,          # log-rank p-value
+  conf.int    = TRUE,          # 95% confidence interval
+  risk.table  = TRUE,          # number at risk table
+  palette     = c("#1B6B7B", "#C9A84C"),
+  xlab        = "Time (days)",
+  ylab        = "Survival probability",
+  legend.labs = c("Group A", "Group B"),
+  ggtheme     = theme_minimal()
+)</code></pre>
+
+    <h2>How to read the curve</h2>
+    <p>
+      When interpreting a Kaplan-Meier curve, pay attention to four elements:
+    </p>
+    <ul>
+      <li><strong>Median survival:</strong> the time at which S(t) = 0.5 — half the individuals have not yet experienced the event. Preferred over the mean because it is robust to censoring.</li>
+      <li><strong>Confidence interval:</strong> the bands around the curve. They widen over time because fewer individuals remain at risk — estimates become less precise in the tail.</li>
+      <li><strong>Risk table:</strong> shows how many individuals were still being followed at each time point. Essential for evaluating the reliability of tail estimates.</li>
+      <li><strong>Log-rank test:</strong> compares curves between groups. Tests H₀: S₁(t) = S₂(t) for all t. Assumes no parametric form, but is most sensitive to proportional differences (proportional hazards).</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Practical note:</strong> When the risk table shows few individuals (n &lt; 5) in the tail of the curve, S(t) estimates in that region are highly imprecise. Avoid interpreting or comparing curves there — consider truncating the x-axis at a time point where a reasonable number of individuals are still at risk.
+    </div>
+
+    <h2>Next steps</h2>
+    <p>
+      Kaplan-Meier is descriptive — it estimates and visualizes survival, but does not adjust for covariates. For modeling with multiple predictors, the natural next step is the <strong>Cox model</strong>, which estimates adjusted hazard ratios while preserving the non-parametric baseline survival function.
+    </p>
+    <p>
+      When more than one type of event is competing (e.g., cause-specific death vs. other causes), the <strong>Fine-Gray competing risks model</strong> is the correct approach — the KM estimator overestimates cumulative incidence in those scenarios.
+    </p>
+
+    <blockquote>
+      <p>Good survival analysis starts at data collection: defining time zero, the event of interest, and the censoring criterion with surgical precision — before opening the dataset.</p>
+    </blockquote>
+
+  </article>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, BR</p>
+  <div class="footer-links">
+    <a href="/#servicos">Services</a>
+    <a href="/#sobre">Team</a>
+    <a href="../../">Blog</a>
+    <a href="/#contato">Contact</a>
+  </div>
+</footer>
+
+<script src="../../../assets/js/main.js"></script>
+</body>
+</html>
