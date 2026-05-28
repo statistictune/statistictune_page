@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to Survival Analysis: from concept to Kaplan-Meier — Statistictune Blog</title>
+<title>Introduction to Survival Analysis: from concept to Kaplan-Meier - Statistictune Blog</title>
 
-<meta name="description" content="What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step — from zero to a publication-ready plot in R.">
+<meta name="description" content="What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step - from zero to a publication-ready plot in R.">
 <meta name="author" content="Rafael Aguilar Magalhães">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://statistictune.com.br/blog/posts/en/introduction-survival-analysis.html">
@@ -213,12 +213,12 @@
     from concept to Kaplan-Meier
   </h1>
   <p class="post-lead">
-    What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step — from zero to a publication-ready plot in R.
+    What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step - from zero to a publication-ready plot in R.
   </p>
   <div class="post-lang-switch">
     <span>Also available in:</span>
-    <a href="../introducao-analise-sobrevivencia.html">PT — Português</a>
-    <a href="#" class="current">EN — English</a>
+    <a href="../introducao-analise-sobrevivencia.html">PT - Português</a>
+    <a href="#" class="current">EN - English</a>
   </div>
 </header>
 
@@ -227,10 +227,10 @@
 
     <h2>Why special methods?</h2>
     <p>
-      In clinical studies, the outcome of interest is frequently the <strong>time until an event</strong> — death, relapse, hospitalization, disease progression. The central problem: not all participants experience the event during the follow-up period. Some drop out voluntarily, others are lost to follow-up, and others simply haven't reached the event by the time data collection ends.
+      In clinical studies, the outcome of interest is frequently the <strong>time until an event</strong> - death, relapse, hospitalization, disease progression. The central problem: not all participants experience the event during the follow-up period. Some drop out voluntarily, others are lost to follow-up, and others simply haven't reached the event by the time data collection ends.
     </p>
     <p>
-      This phenomenon is called <strong>censoring</strong>. Ignoring censored patients would waste valuable information — we know they survived <em>at least</em> until the censoring time. Treating them as if they had experienced the event would introduce serious bias. Survival analysis methods exist precisely to handle this situation.
+      This phenomenon is called <strong>censoring</strong>. Ignoring censored patients would waste valuable information - we know they survived <em>at least</em> until the censoring time. Treating them as if they had experienced the event would introduce serious bias. Survival analysis methods exist precisely to handle this situation.
     </p>
 
     <div class="callout">
@@ -248,7 +248,7 @@
     </div>
 
     <p>
-      S(t) is a monotonically decreasing function starting at 1 (nobody experienced the event at time zero) and tending toward zero as time progresses. In practice, with real data and censoring, we need to <em>estimate</em> this function — and that's where Kaplan-Meier comes in.
+      S(t) is a monotonically decreasing function starting at 1 (nobody experienced the event at time zero) and tending toward zero as time progresses. In practice, with real data and censoring, we need to <em>estimate</em> this function - and that's where Kaplan-Meier comes in.
     </p>
 
     <h2>The Kaplan-Meier estimator</h2>
@@ -317,26 +317,26 @@ ggsurvplot(
       When interpreting a Kaplan-Meier curve, pay attention to four elements:
     </p>
     <ul>
-      <li><strong>Median survival:</strong> the time at which S(t) = 0.5 — half the individuals have not yet experienced the event. Preferred over the mean because it is robust to censoring.</li>
-      <li><strong>Confidence interval:</strong> the bands around the curve. They widen over time because fewer individuals remain at risk — estimates become less precise in the tail.</li>
+      <li><strong>Median survival:</strong> the time at which S(t) = 0.5 - half the individuals have not yet experienced the event. Preferred over the mean because it is robust to censoring.</li>
+      <li><strong>Confidence interval:</strong> the bands around the curve. They widen over time because fewer individuals remain at risk - estimates become less precise in the tail.</li>
       <li><strong>Risk table:</strong> shows how many individuals were still being followed at each time point. Essential for evaluating the reliability of tail estimates.</li>
       <li><strong>Log-rank test:</strong> compares curves between groups. Tests H₀: S₁(t) = S₂(t) for all t. Assumes no parametric form, but is most sensitive to proportional differences (proportional hazards).</li>
     </ul>
 
     <div class="callout">
-      <strong>Practical note:</strong> When the risk table shows few individuals (n &lt; 5) in the tail of the curve, S(t) estimates in that region are highly imprecise. Avoid interpreting or comparing curves there — consider truncating the x-axis at a time point where a reasonable number of individuals are still at risk.
+      <strong>Practical note:</strong> When the risk table shows few individuals (n &lt; 5) in the tail of the curve, S(t) estimates in that region are highly imprecise. Avoid interpreting or comparing curves there - consider truncating the x-axis at a time point where a reasonable number of individuals are still at risk.
     </div>
 
     <h2>Next steps</h2>
     <p>
-      Kaplan-Meier is descriptive — it estimates and visualizes survival, but does not adjust for covariates. For modeling with multiple predictors, the natural next step is the <strong>Cox model</strong>, which estimates adjusted hazard ratios while preserving the non-parametric baseline survival function.
+      Kaplan-Meier is descriptive - it estimates and visualizes survival, but does not adjust for covariates. For modeling with multiple predictors, the natural next step is the <strong>Cox model</strong>, which estimates adjusted hazard ratios while preserving the non-parametric baseline survival function.
     </p>
     <p>
-      When more than one type of event is competing (e.g., cause-specific death vs. other causes), the <strong>Fine-Gray competing risks model</strong> is the correct approach — the KM estimator overestimates cumulative incidence in those scenarios.
+      When more than one type of event is competing (e.g., cause-specific death vs. other causes), the <strong>Fine-Gray competing risks model</strong> is the correct approach - the KM estimator overestimates cumulative incidence in those scenarios.
     </p>
 
     <blockquote>
-      <p>Good survival analysis starts at data collection: defining time zero, the event of interest, and the censoring criterion with surgical precision — before opening the dataset.</p>
+      <p>Good survival analysis starts at data collection: defining time zero, the event of interest, and the censoring criterion with surgical precision - before opening the dataset.</p>
     </blockquote>
 
   </article>

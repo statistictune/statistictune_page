@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dados em excesso, rótulos em falta: o que é Aprendizado Ativo de Máquina - Statistictune Blog</title>
+
+<meta name="description" content="O paradoxo central do ML aplicado - bilhões de observações, pouquíssimos rótulos de qualidade - e como o Aprendizado Ativo resolve essa tensão. Post 1 de 4.">
+<meta name="author" content="Rafael Morciani">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/blog/posts/pt/aprendizado-ativo-dados-em-excesso-rotulos-em-falta.html">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://statistictune.com.br/blog/posts/pt/aprendizado-ativo-dados-em-excesso-rotulos-em-falta.html">
+<meta property="og:title" content="Dados em excesso, rótulos em falta: o que é Aprendizado Ativo de Máquina">
+<meta property="og:description" content="O paradoxo central do ML aplicado - bilhões de observações, pouquíssimos rótulos de qualidade - e como o Aprendizado Ativo resolve essa tensão. Post 1 de 4.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+<meta property="article:published_time" content="2026-05-28">
+<meta property="article:author" content="Rafael Morciani">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<style>
+  .post-header {
+    padding: 160px 80px 64px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .post-header .section-label { color: var(--gold); }
+  .post-header .section-label::after { background: rgba(201,168,76,0.3); }
+  .post-meta-line {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 28px; font-size: 0.78rem;
+    color: rgba(245,240,232,0.4); font-weight: 300;
+  }
+  .post-meta-line .sep { color: rgba(245,240,232,0.2); }
+  .post-tags-header { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .post-tag-h {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold-light);
+    border: 1px solid rgba(232,201,122,0.3); padding: 3px 10px;
+  }
+  .post-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--cream); max-width: 840px; margin-bottom: 24px;
+  }
+  .post-headline em { font-style: italic; color: var(--gold-light); }
+  .post-lead {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(245,240,232,0.65); font-weight: 300; max-width: 680px;
+  }
+
+  .post-body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 680px 1fr;
+    background: var(--cream);
+    padding: 80px 0;
+  }
+  .post-content { grid-column: 2; min-width: 0; }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.7rem;
+    font-weight: 800; line-height: 1.2; letter-spacing: -0.02em;
+    color: var(--ink); margin: 56px 0 20px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .post-content p {
+    font-size: 1rem; line-height: 1.85;
+    color: var(--ink-light); font-weight: 300; margin-bottom: 24px;
+  }
+  .post-content strong { font-weight: 500; color: var(--ink); }
+  .post-content em { font-style: italic; }
+
+  .post-content blockquote {
+    border-left: 3px solid var(--teal); padding: 16px 24px;
+    margin: 32px 0; background: rgba(27,107,123,0.04);
+  }
+  .post-content blockquote p { color: var(--teal); font-size: 0.95rem; margin: 0; }
+
+  .callout {
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3);
+    border-left: 3px solid var(--gold); padding: 20px 24px;
+    margin: 32px 0; font-size: 0.88rem; color: var(--ink-light); line-height: 1.65;
+  }
+  .callout strong { color: var(--ink); }
+
+  /* série badge */
+  .series-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px; margin-bottom: 48px;
+  }
+  .series-label {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .series-badge {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.12em; background: rgba(184,50,40,0.08);
+    color: var(--accent, #b83228); padding: 3px 12px; border-radius: 2px;
+    border: 1px solid rgba(184,50,40,0.2);
+  }
+
+  /* ciclo */
+  .cycle {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border); border-radius: 4px;
+    overflow: hidden; margin: 32px 0;
+  }
+  .step {
+    padding: 20px 16px;
+    border-right: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    font-weight: 400; color: var(--ink); margin-bottom: 8px; line-height: 1.4;
+  }
+  .step-title.hl { color: #b83228; }
+  .step-title.tl { color: var(--teal); }
+  .step-desc { font-size: 0.8rem; color: var(--ink-light); line-height: 1.55; font-weight: 300; }
+
+  /* comparação */
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin: 32px 0;
+  }
+  .cbox {
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 20px; background: var(--cream);
+  }
+  .cbox.active-box { border-color: var(--teal); }
+  .cbox-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .passive .cbox-label { color: var(--text-muted); }
+  .active-box .cbox-label { color: var(--teal); }
+  .cbox ul { list-style: none; padding: 0; }
+  .cbox ul li {
+    font-size: 0.88rem; color: var(--ink-light); font-weight: 300;
+    line-height: 1.7; padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cbox ul li:last-child { border-bottom: none; }
+  .cbox ul li::before { content: '- '; color: var(--text-muted); }
+  .active-box ul li::before { content: '✓ '; color: var(--teal); }
+
+  /* navegação da série */
+  .series-nav {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 4px; padding: 24px 28px; margin-top: 64px;
+  }
+  .series-nav-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 16px;
+  }
+  .nav-list { list-style: none; padding: 0; }
+  .nav-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem;
+    color: var(--ink-light); padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-list li:last-child { border-bottom: none; }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border); flex-shrink: 0;
+  }
+  .dot.current { background: #b83228; }
+  .current-item { color: #b83228; font-weight: 400; }
+
+  @media (max-width: 1100px) {
+    .post-header { padding: 140px 40px 48px; }
+    .post-body-wrapper { grid-template-columns: 40px 1fr 40px; }
+  }
+  @media (max-width: 700px) {
+    .post-header { padding: 120px 20px 40px; }
+    .post-body-wrapper { grid-template-columns: 20px 1fr 20px; padding: 48px 0; }
+    .post-headline { font-size: 2rem; }
+    .cycle { grid-template-columns: 1fr 1fr; }
+    .compare { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 460px) {
+    .cycle { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="/#servicos" data-i18n="nav-services">Serviços</a></li>
+    <li><a href="/#processo" data-i18n="nav-process">Processo</a></li>
+    <li><a href="/#sobre" data-i18n="nav-team">Equipe</a></li>
+    <li><a href="/#publicacoes" data-i18n="nav-publications">Publicações</a></li>
+    <li><a href="/blog/" class="active" data-i18n="nav-blog">Blog</a></li>
+    <li>
+      <div class="lang-toggle" role="group">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+    <li><a href="/#contato" class="nav-cta" data-i18n="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<header class="post-header">
+  <div class="post-tags-header">
+    <span class="post-tag-h">Aprendizado Ativo</span>
+    <span class="post-tag-h">Machine Learning</span>
+    <span class="post-tag-h">Anotação de Dados</span>
+  </div>
+  <div class="post-meta-line">
+    <span>28 Mai 2026</span>
+    <span class="sep">·</span>
+    <span>Rafael Morciani</span>
+    <span class="sep">·</span>
+    <span>6 min de leitura</span>
+    <span class="sep">·</span>
+    <span>Série: Active Learning 1/4</span>
+  </div>
+  <h1 class="post-headline">
+    Dados em excesso,<br><em>rótulos em falta</em>
+  </h1>
+  <p class="post-lead">
+    O que é Aprendizado Ativo, por que ele existe e qual problema real ele resolve - antes de qualquer fórmula.
+  </p>
+</header>
+
+<div class="post-body-wrapper">
+  <article class="post-content">
+
+    <div class="series-bar">
+      <span class="series-label">Active Learning - Série de 4 posts</span>
+      <span class="series-badge">Post 1 / 4</span>
+    </div>
+
+    <p>
+      Existe uma contradição no centro de boa parte dos projetos de ML aplicado: temos
+      <strong>dados demais</strong> e <strong>rótulos de menos</strong>.
+      Sensores, logs de sistema, registros administrativos - tudo isso acumula observações
+      em ritmo acelerado. Mas transformar uma observação bruta em dado de treino útil
+      exige um especialista humano, tempo e dinheiro.
+    </p>
+    <p>
+      A resposta instintiva é rotular tudo o que for possível e treinar em cima. Funciona -
+      mas é caro, lento e, na maioria dos casos, desnecessário. Grande parte dos exemplos
+      não acrescenta nada ao que o modelo já aprendeu. Ele está, na prática, sendo treinado
+      em redundância.
+    </p>
+
+    <blockquote>
+      <p>O aprendizado passivo consome dados de forma indiscriminada. O aprendizado ativo escolhe o que quer ver.</p>
+    </blockquote>
+
+    <h2>O que é Aprendizado Ativo</h2>
+    <p>
+      Aprendizado Ativo (Active Learning) é um paradigma de treinamento em que o modelo
+      participa ativamente da decisão de quais exemplos serão rotulados. Em vez de receber
+      passivamente um conjunto pré-rotulado, ele consulta um <strong>oráculo</strong> -
+      geralmente um especialista humano - apenas para os exemplos onde sua incerteza é mais alta.
+    </p>
+    <p>
+      A ideia central é simples: <em>se o modelo já sabe classificar bem aquele tipo de exemplo,
+      rotulá-lo de novo não traz novo conhecimento</em>. O que importa são os casos na fronteira
+      - onde ele genuinamente não tem certeza.
+    </p>
+
+    <h2>O ciclo básico</h2>
+
+    <div class="cycle">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title tl">Pool não rotulado</div>
+        <div class="step-desc">Grande conjunto de observações disponíveis, sem rótulo.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title hl">Estratégia de consulta</div>
+        <div class="step-desc">O modelo seleciona o exemplo onde sua incerteza é máxima.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Oráculo</div>
+        <div class="step-desc">Especialista humano fornece o rótulo para aquele exemplo.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title tl">Retreino</div>
+        <div class="step-desc">Modelo atualizado; ciclo recomeça com o pool reduzido.</div>
+      </div>
+    </div>
+
+    <h2>Passivo vs. Ativo</h2>
+
+    <div class="compare">
+      <div class="cbox passive">
+        <div class="cbox-label">Aprendizado Passivo</div>
+        <ul>
+          <li>Rotula todo o conjunto disponível</li>
+          <li>Custo de anotação proporcional a N</li>
+          <li>Treinamento em dados redundantes</li>
+          <li>Ignora o que o modelo já sabe</li>
+        </ul>
+      </div>
+      <div class="cbox active-box">
+        <div class="cbox-label">Aprendizado Ativo</div>
+        <ul>
+          <li>Rotula só o necessário</li>
+          <li>Custo de anotação muito menor</li>
+          <li>Cada rótulo maximiza o aprendizado</li>
+          <li>Modelo guia o próprio treinamento</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>
+      O resultado prático é consistente na literatura: modelos treinados com Active Learning
+      atingem performance equivalente ao treinamento passivo completo usando uma fração dos
+      rótulos.
+    </p>
+
+    <div class="callout">
+      <strong>Para o próximo post:</strong> Como exatamente o modelo decide <em>qual exemplo consultar</em>?
+      Existem diferentes critérios - Least Confidence, Margin Sampling, Entropy Sampling -
+      cada um com propriedades distintas. É o que vamos destrinchar no Post 2.
+    </div>
+
+    <div class="series-nav">
+      <div class="series-nav-label">Nesta série</div>
+      <ul class="nav-list">
+        <li><div class="dot current"></div><span class="current-item">Post 1 - O quê e por quê (este post)</span></li>
+        <li><div class="dot"></div><span>Post 2 - Critérios de seleção: como o modelo escolhe o que rotular</span></li>
+        <li><div class="dot"></div><span>Post 3 - Casos de uso reais: NLP, tabular, visão</span></li>
+        <li><div class="dot"></div><span>Post 4 - Limites e fronteiras do Active Learning</span></li>
+      </ul>
+    </div>
+
+  </article>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="/#servicos" data-i18n="nav-services">Serviços</a>
+    <a href="/#sobre" data-i18n="nav-team">Equipe</a>
+    <a href="../">Blog</a>
+    <a href="/#contato" data-i18n="nav-cta-plain">Contato</a>
+  </div>
+</footer>
+
+<script src="../../../assets/js/main.js"></script>
+</body>
+</html>
