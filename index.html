@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="meta-title">Statistictune — Consultoria Estatística para Pesquisa em Saúde</title>
 
-<!-- SEO PT -->
+<!-- SEO -->
 <meta id="meta-desc" name="description" content="Consultoria estatística ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras científicas e suporte até a publicação em periódico indexado.">
 <meta name="keywords" content="consultoria estatística saúde, análise de dados mestrado, estatística doutorado, análise de sobrevivência, propensity score, dados SUS, DATASUS, epidemiologia observacional, consultoria metodológica pesquisa, estatística dissertação, publicação científica saúde, statistical consulting health, biostatistics consulting dissertation, survival analysis consulting, clinical data analysis PhD">
 <meta name="author" content="Rafael Aguilar Magalhães">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://statistictune.com.br">
 
-<!-- hreflang para SEO bilíngue -->
+<!-- hreflang -->
 <link rel="alternate" hreflang="pt" href="https://statistictune.com.br/">
 <link rel="alternate" hreflang="en" href="https://statistictune.com.br/?lang=en">
 <link rel="alternate" hreflang="x-default" href="https://statistictune.com.br/">
@@ -27,13 +27,13 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
-<!-- Twitter/X Card -->
+<!-- Twitter/X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta id="tw-title" name="twitter:title" content="Statistictune — Consultoria Estatística para Pesquisa em Saúde">
 <meta id="tw-desc" name="twitter:description" content="Do dado bruto ao artigo publicado. Suporte metodológico ponta a ponta para pesquisadores da área da saúde.">
 <meta name="twitter:image" content="https://statistictune.com.br/og-image.png">
 
-<!-- Google Search Console -->
+<!-- Google Search Console — descomentar após verificação -->
 <!-- <meta name="google-site-verification" content="XXXXXXXXXXXXXXX" /> -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,83 +48,12 @@
   gtag('config', 'G-VSWKF5XT2K');
 </script>
 
+<!-- ✅ CSS compartilhado -->
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- CSS exclusivo desta página -->
 <style>
-  :root {
-    --cream: #F5F0E8;
-    --cream-dark: #EDE7D9;
-    --ink: #1A1A2E;
-    --ink-light: #2E2E4A;
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --teal: #1B6B7B;
-    --teal-light: #2A8FA3;
-    --text-muted: #6B6B80;
-    --border: rgba(26,26,46,0.12);
-    --border-light: rgba(26,26,46,0.07);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: 0.5;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 60px;
-    background: rgba(245,240,232,0.94);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    transition: padding 0.3s;
-  }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .nav-logo span { color: var(--teal); }
-  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-  .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); opacity: 0.6; transition: opacity 0.2s; }
-  .nav-links a:hover { opacity: 1; }
-  .nav-cta { background: var(--ink); color: var(--cream) !important; opacity: 1 !important; padding: 10px 24px; font-size: 0.78rem !important; transition: background 0.2s !important; }
-  .nav-cta:hover { background: var(--teal) !important; }
-
-  /* ── Language toggle ── */
-  .lang-toggle {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: var(--cream-dark);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3px 4px;
-    cursor: pointer;
-  }
-  .lang-btn {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    padding: 4px 10px;
-    border-radius: 16px;
-    border: none;
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    opacity: 0.5;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .lang-btn.active {
-    background: var(--ink);
-    color: var(--cream);
-    opacity: 1;
-  }
-
+  /* ── Hero ── */
   .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; padding-top: 80px; }
   .hero-bg-deco { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: linear-gradient(135deg, var(--cream-dark) 0%, rgba(27,107,123,0.06) 100%); z-index: 0; pointer-events: none; }
   .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 80px 80px; position: relative; z-index: 1; }
@@ -146,18 +75,7 @@
   .formula-card { background: var(--ink); color: var(--cream); padding: 18px 24px; font-family: 'DM Mono', monospace; font-size: 0.75rem; line-height: 1.7; }
   .formula-card .fc-gold { color: var(--gold); }
 
-  .btn-primary { background: var(--teal); color: #fff; padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em; border: none; cursor: pointer; display: inline-block; transition: background 0.2s, transform 0.2s; }
-  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); color: #fff; }
-  .btn-ghost { color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-  .btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
-
-  section { position: relative; z-index: 1; }
-  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px; }
-  .section-title em { font-style: italic; color: var(--teal); }
-  .section-body { font-size: 1rem; line-height: 1.75; color: var(--ink-light); font-weight: 300; max-width: 580px; }
-
+  /* ── Target ── */
   .target-section { padding: 120px 80px; background: var(--ink); color: var(--cream); }
   .target-section .section-label { color: var(--gold); }
   .target-section .section-label::after { background: rgba(201,168,76,0.3); }
@@ -171,6 +89,7 @@
   .tc-desc { font-size: 0.88rem; line-height: 1.7; color: rgba(245,240,232,0.55); font-weight: 300; }
   .tc-tag { display: inline-block; margin-top: 20px; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 4px 10px; }
 
+  /* ── Services ── */
   .services-section { padding: 120px 80px; background: var(--cream); }
   .services-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 80px; }
   .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
@@ -184,8 +103,8 @@
   .si-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
   .si-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
 
+  /* ── Process ── */
   .process-section { padding: 120px 80px; background: var(--cream-dark); }
-  .process-section .section-label { color: var(--teal); }
   .process-header { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; margin-bottom: 80px; }
   .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
   .process-steps::before { content: ''; position: absolute; top: 27px; left: 8%; right: 8%; height: 1px; background: var(--border); }
@@ -194,6 +113,7 @@
   .ps-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
   .ps-desc { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; }
 
+  /* ── Team ── */
   .team-section { padding: 120px 80px; background: var(--cream); }
   .team-intro { max-width: 640px; margin-bottom: 80px; }
   .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -217,13 +137,12 @@
   .tc-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .tc-tag-item { font-size: 0.7rem; letter-spacing: 0.08em; font-weight: 500; color: var(--teal); border: 1px solid rgba(27,107,123,0.25); padding: 4px 12px; background: rgba(27,107,123,0.04); }
   .card-pamela .tc-tag-item { color: #8B6914; border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
-
   .traj-wrapper { margin-top: 80px; border-top: 1px solid var(--border); padding-top: 64px; }
   .traj-header { display: flex; align-items: baseline; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
   .traj-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; font-style: italic; }
   .traj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
   .traj-col { background: var(--cream-dark); border: 1px solid var(--border); padding: 36px 32px; }
-  .traj-col-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .traj-col-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
   .traj-items { display: flex; flex-direction: column; }
   .traj-item { display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--border-light); }
   .traj-item:last-child { border-bottom: none; }
@@ -232,6 +151,7 @@
   .traj-dot-gold { background: var(--gold); }
   .traj-place { font-size: 0.83rem; font-weight: 400; color: var(--ink-light); line-height: 1.4; }
 
+  /* ── Publications ── */
   .pub-section { padding: 120px 80px; background: #1E3A2F; color: var(--cream); }
   .pub-section .section-label { color: var(--gold-light); }
   .pub-section .section-label::after { background: rgba(232,201,122,0.25); }
@@ -258,6 +178,7 @@
   .award-title { font-size: 0.87rem; font-weight: 500; color: var(--cream); line-height: 1.4; margin-bottom: 4px; }
   .award-org { font-size: 0.75rem; color: rgba(245,240,232,0.4); font-weight: 300; }
 
+  /* ── Scope ── */
   .scope-section { padding: 120px 80px; background: var(--ink); color: var(--cream); }
   .scope-section .section-label { color: var(--gold); }
   .scope-section .section-label::after { background: rgba(201,168,76,0.3); }
@@ -283,15 +204,7 @@
   .scope-card.featured .btn-scope { background: var(--ink); border-color: var(--ink); }
   .scope-card.featured .btn-scope:hover { background: var(--cream); color: var(--ink); }
 
-  .trust-section { padding: 100px 80px; background: var(--cream-dark); display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
-  .trust-items { display: flex; flex-direction: column; gap: 2px; }
-  .trust-item { background: white; border: 1px solid var(--border); padding: 26px 30px; transition: border-color 0.3s; }
-  .trust-item:hover { border-color: var(--teal); }
-  .ti-quote { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--teal); line-height: 0.5; margin-bottom: 12px; display: block; }
-  .ti-text { font-size: 0.87rem; line-height: 1.7; color: var(--ink-light); font-style: italic; font-weight: 300; margin-bottom: 14px; }
-  .ti-author { font-size: 0.77rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
-  .ti-role { display: block; font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 0.74rem; margin-top: 2px; color: var(--teal); }
-
+  /* ── CTA ── */
   .cta-section { padding: 140px 80px; text-align: center; position: relative; overflow: hidden; background: var(--cream); }
   .cta-section::before { content: 'p < 0.05'; position: absolute; font-family: 'Playfair Display', serif; font-size: 18vw; font-weight: 800; color: rgba(26,26,46,0.03); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; }
   .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
@@ -305,21 +218,8 @@
   .cta-contact { margin-top: 44px; font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
   .cta-contact a { color: var(--teal); border-bottom: 1px solid var(--teal); }
 
-  footer { padding: 40px 80px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--ink); }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 800; color: var(--cream); }
-  .footer-logo span { color: var(--gold); }
-  .footer-copy { font-size: 0.78rem; color: rgba(245,240,232,0.4); font-weight: 300; }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 0.78rem; color: rgba(245,240,232,0.5); transition: color 0.2s; }
-  .footer-links a:hover { color: var(--gold); }
-
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
+  /* ── Responsive (page-specific) ── */
   @media (max-width: 1100px) {
-    nav { padding: 18px 40px; }
     .hero { grid-template-columns: 1fr; }
     .hero-right { display: none; }
     .hero-left { padding: 60px 40px; }
@@ -331,22 +231,16 @@
     .pub-section-header { grid-template-columns: 1fr; gap: 32px; }
     .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
     .process-steps::before { display: none; }
-    .trust-section { grid-template-columns: 1fr; }
     .process-header { grid-template-columns: 1fr; gap: 40px; }
     .target-section, .scope-section, .services-section, .process-section, .pub-section { padding: 80px 40px; }
     .team-section { padding: 80px 40px; }
     .cta-section { padding: 100px 40px; }
-    footer { padding: 30px 40px; flex-direction: column; gap: 20px; text-align: center; }
     .traj-header { flex-direction: column; gap: 8px; }
   }
   @media (max-width: 700px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
     .hero-left { padding: 50px 20px; }
     .services-section, .target-section, .scope-section, .process-section, .team-section, .pub-section { padding: 60px 20px; }
-    .trust-section { padding: 60px 20px; }
     .cta-section { padding: 80px 20px; }
-    footer { padding: 24px 20px; }
     .services-grid { grid-template-columns: 1fr; }
     .process-steps { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; }
@@ -357,13 +251,14 @@
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">Statistic<span>tune</span></a>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
   <ul class="nav-links">
     <li><a href="#servicos" data-i18n="nav-services">Serviços</a></li>
     <li><a href="#processo" data-i18n="nav-process">Processo</a></li>
     <li><a href="#sobre" data-i18n="nav-team">Equipe</a></li>
     <li><a href="#publicacoes" data-i18n="nav-publications">Publicações</a></li>
     <li><a href="#escopo" data-i18n="nav-scope">Escopo</a></li>
+    <li><a href="blog/" data-i18n="nav-blog">Blog</a></li>
     <li>
       <div class="lang-toggle" role="group" aria-label="Language selector">
         <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
@@ -374,6 +269,9 @@
   </ul>
 </nav>
 
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-bg-deco"></div>
   <div class="hero-left">
@@ -383,7 +281,7 @@
       <span data-i18n="hero-title-2">ao <em>artigo</em></span><br>
       <span class="line-gold" data-i18n="hero-title-3">publicado.</span>
     </h1>
-    <p class="hero-sub" data-i18n="hero-sub">Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras prontas para publicação e acompanhamento até o aceite.</p>
+    <p class="hero-sub" data-i18n="hero-sub">Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde.</p>
     <div class="hero-actions">
       <a href="#contato" class="btn-primary" data-i18n="hero-cta">Solicitar proposta</a>
       <a href="#servicos" class="btn-ghost" data-i18n="hero-ghost">Ver serviços →</a>
@@ -399,32 +297,23 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     PARA QUEM
+════════════════════════════════════════════ -->
 <section class="target-section" id="para-quem">
   <div class="section-label reveal" data-i18n="target-label">Para quem é</div>
   <h2 class="section-title reveal"><span data-i18n="target-title-1">Você se reconhece</span><br><em data-i18n="target-title-2">em algum cenário?</em></h2>
-  <p class="section-body reveal" data-i18n="target-intro">A pesquisa em saúde exige rigor metodológico que vai além do currículo da graduação ou pós. É aqui que entramos.</p>
+  <p class="section-body reveal" data-i18n="target-intro">A pesquisa em saúde exige rigor metodológico que vai além do currículo da graduação ou pós.</p>
   <div class="target-grid">
-    <div class="target-card reveal">
-      <div class="tc-number">01</div>
-      <div class="tc-title" data-i18n="t1-title">Graduando com TCC em saúde</div>
-      <div class="tc-desc" data-i18n="t1-desc">Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa. Precisa de alguém que explique e execute junto.</div>
-      <span class="tc-tag" data-i18n="t1-tag">TCC / Monografia</span>
-    </div>
-    <div class="target-card reveal">
-      <div class="tc-number">02</div>
-      <div class="tc-title" data-i18n="t2-title">Mestrando com prazo apertado</div>
-      <div class="tc-desc" data-i18n="t2-desc">A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos e defensáveis, rapidamente.</div>
-      <span class="tc-tag" data-i18n="t2-tag">Mestrado</span>
-    </div>
-    <div class="target-card reveal">
-      <div class="tc-number">03</div>
-      <div class="tc-title" data-i18n="t3-title">Doutorando visando publicação</div>
-      <div class="tc-desc" data-i18n="t3-desc">Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico indexado.</div>
-      <span class="tc-tag" data-i18n="t3-tag">Doutorado · Publicação</span>
-    </div>
+    <div class="target-card reveal"><div class="tc-number">01</div><div class="tc-title" data-i18n="t1-title">Graduando com TCC em saúde</div><div class="tc-desc" data-i18n="t1-desc">Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa.</div><span class="tc-tag" data-i18n="t1-tag">TCC / Monografia</span></div>
+    <div class="target-card reveal"><div class="tc-number">02</div><div class="tc-title" data-i18n="t2-title">Mestrando com prazo apertado</div><div class="tc-desc" data-i18n="t2-desc">A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos rapidamente.</div><span class="tc-tag" data-i18n="t2-tag">Mestrado</span></div>
+    <div class="target-card reveal"><div class="tc-number">03</div><div class="tc-title" data-i18n="t3-title">Doutorando visando publicação</div><div class="tc-desc" data-i18n="t3-desc">Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico.</div><span class="tc-tag" data-i18n="t3-tag">Doutorado · Publicação</span></div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     SERVIÇOS
+════════════════════════════════════════════ -->
 <section class="services-section" id="servicos">
   <div class="services-intro">
     <div>
@@ -432,23 +321,26 @@
       <h2 class="section-title reveal"><span data-i18n="services-title-1">Consultoria</span> <em data-i18n="services-title-2">completa,</em><br><span data-i18n="services-title-3">da base ao periódico</span></h2>
     </div>
     <div>
-      <p class="section-body reveal" data-i18n="services-body1">Cada projeto é único. Trabalhamos desde a concepção do desenho do estudo até a resposta aos revisores — com documentação clara, código reprodutível e figuras prontas para submissão.</p>
+      <p class="section-body reveal" data-i18n="services-body1">Cada projeto é único. Trabalhamos desde a concepção do desenho do estudo até a resposta aos revisores.</p>
       <br>
-      <p class="section-body reveal" style="font-size:0.88rem;" data-i18n="services-body2">Especialidade em dados do SUS (DATASUS / Techtrials), desfechos em saúde, análise de sobrevivência, modelos de riscos competitivos e epidemiologia observacional.</p>
+      <p class="section-body reveal" style="font-size:0.88rem;" data-i18n="services-body2">Especialidade em dados do SUS, análise de sobrevivência e epidemiologia observacional.</p>
     </div>
   </div>
   <div class="services-grid">
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s1-title">Desenho do Estudo</div><div class="si-desc" data-i18n="s1-desc">Definição de hipóteses, desfechos, critérios de inclusão/exclusão e checklist STROBE para estudos observacionais.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s2-title">Construção de Bases</div><div class="si-desc" data-i18n="s2-desc">Identificação e linkage de pacientes em bases do SUS. Curadoria, limpeza e pipeline reprodutível para auditoria.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s3-title">Análise de Sobrevivência</div><div class="si-desc" data-i18n="s3-desc">Modelos de Cox, Kaplan-Meier, Fine-Gray para riscos competitivos, Propensity Score Matching e ajuste por confundidores.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s4-title">Modelos Preditivos</div><div class="si-desc" data-i18n="s4-desc">Regressão logística, GLM (Poisson, Binomial Negativo), modelos mistos e validação cruzada para dados clínicos.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s5-title">Figuras Científicas</div><div class="si-desc" data-i18n="s5-desc">Curvas de sobrevivência, forest plots, mapas de calor — prontas para submissão conforme normas gráficas da revista-alvo.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s6-title">Revisão Metodológica</div><div class="si-desc" data-i18n="s6-desc">Revisão crítica de seções de Métodos e Resultados. Identificação de problemas e sugestão de abordagens mais robustas.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s7-title">Adaptação para Publicação</div><div class="si-desc" data-i18n="s7-desc">Adequação ao formato do periódico, suplemento de análises e revisão de tabelas para submissão a revistas indexadas.</div></div>
-    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s8-title">Suporte até o Aceite</div><div class="si-desc" data-i18n="s8-desc">Respostas ponto a ponto às rodadas de revisão e acompanhamento de todo o processo editorial.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s1-title">Desenho do Estudo</div><div class="si-desc" data-i18n="s1-desc">Definição de hipóteses, desfechos, critérios de inclusão/exclusão e checklist STROBE.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s2-title">Construção de Bases</div><div class="si-desc" data-i18n="s2-desc">Identificação e linkage de pacientes em bases do SUS. Curadoria, limpeza e pipeline reprodutível.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s3-title">Análise de Sobrevivência</div><div class="si-desc" data-i18n="s3-desc">Modelos de Cox, Kaplan-Meier, Fine-Gray para riscos competitivos e Propensity Score Matching.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s4-title">Modelos Preditivos</div><div class="si-desc" data-i18n="s4-desc">Regressão logística, GLM, modelos mistos e validação cruzada para dados clínicos.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s5-title">Figuras Científicas</div><div class="si-desc" data-i18n="s5-desc">Curvas de sobrevivência, forest plots, mapas de calor — prontas para submissão.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s6-title">Revisão Metodológica</div><div class="si-desc" data-i18n="s6-desc">Revisão crítica de seções de Métodos e Resultados. Identificação de problemas e sugestão de abordagens.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s7-title">Adaptação para Publicação</div><div class="si-desc" data-i18n="s7-desc">Adequação ao formato do periódico, suplemento de análises e revisão de tabelas.</div></div>
+    <div class="service-item reveal"><span class="si-icon">⬡</span><div class="si-title" data-i18n="s8-title">Suporte até o Aceite</div><div class="si-desc" data-i18n="s8-desc">Respostas ponto a ponto às rodadas de revisão e acompanhamento do processo editorial.</div></div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     PROCESSO
+════════════════════════════════════════════ -->
 <section class="process-section" id="processo">
   <div class="process-header">
     <div>
@@ -458,49 +350,48 @@
     <p class="section-body reveal" data-i18n="process-body">Começamos sempre pelo diagnóstico — entendendo o que você tem, o que você precisa, e o que é possível fazer com os dados disponíveis.</p>
   </div>
   <div class="process-steps">
-    <div class="process-step reveal"><div class="ps-dot">01</div><div class="ps-title" data-i18n="p1-title">Diagnóstico inicial</div><div class="ps-desc" data-i18n="p1-desc">Conversa de alinhamento: hipóteses, dados disponíveis, desfechos e objetivo. Definimos o escopo juntos.</div></div>
-    <div class="process-step reveal"><div class="ps-dot">02</div><div class="ps-title" data-i18n="p2-title">Planejamento metodológico</div><div class="ps-desc" data-i18n="p2-desc">Proposta detalhada com métodos, testes, modelos e cronograma de entrega. Você aprova antes de começarmos.</div></div>
-    <div class="process-step reveal"><div class="ps-dot">03</div><div class="ps-title" data-i18n="p3-title">Execução e análises</div><div class="ps-desc" data-i18n="p3-desc">Análises com código documentado (R/Python), figuras publicáveis e relatório técnico dos resultados.</div></div>
+    <div class="process-step reveal"><div class="ps-dot">01</div><div class="ps-title" data-i18n="p1-title">Diagnóstico inicial</div><div class="ps-desc" data-i18n="p1-desc">Conversa de alinhamento: hipóteses, dados disponíveis, desfechos e objetivo.</div></div>
+    <div class="process-step reveal"><div class="ps-dot">02</div><div class="ps-title" data-i18n="p2-title">Planejamento metodológico</div><div class="ps-desc" data-i18n="p2-desc">Proposta detalhada com métodos, testes, modelos e cronograma de entrega.</div></div>
+    <div class="process-step reveal"><div class="ps-dot">03</div><div class="ps-title" data-i18n="p3-title">Execução e análises</div><div class="ps-desc" data-i18n="p3-desc">Análises com código documentado (R/Python), figuras publicáveis e relatório técnico.</div></div>
     <div class="process-step reveal"><div class="ps-dot">04</div><div class="ps-title" data-i18n="p4-title">Publicação e revisão</div><div class="ps-desc" data-i18n="p4-desc">Adequação ao periódico, respostas aos revisores e suporte até o aceite final.</div></div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     EQUIPE
+════════════════════════════════════════════ -->
 <section class="team-section" id="sobre">
   <div class="team-intro">
     <div class="section-label reveal" data-i18n="team-label">Quem está por trás</div>
     <h2 class="section-title reveal"><span data-i18n="team-title-1">Pesquisa rigorosa começa</span><br><span data-i18n="team-title-2">por quem</span> <em data-i18n="team-title-3">entende</em><br><span data-i18n="team-title-4">os dois lados.</span></h2>
-    <p class="section-body reveal" data-i18n="team-body">A Statistictune reúne formação estatística avançada e expertise clínica na área da saúde. Não é só análise de dados — é compreensão real do que os dados representam dentro do contexto assistencial e acadêmico.</p>
+    <p class="section-body reveal" data-i18n="team-body">A Statistictune reúne formação estatística avançada e expertise clínica na área da saúde.</p>
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
       <div class="tc-role-badge" data-i18n="rafael-badge">Métodos Quantitativos & Inferência</div>
       <div class="tc-name">Rafael<br>Aguilar Magalhães</div>
       <div class="tc-title-line" data-i18n="rafael-title">Mestre em Métodos Numéricos em Engenharia · PPGMNE/UFPR</div>
-      <p class="tc-bio" data-i18n="rafael-bio">Pesquisador no DataSci Labs (UFPR) com foco em aprendizado ativo Bayesiano e inferência estatística sequencial. Desenvolveu o framework ALFRED — uma abordagem de aquisição de dados baseada em energia livre de Helmholtz — e tem publicações em periódicos internacionais indexados. Atua no desenho metodológico, modelagem estatística e transformação de dados complexos em evidência publicável.</p>
+      <p class="tc-bio" data-i18n="rafael-bio">Pesquisador no DataSci Labs (UFPR) com foco em aprendizado ativo Bayesiano e inferência estatística sequencial. Desenvolveu o framework ALFRED e tem publicações em periódicos internacionais indexados.</p>
       <div class="tc-credentials">
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="rafael-c1">Mestrado em Métodos Numéricos em Engenharia</strong> — PPGMNE · UFPR (2026)</div></div>
-        <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="rafael-c2">Pesquisador — DataSci Labs · UFPR</strong> — Machine Learning Estatístico, Inferência Bayesiana, Active Learning (2023–)</div></div>
+        <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="rafael-c2">Pesquisador — DataSci Labs · UFPR</strong> — Machine Learning Estatístico, Active Learning (2023–)</div></div>
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="rafael-c3">Melhor Pôster · 1st SouthStat Meeting</strong> — Sociedade Brasileira de Estatística (2023)</div></div>
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="rafael-c4">Especialização em Ciência de Dados</strong> — PUC-PR (2022) · <strong data-i18n="rafael-c5">Licenciatura em Matemática</strong> — UTFPR (2018)</div></div>
       </div>
-      <div class="tc-tags">
-        <span class="tc-tag-item">Inferência Bayesiana</span><span class="tc-tag-item">Análise de Sobrevivência</span><span class="tc-tag-item">Dados SUS</span><span class="tc-tag-item">R · Python</span><span class="tc-tag-item">Epidemiologia Observacional</span><span class="tc-tag-item">Propensity Score</span>
-      </div>
+      <div class="tc-tags"><span class="tc-tag-item">Inferência Bayesiana</span><span class="tc-tag-item">Análise de Sobrevivência</span><span class="tc-tag-item">Dados SUS</span><span class="tc-tag-item">R · Python</span><span class="tc-tag-item">Propensity Score</span></div>
     </div>
     <div class="team-card card-pamela reveal">
       <div class="tc-role-badge" data-i18n="pamela-badge">Expertise Clínica & Saúde</div>
       <div class="tc-name">Pâmela<br>Almeida Magalhães</div>
       <div class="tc-title-line" data-i18n="pamela-title">Mestranda em Medicina Interna e Ciências da Saúde · UFPR</div>
-      <p class="tc-bio" data-i18n="pamela-bio">Fisioterapeuta com trajetória construída em contextos de alta complexidade — UTI adulto, UTI neonatal e pediátrica, reabilitação hospitalar. Sua vivência em ambientes clínicos reais fornece à Statistictune algo que análises puramente quantitativas raramente têm: a compreensão de como os dados de saúde são gerados, registrados e interpretados na prática assistencial. Traduz a pergunta clínica em hipótese testável.</p>
+      <p class="tc-bio" data-i18n="pamela-bio">Fisioterapeuta com trajetória construída em contextos de alta complexidade — UTI adulto, UTI neonatal e pediátrica, reabilitação hospitalar. Traduz a pergunta clínica em hipótese testável.</p>
       <div class="tc-credentials">
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="pamela-c1">Mestrado em Medicina Interna e Ciências da Saúde</strong> — UFPR (<span data-i18n="pamela-ongoing">em andamento, desde</span> 2024)</div></div>
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="pamela-c2">Especialização em Terapia Intensiva Adulto</strong> — Faculdade Unyleya (2021)</div></div>
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="pamela-c3">Especialização em Fisioterapia em UTI Neonatal e Pediátrica</strong> — Faculdade Inspirar (2020)</div></div>
         <div class="tcc-item"><div class="tcc-dot"></div><div class="tcc-text"><strong data-i18n="pamela-c4">Bacharelado em Fisioterapia</strong> — Universidade Positivo (2016)</div></div>
       </div>
-      <div class="tc-tags">
-        <span class="tc-tag-item" data-i18n="ptag1">Fisioterapia Intensiva</span><span class="tc-tag-item" data-i18n="ptag2">UTI Neonatal · Adulto</span><span class="tc-tag-item" data-i18n="ptag3">Dados Clínicos</span><span class="tc-tag-item" data-i18n="ptag4">Medicina Interna</span><span class="tc-tag-item" data-i18n="ptag5">Saúde Coletiva</span><span class="tc-tag-item" data-i18n="ptag6">Pesquisa em Saúde</span>
-      </div>
+      <div class="tc-tags"><span class="tc-tag-item" data-i18n="ptag1">Fisioterapia Intensiva</span><span class="tc-tag-item" data-i18n="ptag2">UTI Neonatal · Adulto</span><span class="tc-tag-item" data-i18n="ptag3">Dados Clínicos</span><span class="tc-tag-item" data-i18n="ptag4">Medicina Interna</span><span class="tc-tag-item" data-i18n="ptag5">Saúde Coletiva</span></div>
     </div>
   </div>
   <div class="traj-wrapper reveal">
@@ -530,13 +421,16 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     PUBLICAÇÕES
+════════════════════════════════════════════ -->
 <section class="pub-section" id="publicacoes">
   <div class="pub-section-header">
     <div>
       <div class="section-label reveal" data-i18n="pub-label">Produção científica</div>
       <h2 class="section-title reveal"><span data-i18n="pub-title-1">Pesquisa que</span><br><em data-i18n="pub-title-2">já foi publicada.</em></h2>
     </div>
-    <p class="section-body reveal" data-i18n="pub-body">Nosso trabalho não é só metodológico — é também autoral. Conhecemos o processo editorial por dentro porque já percorremos esse caminho.</p>
+    <p class="section-body reveal" data-i18n="pub-body">Nosso trabalho não é só metodológico — é também autoral. Conhecemos o processo editorial por dentro.</p>
   </div>
   <div class="pub-block reveal">
     <div class="pub-group">
@@ -574,71 +468,43 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     ESCOPO
+════════════════════════════════════════════ -->
 <section class="scope-section" id="escopo">
   <div class="section-label reveal" data-i18n="scope-label">Escopo</div>
   <h2 class="section-title reveal"><span data-i18n="scope-title-1">Três formas de</span><br><em data-i18n="scope-title-2">trabalharmos juntos</em></h2>
-  <p class="section-body reveal" data-i18n="scope-body">Do atendimento pontual a um acompanhamento completo até a publicação. O escopo é definido caso a caso, conforme o projeto e o momento da sua pesquisa.</p>
+  <p class="section-body reveal" data-i18n="scope-body">Do atendimento pontual a um acompanhamento completo até a publicação.</p>
   <div class="scope-grid">
     <div class="scope-card reveal">
-      <div class="sc-badge" data-i18n="sc1-badge">Pontual</div>
-      <div class="sc-name" data-i18n="sc1-name">Análise Específica</div>
-      <div class="sc-desc" data-i18n="sc1-desc">Para quem precisa resolver um problema metodológico bem delimitado — uma análise, um modelo, uma seção.</div>
-      <ul class="sc-activities">
-        <li data-i18n="sc1-a1">Execução de uma análise definida em conjunto</li>
-        <li data-i18n="sc1-a2">Código R ou Python documentado</li>
-        <li data-i18n="sc1-a3">Interpretação dos resultados</li>
-        <li data-i18n="sc1-a4">Uma rodada de revisão e ajustes</li>
-      </ul>
+      <div class="sc-badge" data-i18n="sc1-badge">Pontual</div><div class="sc-name" data-i18n="sc1-name">Análise Específica</div>
+      <div class="sc-desc" data-i18n="sc1-desc">Para quem precisa resolver um problema metodológico bem delimitado.</div>
+      <ul class="sc-activities"><li data-i18n="sc1-a1">Execução de uma análise definida em conjunto</li><li data-i18n="sc1-a2">Código R ou Python documentado</li><li data-i18n="sc1-a3">Interpretação dos resultados</li><li data-i18n="sc1-a4">Uma rodada de revisão e ajustes</li></ul>
       <a href="#contato" class="btn-scope" data-i18n="sc-btn1">Solicitar</a>
     </div>
     <div class="scope-card featured reveal">
-      <div class="sc-badge" data-i18n="sc2-badge">Completo</div>
-      <div class="sc-name" data-i18n="sc2-name">Ponta a Ponta</div>
+      <div class="sc-badge" data-i18n="sc2-badge">Completo</div><div class="sc-name" data-i18n="sc2-name">Ponta a Ponta</div>
       <div class="sc-desc" data-i18n="sc2-desc">Acompanhamento integral do projeto — do desenho metodológico até a submissão ao periódico.</div>
-      <ul class="sc-activities">
-        <li data-i18n="sc2-a1">Desenho do estudo e mapeamento de variáveis</li>
-        <li data-i18n="sc2-a2">Construção e curadoria da base de dados</li>
-        <li data-i18n="sc2-a3">Todas as análises estatísticas e simulações</li>
-        <li data-i18n="sc2-a4">Produção de figuras científicas publicáveis</li>
-        <li data-i18n="sc2-a5">Revisão das seções de Métodos e Resultados</li>
-        <li data-i18n="sc2-a6">Suporte às rodadas de revisão dos avaliadores</li>
-        <li data-i18n="sc2-a7">Coautoria na publicação (critérios ICMJE)</li>
-      </ul>
+      <ul class="sc-activities"><li data-i18n="sc2-a1">Desenho do estudo e mapeamento de variáveis</li><li data-i18n="sc2-a2">Construção e curadoria da base de dados</li><li data-i18n="sc2-a3">Todas as análises estatísticas e simulações</li><li data-i18n="sc2-a4">Produção de figuras científicas publicáveis</li><li data-i18n="sc2-a5">Revisão das seções de Métodos e Resultados</li><li data-i18n="sc2-a6">Suporte às rodadas de revisão dos avaliadores</li><li data-i18n="sc2-a7">Coautoria na publicação (critérios ICMJE)</li></ul>
       <a href="#contato" class="btn-scope" data-i18n="sc-btn2">Solicitar proposta</a>
     </div>
     <div class="scope-card reveal">
-      <div class="sc-badge" data-i18n="sc3-badge">Sob Medida</div>
-      <div class="sc-name" data-i18n="sc3-name">Projeto Customizado</div>
+      <div class="sc-badge" data-i18n="sc3-badge">Sob Medida</div><div class="sc-name" data-i18n="sc3-name">Projeto Customizado</div>
       <div class="sc-desc" data-i18n="sc3-desc">Para projetos com bases complexas, múltiplos objetivos ou abordagens avançadas de inferência causal.</div>
-      <ul class="sc-activities">
-        <li data-i18n="sc3-a1">Dados administrativos (SUS, Techtrials)</li>
-        <li data-i18n="sc3-a2">Múltiplos artigos ou desfechos</li>
-        <li data-i18n="sc3-a3">Causal inference, matching avançado</li>
-        <li data-i18n="sc3-a4">Machine learning aplicado a dados clínicos</li>
-        <li data-i18n="sc3-a5">Escopo e cronograma definidos no diagnóstico</li>
-      </ul>
+      <ul class="sc-activities"><li data-i18n="sc3-a1">Dados administrativos (SUS, Techtrials)</li><li data-i18n="sc3-a2">Múltiplos artigos ou desfechos</li><li data-i18n="sc3-a3">Causal inference, matching avançado</li><li data-i18n="sc3-a4">Machine learning aplicado a dados clínicos</li><li data-i18n="sc3-a5">Escopo e cronograma definidos no diagnóstico</li></ul>
       <a href="#contato" class="btn-scope" data-i18n="sc-btn3">Agendar diagnóstico</a>
     </div>
   </div>
 </section>
 
-<!-- <section class="trust-section">
-  <div>
-    <div class="section-label reveal" data-i18n="trust-label">Depoimentos</div>
-    <h2 class="section-title reveal" style="font-size: 2rem;"><span data-i18n="trust-title-1">O que dizem</span><br><em data-i18n="trust-title-2">pesquisadores</em><br><span data-i18n="trust-title-3">que trabalharam</span><br><span data-i18n="trust-title-4">conosco.</span></h2>
-  </div>
-  <div class="trust-items">
-    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text" data-i18n="dep1-text">O Rafael entrou no projeto quando eu já estava com os dados em mãos mas travada na metodologia. Além de executar toda a análise epidemiológica, me ajudou a entender cada decisão — o que foi fundamental para defender os métodos na banca.</p><div class="ti-author">Suzi Z. — <span data-i18n="dep1-role-title">Doutoranda</span><span class="ti-role" data-i18n="dep1-role">Pesquisa sobre psoríase e artrite psoriásica · Dados SUS</span></div></div>
-    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text" data-i18n="dep2-text">Precisava de análises de sobrevivência para uma casuística clínica complexa. O trabalho foi entregue com código limpo, figuras publicáveis e uma explicação que consegui replicar sozinha.</p><div class="ti-author"><span data-i18n="dep2-author">Pesquisadora anônima</span><span class="ti-role" data-i18n="dep2-role">Mestrado em Medicina · UFPR</span></div></div>
-    <div class="trust-item reveal"><span class="ti-quote">"</span><p class="ti-text" data-i18n="dep3-text">A objetividade no escopo e a clareza na comunicação me deram segurança desde o início. Sabia exatamente o que estava sendo feito e por quê cada escolha metodológica foi tomada.</p><div class="ti-author"><span data-i18n="dep3-author">Pesquisador anônimo</span><span class="ti-role" data-i18n="dep3-role">Doutorado · Epidemiologia clínica</span></div></div>
-  </div>
-</section> -->
-
+<!-- ═══════════════════════════════════════════
+     CTA / CONTATO
+════════════════════════════════════════════ -->
 <section class="cta-section" id="contato">
   <div class="cta-inner">
     <div class="section-label reveal" data-i18n="cta-label">Próximo passo</div>
     <h2 class="cta-title reveal"><span data-i18n="cta-title-1">Pronto para levar</span><br><span data-i18n="cta-title-2">sua pesquisa</span><br><em data-i18n="cta-title-3">adiante?</em></h2>
-    <p class="cta-sub reveal" data-i18n="cta-sub">Mande uma mensagem com o contexto do seu projeto — dados disponíveis, desfecho de interesse e prazo. Fazemos um diagnóstico inicial gratuito e enviamos uma proposta em até 48 horas.</p>
+    <p class="cta-sub reveal" data-i18n="cta-sub">Mande uma mensagem com o contexto do seu projeto — dados disponíveis, desfecho de interesse e prazo.</p>
     <div class="cta-buttons reveal">
       <a href="https://wa.me/5541998194868?text=Olá%20Rafael,%20gostaria%20de%20saber%20mais%20sobre%20a%20consultoria%20estatística%20para%20minha%20pesquisa." class="btn-primary" target="_blank" data-i18n="cta-whatsapp">WhatsApp — falar agora</a>
       <a href="mailto:aguilarafa2010@gmail.com" class="btn-ghost" data-i18n="cta-email">Enviar e-mail →</a>
@@ -653,233 +519,18 @@
 </section>
 
 <footer>
-  <a href="#" class="footer-logo">Statistic<span>tune</span></a>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
   <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
   <div class="footer-links">
     <a href="#servicos" data-i18n="nav-services">Serviços</a>
     <a href="#sobre" data-i18n="nav-team">Equipe</a>
     <a href="#publicacoes" data-i18n="nav-publications">Publicações</a>
-    <a href="#escopo" data-i18n="nav-scope">Escopo</a>
+    <a href="blog/" data-i18n="nav-blog">Blog</a>
     <a href="#contato" data-i18n="nav-cta-plain">Contato</a>
   </div>
 </footer>
 
-<script>
-const i18n = {
-  pt: {
-    "nav-services": "Serviços", "nav-process": "Processo", "nav-team": "Equipe",
-    "nav-publications": "Publicações", "nav-scope": "Escopo", "nav-cta": "Falar agora", "nav-cta-plain": "Contato",
-    "hero-eyebrow": "Consultoria Estatística para Saúde",
-    "hero-title-1": "Do dado bruto", "hero-title-2": "ao <em>artigo</em>", "hero-title-3": "publicado.",
-    "hero-sub": "Suporte metodológico ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras prontas para publicação e acompanhamento até o aceite.",
-    "hero-cta": "Solicitar proposta", "hero-ghost": "Ver serviços →",
-    "card1-label": "Publicação recente", "card2-label": "Análises realizadas",
-    "card2-desc": "Modelos de sobrevivência, riscos competitivos, propensity score",
-    "card3-label": "Artigo em periódico indexado", "card3-desc": "Active learning in process mining — citado internacionalmente",
-    "target-label": "Para quem é", "target-title-1": "Você se reconhece", "target-title-2": "em algum cenário?",
-    "target-intro": "A pesquisa em saúde exige rigor metodológico que vai além do currículo da graduação ou pós. É aqui que entramos.",
-    "t1-title": "Graduando com TCC em saúde", "t1-desc": "Tem dados coletados, sabe que precisa de estatística, mas o orientador não domina análise quantitativa. Precisa de alguém que explique e execute junto.", "t1-tag": "TCC / Monografia",
-    "t2-title": "Mestrando com prazo apertado", "t2-desc": "A dissertação avança, mas a seção de metodologia e análise trava tudo. Precisa de resultados sólidos e defensáveis, rapidamente.", "t2-tag": "Mestrado",
-    "t3-title": "Doutorando visando publicação", "t3-desc": "Tem dados complexos — bases do SUS, dados longitudinais, desfechos compostos — e precisa de análises que sustentem revisão em periódico indexado.", "t3-tag": "Doutorado · Publicação",
-    "services-label": "O que fazemos", "services-title-1": "Consultoria", "services-title-2": "completa,", "services-title-3": "da base ao periódico",
-    "services-body1": "Cada projeto é único. Trabalhamos desde a concepção do desenho do estudo até a resposta aos revisores — com documentação clara, código reprodutível e figuras prontas para submissão.",
-    "services-body2": "Especialidade em dados do SUS (DATASUS / Techtrials), desfechos em saúde, análise de sobrevivência, modelos de riscos competitivos e epidemiologia observacional.",
-    "s1-title": "Desenho do Estudo", "s1-desc": "Definição de hipóteses, desfechos, critérios de inclusão/exclusão e checklist STROBE para estudos observacionais.",
-    "s2-title": "Construção de Bases", "s2-desc": "Identificação e linkage de pacientes em bases do SUS. Curadoria, limpeza e pipeline reprodutível para auditoria.",
-    "s3-title": "Análise de Sobrevivência", "s3-desc": "Modelos de Cox, Kaplan-Meier, Fine-Gray para riscos competitivos, Propensity Score Matching e ajuste por confundidores.",
-    "s4-title": "Modelos Preditivos", "s4-desc": "Regressão logística, GLM (Poisson, Binomial Negativo), modelos mistos e validação cruzada para dados clínicos.",
-    "s5-title": "Figuras Científicas", "s5-desc": "Curvas de sobrevivência, forest plots, mapas de calor — prontas para submissão conforme normas gráficas da revista-alvo.",
-    "s6-title": "Revisão Metodológica", "s6-desc": "Revisão crítica de seções de Métodos e Resultados. Identificação de problemas e sugestão de abordagens mais robustas.",
-    "s7-title": "Adaptação para Publicação", "s7-desc": "Adequação ao formato do periódico, suplemento de análises e revisão de tabelas para submissão a revistas indexadas.",
-    "s8-title": "Suporte até o Aceite", "s8-desc": "Respostas ponto a ponto às rodadas de revisão e acompanhamento de todo o processo editorial.",
-    "process-label": "Como funciona", "process-title-1": "Um processo", "process-title-2": "claro", "process-title-3": "em 4 etapas",
-    "process-body": "Começamos sempre pelo diagnóstico — entendendo o que você tem, o que você precisa, e o que é possível fazer com os dados disponíveis.",
-    "p1-title": "Diagnóstico inicial", "p1-desc": "Conversa de alinhamento: hipóteses, dados disponíveis, desfechos e objetivo. Definimos o escopo juntos.",
-    "p2-title": "Planejamento metodológico", "p2-desc": "Proposta detalhada com métodos, testes, modelos e cronograma de entrega. Você aprova antes de começarmos.",
-    "p3-title": "Execução e análises", "p3-desc": "Análises com código documentado (R/Python), figuras publicáveis e relatório técnico dos resultados.",
-    "p4-title": "Publicação e revisão", "p4-desc": "Adequação ao periódico, respostas aos revisores e suporte até o aceite final.",
-    "team-label": "Quem está por trás", "team-title-1": "Pesquisa rigorosa começa", "team-title-2": "por quem", "team-title-3": "entende", "team-title-4": "os dois lados.",
-    "team-body": "A Statistictune reúne formação estatística avançada e expertise clínica na área da saúde. Não é só análise de dados — é compreensão real do que os dados representam dentro do contexto assistencial e acadêmico.",
-    "rafael-badge": "Métodos Quantitativos & Inferência",
-    "rafael-title": "Mestre em Métodos Numéricos em Engenharia · PPGMNE/UFPR",
-    "rafael-bio": "Pesquisador no DataSci Labs (UFPR) com foco em aprendizado ativo Bayesiano e inferência estatística sequencial. Desenvolveu o framework ALFRED — uma abordagem de aquisição de dados baseada em energia livre de Helmholtz — e tem publicações em periódicos internacionais indexados. Atua no desenho metodológico, modelagem estatística e transformação de dados complexos em evidência publicável.",
-    "rafael-c1": "Mestrado em Métodos Numéricos em Engenharia", "rafael-c2": "Pesquisador — DataSci Labs · UFPR",
-    "rafael-c3": "Melhor Pôster · 1st SouthStat Meeting", "rafael-c4": "Especialização em Ciência de Dados", "rafael-c5": "Licenciatura em Matemática",
-    "pamela-badge": "Expertise Clínica & Saúde",
-    "pamela-title": "Mestranda em Medicina Interna e Ciências da Saúde · UFPR",
-    "pamela-bio": "Fisioterapeuta com trajetória construída em contextos de alta complexidade — UTI adulto, UTI neonatal e pediátrica, reabilitação hospitalar. Sua vivência em ambientes clínicos reais fornece à Statistictune algo que análises puramente quantitativas raramente têm: a compreensão de como os dados de saúde são gerados, registrados e interpretados na prática assistencial. Traduz a pergunta clínica em hipótese testável.",
-    "pamela-c1": "Mestrado em Medicina Interna e Ciências da Saúde", "pamela-ongoing": "em andamento, desde",
-    "pamela-c2": "Especialização em Terapia Intensiva Adulto", "pamela-c3": "Especialização em Fisioterapia em UTI Neonatal e Pediátrica", "pamela-c4": "Bacharelado em Fisioterapia",
-    "ptag1": "Fisioterapia Intensiva", "ptag2": "UTI Neonatal · Adulto", "ptag3": "Dados Clínicos", "ptag4": "Medicina Interna", "ptag5": "Saúde Coletiva", "ptag6": "Pesquisa em Saúde",
-    "traj-label": "Trajetória profissional", "traj-sub": "Experiências que conectam teoria e prática na área da saúde.",
-    "traj-r1": "Inteligência Clínica", "traj-r2": "Operadora de Saúde", "traj-r3": "Seguradora Digital",
-    "traj-p1": "Pediatria", "traj-p2": "UTI Neonatal", "traj-p3": "Reabilitação", "traj-p4": "Atendimento Clínico e Home Care",
-    "pub-label": "Produção científica", "pub-title-1": "Pesquisa que", "pub-title-2": "já foi publicada.",
-    "pub-body": "Nosso trabalho não é só metodológico — é também autoral. Conhecemos o processo editorial por dentro porque já percorremos esse caminho.",
-    "pub-group1": "Artigos em periódicos indexados", "pub-group2": "Capítulos e anais", "pub-group3": "Prêmios e distinções",
-    "pub-citation": "citação",
-    "award1-title": "Melhor Pôster — 1st SouthStat Meeting", "award1-org": "Sociedade Brasileira de Estatística · 2023",
-    "award2-title": "Melhores Pôsteres — Sessão Técnica de Painéis de IC", "award2-org": "XXXVIII Congresso Nacional de Matemática Aplicada e Computacional · 2018",
-    "scope-label": "Escopo", "scope-title-1": "Três formas de", "scope-title-2": "trabalharmos juntos",
-    "scope-body": "Do atendimento pontual a um acompanhamento completo até a publicação. O escopo é definido caso a caso, conforme o projeto e o momento da sua pesquisa.",
-    "sc1-badge": "Pontual", "sc1-name": "Análise Específica", "sc1-desc": "Para quem precisa resolver um problema metodológico bem delimitado — uma análise, um modelo, uma seção.",
-    "sc1-a1": "Execução de uma análise definida em conjunto", "sc1-a2": "Código R ou Python documentado", "sc1-a3": "Interpretação dos resultados", "sc1-a4": "Uma rodada de revisão e ajustes",
-    "sc-btn1": "Solicitar",
-    "sc2-badge": "Completo", "sc2-name": "Ponta a Ponta", "sc2-desc": "Acompanhamento integral do projeto — do desenho metodológico até a submissão ao periódico.",
-    "sc2-a1": "Desenho do estudo e mapeamento de variáveis", "sc2-a2": "Construção e curadoria da base de dados", "sc2-a3": "Todas as análises estatísticas e simulações",
-    "sc2-a4": "Produção de figuras científicas publicáveis", "sc2-a5": "Revisão das seções de Métodos e Resultados", "sc2-a6": "Suporte às rodadas de revisão dos avaliadores", "sc2-a7": "Coautoria na publicação (critérios ICMJE)",
-    "sc-btn2": "Solicitar proposta",
-    "sc3-badge": "Sob Medida", "sc3-name": "Projeto Customizado", "sc3-desc": "Para projetos com bases complexas, múltiplos objetivos ou abordagens avançadas de inferência causal.",
-    "sc3-a1": "Dados administrativos (SUS, Techtrials)", "sc3-a2": "Múltiplos artigos ou desfechos", "sc3-a3": "Causal inference, matching avançado",
-    "sc3-a4": "Machine learning aplicado a dados clínicos", "sc3-a5": "Escopo e cronograma definidos no diagnóstico",
-    "sc-btn3": "Agendar diagnóstico",
-    "trust-label": "Depoimentos", "trust-title-1": "O que dizem", "trust-title-2": "pesquisadores", "trust-title-3": "que trabalharam", "trust-title-4": "conosco.",
-    "dep1-text": "O Rafael entrou no projeto quando eu já estava com os dados em mãos mas travada na metodologia. Além de executar toda a análise epidemiológica, me ajudou a entender cada decisão — o que foi fundamental para defender os métodos na banca.",
-    "dep1-role-title": "Doutoranda", "dep1-role": "Pesquisa sobre psoríase e artrite psoriásica · Dados SUS",
-    "dep2-text": "Precisava de análises de sobrevivência para uma casuística clínica complexa. O trabalho foi entregue com código limpo, figuras publicáveis e uma explicação que consegui replicar sozinha.",
-    "dep2-author": "Pesquisadora anônima", "dep2-role": "Mestrado em Medicina · UFPR",
-    "dep3-text": "A objetividade no escopo e a clareza na comunicação me deram segurança desde o início. Sabia exatamente o que estava sendo feito e por quê cada escolha metodológica foi tomada.",
-    "dep3-author": "Pesquisador anônimo", "dep3-role": "Doutorado · Epidemiologia clínica",
-    "cta-label": "Próximo passo", "cta-title-1": "Pronto para levar", "cta-title-2": "sua pesquisa", "cta-title-3": "adiante?",
-    "cta-sub": "Mande uma mensagem com o contexto do seu projeto — dados disponíveis, desfecho de interesse e prazo. Fazemos um diagnóstico inicial gratuito e enviamos uma proposta em até 48 horas.",
-    "cta-whatsapp": "WhatsApp — falar agora", "cta-email": "Enviar e-mail →", "cta-connect": "Conecte-se também:",
-    "meta-title": "Statistictune — Consultoria Estatística para Pesquisa em Saúde",
-    "meta-desc": "Consultoria estatística ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde. Análises rigorosas, figuras científicas e suporte até a publicação em periódico indexado."
-  },
-  en: {
-    "nav-services": "Services", "nav-process": "Process", "nav-team": "Team",
-    "nav-publications": "Publications", "nav-scope": "Scope", "nav-cta": "Get in touch", "nav-cta-plain": "Contact",
-    "hero-eyebrow": "Statistical Consulting for Health Research",
-    "hero-title-1": "From raw data", "hero-title-2": "to the <em>published</em>", "hero-title-3": "article.",
-    "hero-sub": "End-to-end methodological support for undergraduate, master's, and doctoral researchers in health sciences. Rigorous analyses, publication-ready figures, and guidance through acceptance.",
-    "hero-cta": "Request a proposal", "hero-ghost": "See services →",
-    "card1-label": "Recent publication", "card2-label": "Analyses performed",
-    "card2-desc": "Survival models, competing risks, propensity score",
-    "card3-label": "Indexed journal article", "card3-desc": "Active learning in process mining — cited internationally",
-    "target-label": "Who it's for", "target-title-1": "Do you recognize yourself", "target-title-2": "in any of these?",
-    "target-intro": "Health research demands methodological rigor that goes beyond most graduate curricula. That's where we come in.",
-    "t1-title": "Undergraduate with a health thesis", "t1-desc": "You have data collected and know you need statistics, but your advisor isn't quantitatively oriented. You need someone who can explain and execute alongside you.", "t1-tag": "Thesis / Dissertation",
-    "t2-title": "Master's student on a deadline", "t2-desc": "Your dissertation is progressing, but the methodology and analysis sections are blocking everything. You need solid, defensible results, fast.", "t2-tag": "Master's degree",
-    "t3-title": "PhD candidate targeting publication", "t3-desc": "You have complex data — administrative databases, longitudinal data, composite outcomes — and need analyses that hold up under peer review.", "t3-tag": "PhD · Publication",
-    "services-label": "What we do", "services-title-1": "Full", "services-title-2": "consulting,", "services-title-3": "from dataset to journal",
-    "services-body1": "Every project is unique. We work from study design conception through reviewer responses — with clear documentation, reproducible code, and submission-ready figures.",
-    "services-body2": "Expertise in administrative health databases, survival analysis, competing risks models, and observational epidemiology.",
-    "s1-title": "Study Design", "s1-desc": "Hypothesis definition, outcomes, inclusion/exclusion criteria, and STROBE checklist for observational studies.",
-    "s2-title": "Database Construction", "s2-desc": "Patient identification and linkage in administrative databases. Curation, cleaning, and reproducible pipeline for auditing.",
-    "s3-title": "Survival Analysis", "s3-desc": "Cox models, Kaplan-Meier, Fine-Gray for competing risks, Propensity Score Matching, and confounder adjustment.",
-    "s4-title": "Predictive Models", "s4-desc": "Logistic regression, GLM (Poisson, Negative Binomial), mixed models, and cross-validation for clinical data.",
-    "s5-title": "Scientific Figures", "s5-desc": "Survival curves, forest plots, heat maps — submission-ready according to the target journal's graphic standards.",
-    "s6-title": "Methodological Review", "s6-desc": "Critical review of Methods and Results sections. Problem identification and suggestion of more robust approaches.",
-    "s7-title": "Publication Adaptation", "s7-desc": "Formatting to journal requirements, analysis supplements, and table revisions for indexed journal submission.",
-    "s8-title": "Support Through Acceptance", "s8-desc": "Point-by-point responses to reviewer rounds and full editorial process accompaniment.",
-    "process-label": "How it works", "process-title-1": "A clear", "process-title-2": "process", "process-title-3": "in 4 steps",
-    "process-body": "We always start with a diagnostic — understanding what you have, what you need, and what's feasible with your available data.",
-    "p1-title": "Initial diagnostic", "p1-desc": "Alignment conversation: hypotheses, available data, outcomes, and objectives. We define scope together.",
-    "p2-title": "Methodological planning", "p2-desc": "Detailed proposal with methods, tests, models, and delivery timeline. You approve before we begin.",
-    "p3-title": "Execution & analysis", "p3-desc": "Analyses with documented code (R/Python), publication-ready figures, and technical results report.",
-    "p4-title": "Publication & revision", "p4-desc": "Journal formatting, reviewer responses, and support through final acceptance.",
-    "team-label": "Who's behind it", "team-title-1": "Rigorous research starts", "team-title-2": "with those who", "team-title-3": "understand", "team-title-4": "both sides.",
-    "team-body": "Statistictune brings together advanced statistical training and clinical expertise in health. It's not just data analysis — it's real comprehension of what the data represents within clinical and academic contexts.",
-    "rafael-badge": "Quantitative Methods & Inference",
-    "rafael-title": "MSc in Numerical Methods in Engineering · PPGMNE/UFPR",
-    "rafael-bio": "Researcher at DataSci Labs (UFPR) focused on Bayesian active learning and sequential statistical inference. Developed the ALFRED framework — a data acquisition approach grounded in Helmholtz free energy — with publications in international indexed journals. Works on methodological design, statistical modeling, and transforming complex data into publishable evidence.",
-    "rafael-c1": "MSc in Numerical Methods in Engineering", "rafael-c2": "Researcher — DataSci Labs · UFPR",
-    "rafael-c3": "Best Poster · 1st SouthStat Meeting", "rafael-c4": "Specialization in Data Science", "rafael-c5": "Bachelor's in Mathematics",
-    "pamela-badge": "Clinical Expertise & Health",
-    "pamela-title": "MSc candidate in Internal Medicine and Health Sciences · UFPR",
-    "pamela-bio": "Physical therapist with a career built in high-complexity settings — adult ICU, neonatal and pediatric ICU, and hospital rehabilitation. Her clinical background provides Statistictune with something purely quantitative analyses rarely have: a real understanding of how health data is generated, recorded, and interpreted in practice. She translates clinical questions into testable hypotheses.",
-    "pamela-c1": "MSc in Internal Medicine and Health Sciences", "pamela-ongoing": "ongoing, since",
-    "pamela-c2": "Specialization in Adult Intensive Care", "pamela-c3": "Specialization in Neonatal and Pediatric ICU Physiotherapy", "pamela-c4": "Bachelor's in Physical Therapy",
-    "ptag1": "Intensive Care Physiotherapy", "ptag2": "Neonatal · Adult ICU", "ptag3": "Clinical Data", "ptag4": "Internal Medicine", "ptag5": "Public Health", "ptag6": "Health Research",
-    "traj-label": "Professional background", "traj-sub": "Experiences that connect theory and practice in health.",
-    "traj-r1": "Clinical Intelligence", "traj-r2": "Health Insurance Operator", "traj-r3": "Digital Insurer",
-    "traj-p1": "Pediatrics", "traj-p2": "Neonatal ICU", "traj-p3": "Rehabilitation", "traj-p4": "Clinical & Home Care",
-    "pub-label": "Scientific output", "pub-title-1": "Research that", "pub-title-2": "has already been published.",
-    "pub-body": "Our work isn't only methodological — it's also authorial. We know the editorial process from the inside because we've already been through it.",
-    "pub-group1": "Articles in indexed journals", "pub-group2": "Book chapters & proceedings", "pub-group3": "Awards & distinctions",
-    "pub-citation": "citation",
-    "award1-title": "Best Poster — 1st SouthStat Meeting", "award1-org": "Brazilian Statistical Society · 2023",
-    "award2-title": "Best Posters — IC Technical Panel Session", "award2-org": "XXXVIII Brazilian Congress on Applied & Computational Mathematics · 2018",
-    "scope-label": "Scope", "scope-title-1": "Three ways to", "scope-title-2": "work together",
-    "scope-body": "From a focused engagement to full end-to-end support through publication. Scope is defined case by case, according to your project and research stage.",
-    "sc1-badge": "Focused", "sc1-name": "Specific Analysis", "sc1-desc": "For those who need to solve a well-defined methodological problem — one analysis, one model, one section.",
-    "sc1-a1": "Execution of a jointly defined analysis", "sc1-a2": "Documented R or Python code", "sc1-a3": "Results interpretation", "sc1-a4": "One round of revision and adjustments",
-    "sc-btn1": "Request",
-    "sc2-badge": "Full", "sc2-name": "End-to-End", "sc2-desc": "Full project accompaniment — from methodological design through journal submission.",
-    "sc2-a1": "Study design and variable mapping", "sc2-a2": "Database construction and curation", "sc2-a3": "All statistical analyses and simulations",
-    "sc2-a4": "Publication-ready scientific figures", "sc2-a5": "Methods and Results section review", "sc2-a6": "Reviewer round support", "sc2-a7": "Co-authorship on publication (ICMJE criteria)",
-    "sc-btn2": "Request proposal",
-    "sc3-badge": "Custom", "sc3-name": "Custom Project", "sc3-desc": "For projects with complex databases, multiple objectives, or advanced causal inference approaches.",
-    "sc3-a1": "Administrative databases (SUS, Techtrials)", "sc3-a2": "Multiple articles or outcomes", "sc3-a3": "Causal inference, advanced matching",
-    "sc3-a4": "Machine learning applied to clinical data", "sc3-a5": "Scope and timeline defined at diagnostic",
-    "sc-btn3": "Schedule diagnostic",
-    "trust-label": "Testimonials", "trust-title-1": "What", "trust-title-2": "researchers", "trust-title-3": "who worked", "trust-title-4": "with us say.",
-    "dep1-text": "Rafael joined the project when I already had data in hand but was stuck on the methodology. Beyond executing the full epidemiological analysis, he helped me understand every decision — which was crucial for defending the methods before the committee.",
-    "dep1-role-title": "PhD candidate", "dep1-role": "Research on psoriasis and psoriatic arthritis · Health administrative data",
-    "dep2-text": "I needed survival analyses for a complex clinical case series. The work was delivered with clean code, publication-ready figures, and an explanation I was able to replicate on my own.",
-    "dep2-author": "Anonymous researcher", "dep2-role": "Master's in Medicine · UFPR",
-    "dep3-text": "The clarity of scope and communication gave me confidence from the start. I always knew exactly what was being done and why each methodological choice was made.",
-    "dep3-author": "Anonymous researcher", "dep3-role": "PhD · Clinical Epidemiology",
-    "cta-label": "Next step", "cta-title-1": "Ready to move your", "cta-title-2": "research", "cta-title-3": "forward?",
-    "cta-sub": "Send a message with your project context — available data, outcome of interest, and timeline. We offer a free initial diagnostic and send a detailed proposal within 48 hours.",
-    "cta-whatsapp": "WhatsApp — talk now", "cta-email": "Send email →", "cta-connect": "Connect also:",
-    "meta-title": "Statistictune — Statistical Consulting for Health Research",
-    "meta-desc": "End-to-end statistical consulting for undergraduate, master's, and doctoral health researchers. Rigorous analyses, publication-ready figures, and support through indexed journal acceptance."
-  }
-};
-
-let currentLang = 'pt';
-
-function setLang(lang) {
-  currentLang = lang;
-  const strings = i18n[lang];
-
-  document.getElementById('html-root').lang = lang === 'pt' ? 'pt-BR' : 'en';
-  document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-
-  document.title = strings['meta-title'];
-  document.getElementById('meta-title').content = strings['meta-title'];
-  document.getElementById('meta-desc').content = strings['meta-desc'];
-  document.getElementById('og-title').content = strings['meta-title'];
-  document.getElementById('og-desc').content = strings['meta-desc'];
-  document.getElementById('tw-title').content = strings['meta-title'];
-  document.getElementById('tw-desc').content = strings['meta-desc'];
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (strings[key] !== undefined) {
-      el.innerHTML = strings[key];
-    }
-  });
-
-  localStorage.setItem('lang', lang);
-}
-
-(function() {
-  const saved = localStorage.getItem('lang');
-  const browser = navigator.language || navigator.userLanguage;
-  const detected = saved || (browser && browser.startsWith('en') ? 'en' : 'pt');
-  if (detected === 'en') setLang('en');
-})();
-
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
-      const idx = siblings.indexOf(entry.target);
-      setTimeout(() => entry.target.classList.add('visible'), idx * 80);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
-
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
-});
-</script>
+<!-- ✅ JS compartilhado -->
+<script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Statistictune</title>
+
+<meta name="description" content="Artigos sobre bioestatística, análise de sobrevivência, dados do SUS e metodologia para pesquisa em saúde.">
+<meta name="author" content="Rafael Aguilar Magalhães">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/blog/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://statistictune.com.br/blog/">
+<meta property="og:title" content="Blog — Statistictune">
+<meta property="og:description" content="Artigos sobre bioestatística, análise de sobrevivência, dados do SUS e metodologia para pesquisa em saúde.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-VSWKF5XT2K');
+</script>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<style>
+  .blog-hero {
+    padding: 160px 80px 80px;
+    background: var(--ink);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-hero::before {
+    content: 'Blog';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .blog-hero .section-label { color: var(--gold); }
+  .blog-hero .section-label::after { background: rgba(201,168,76,0.3); }
+  .blog-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+  .blog-hero-title em { color: var(--gold-light); font-style: italic; }
+  .blog-hero-intro {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* ── Tag filter ── */
+  .blog-controls {
+    padding: 40px 80px 0;
+    background: var(--cream-dark);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 65px;
+    z-index: 50;
+  }
+  .tag-btn {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 16px;
+  }
+  .tag-btn:hover { opacity: 0.8; border-color: var(--teal); }
+  .tag-btn.active { background: var(--ink); color: var(--cream); opacity: 1; border-color: var(--ink); }
+
+  /* ── Post grid ── */
+  .blog-grid-section { padding: 80px; background: var(--cream); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .post-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 3px;
+    background: var(--teal);
+    transition: width 0.4s ease;
+  }
+  .post-card:hover { box-shadow: 0 8px 40px rgba(26,26,46,0.08); transform: translateY(-2px); }
+  .post-card:hover::before { width: 100%; }
+
+  /* Post com imagem de destaque */
+  .post-card.has-cover { padding: 0; }
+  .post-card.has-cover .post-cover {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+  }
+  .post-card.has-cover .post-body { padding: 32px 36px 40px; }
+
+  .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .post-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid rgba(27,107,123,0.25);
+    padding: 3px 10px;
+    background: rgba(27,107,123,0.04);
+  }
+  .post-date { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 14px; }
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .post-excerpt { font-size: 0.83rem; line-height: 1.65; color: var(--text-muted); font-weight: 300; margin-bottom: 28px; }
+  .post-footer { display: flex; align-items: center; justify-content: space-between; }
+  .post-author { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; }
+  .post-read-more {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .post-read-more:hover { border-color: var(--teal); }
+
+  /* Card em destaque (featured) — ocupa 2 colunas */
+  .post-card.featured {
+    grid-column: span 2;
+    background: var(--ink);
+    color: var(--cream);
+    border-color: transparent;
+  }
+  .post-card.featured::before { background: var(--gold); }
+  .post-card.featured .post-tag { color: var(--gold-light); border-color: rgba(232,201,122,0.3); background: rgba(232,201,122,0.06); }
+  .post-card.featured .post-date { color: rgba(245,240,232,0.35); }
+  .post-card.featured .post-title { color: var(--cream); font-size: 1.6rem; }
+  .post-card.featured .post-excerpt { color: rgba(245,240,232,0.55); }
+  .post-card.featured .post-author { color: rgba(245,240,232,0.35); }
+  .post-card.featured .post-read-more { color: var(--gold-light); }
+  .post-card.featured .post-read-more:hover { border-color: var(--gold-light); }
+
+  /* Estado vazio */
+  .no-posts { grid-column: 1/-1; text-align: center; padding: 80px 20px; color: var(--text-muted); font-style: italic; }
+
+  @media (max-width: 1100px) {
+    .blog-hero { padding: 140px 40px 60px; }
+    .blog-controls { padding: 32px 40px 0; top: 58px; }
+    .blog-grid-section { padding: 60px 40px; }
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .post-card.featured { grid-column: span 2; }
+  }
+  @media (max-width: 700px) {
+    .blog-hero { padding: 120px 20px 48px; }
+    .blog-controls { padding: 24px 20px 0; }
+    .blog-grid-section { padding: 40px 20px; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .post-card.featured { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="/#servicos" data-i18n="nav-services">Serviços</a></li>
+    <li><a href="/#processo" data-i18n="nav-process">Processo</a></li>
+    <li><a href="/#sobre" data-i18n="nav-team">Equipe</a></li>
+    <li><a href="/#publicacoes" data-i18n="nav-publications">Publicações</a></li>
+    <li><a href="/blog/" class="active" data-i18n="nav-blog">Blog</a></li>
+    <li>
+      <div class="lang-toggle" role="group" aria-label="Language selector">
+        <button class="lang-btn active" id="btn-pt" onclick="setLangBlog('pt')">PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLangBlog('en')">EN</button>
+      </div>
+    </li>
+    <li><a href="/#contato" class="nav-cta" data-i18n="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<section class="blog-hero">
+  <div class="section-label" data-i18n="blog-label">Blog</div>
+  <h1 class="blog-hero-title">
+    <span data-i18n="blog-title-1">Bioestatística</span><br>
+    <em data-i18n="blog-title-2">na prática.</em>
+  </h1>
+  <p class="blog-hero-intro" data-i18n="blog-intro">
+    Artigos sobre análise de sobrevivência, bioestatística aplicada, dados do SUS e metodologia para pesquisa em saúde.
+  </p>
+</section>
+
+<div class="blog-controls" id="blog-controls">
+  </div>
+
+<section class="blog-grid-section">
+  <div class="blog-grid" id="blog-grid"></div>
+</section>
+
+<footer>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="/#servicos" data-i18n="nav-services">Serviços</a>
+    <a href="/#sobre" data-i18n="nav-team">Equipe</a>
+    <a href="/#publicacoes" data-i18n="nav-publications">Publicações</a>
+    <a href="/blog/" data-i18n="nav-blog">Blog</a>
+    <a href="/#contato" data-i18n="nav-cta-plain">Contato</a>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+
+<script>
+/* ══════════════════════════════════════════════
+   POSTS — Estrutura unificada e internacionalizada
+   ══════════════════════════════════════════════ */
+const POSTS = [
+  {
+    id_pt:    "pt/introducao-analise-sobrevivencia",
+    id_en:    "en/introduction-survival-analysis",
+    title_pt: "Introdução à Análise de Sobrevivência: do conceito ao Kaplan-Meier",
+    title_en: "Introduction to Survival Analysis: from concept to Kaplan-Meier",
+    excerpt_pt: "O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo.",
+    excerpt_en: "What is censoring, why time-to-event data requires special methods, and how to interpret a Kaplan-Meier curve step by step.",
+    date_pt:  "28 Mai 2026",
+    date_en:  "May 28, 2026",
+    author:   "Rafael Aguilar Magalhães",
+    tags_pt:  ["Sobrevivência", "Kaplan-Meier", "Introdução"],
+    tags_en:  ["Survival Analysis", "Kaplan-Meier", "Introduction"],
+    featured: true,
+    cover:    null
+  }
+  // },
+  // {
+  //   id_pt:    "pt/cox-proporcional-hazards",
+  //   id_en:    "en/cox-proportional-hazards",
+  //   title_pt: "Modelo de Cox: quando usar e como verificar o pressuposto de proporcionalidade",
+  //   title_en: "Cox Model: when to use it and how to verify the proportionality assumption",
+  //   excerpt_pt: "Guia prático para aplicar o modelo de Cox em dados clínicos, testar PH e interpretar os hazard ratios corretamente.",
+  //   excerpt_en: "A practical guide to applying the Cox model to clinical data, testing PH, and correctly interpreting hazard ratios.",
+  //   date_pt:  "15 Mai 2026",
+  //   date_en:  "May 15, 2026",
+  //   author:   "Rafael Aguilar Magalhães",
+  //   tags_pt:  ["Sobrevivência", "Cox", "Modelagem"],
+  //   tags_en:  ["Survival Analysis", "Cox", "Modeling"],
+  //   featured: false,
+  //   cover:    null
+  // },
+  // {
+  //   id_pt:    "pt/propensity-score-matching",
+  //   id_en:    "en/propensity-score-matching",
+  //   title_pt: "Propensity Score Matching: controlando confundimento em estudos observacionais",
+  //   title_en: "Propensity Score Matching: controlling confounding in observational studies",
+  //   excerpt_pt: "Como estimar o PSM, verificar o balanço de covariáveis e reportar os resultados de acordo com o checklist STROBE.",
+  //   excerpt_en: "How to estimate PSM, verify covariate balance, and report results according to the STROBE checklist.",
+  //   date_pt:  "02 Mai 2026",
+  //   date_en:  "May 02, 2026",
+  //   author:   "Rafael Aguilar Magalhães",
+  //   tags_pt:  ["PSM", "Causalidade", "Dados SUS"],
+  //   tags_en:  ["PSM", "Causality", "SUS Data"],
+  //   featured: false,
+  //   cover:    null
+  // }
+];
+
+// Estado global do filtro de tags ativo
+let activeTagFilter = null;
+
+/* ── Render engine ──────────────────────────── */
+function renderBlog() {
+  const grid = document.getElementById('blog-grid');
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'pt';
+  const isEn = lang === 'en';
+
+  // Filtra de acordo com o idioma e a tag ativa
+  const filtered = activeTagFilter
+    ? POSTS.filter(p => {
+        const tags = isEn ? p.tags_en : p.tags_pt;
+        return tags.includes(activeTagFilter);
+      })
+    : POSTS;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<p class="no-posts">${isEn ? 'No articles found for this category.' : 'Nenhum artigo encontrado para esta categoria.'}</p>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(post => {
+    const title    = isEn ? post.title_en   : post.title_pt;
+    const excerpt  = isEn ? post.excerpt_en : post.excerpt_pt;
+    const date     = isEn ? post.date_en    : post.date_pt;
+    const postId   = isEn ? post.id_en      : post.id_pt;
+    const tags     = isEn ? post.tags_en    : post.tags_pt;
+    const readMore = isEn ? 'Read article →' : 'Ler artigo →';
+
+    const tagsHTML = tags.map(t => `<span class="post-tag">${t}</span>`).join('');
+    const coverHTML = post.cover ? `<img class="post-cover" src="${post.cover}" alt="${title}" loading="lazy">` : '';
+    const bodyClass = post.cover ? 'post-body' : '';
+    
+    const cardClass = [
+      'post-card reveal',
+      post.featured ? 'featured' : '',
+      post.cover    ? 'has-cover' : ''
+    ].filter(Boolean).join(' ');
+
+    return `
+    <article class="${cardClass}">
+      ${coverHTML}
+      <div class="${bodyClass}" style="${post.cover ? '' : 'flex:1;display:flex;flex-direction:column;'}">
+        <div class="post-tags">${tagsHTML}</div>
+        <div class="post-date">${date}</div>
+        <h2 class="post-title">${title}</h2>
+        <p class="post-excerpt">${excerpt}</p>
+        <div class="post-footer">
+          <span class="post-author">${post.author}</span>
+          <a href="posts/${postId}.html" class="post-read-more">${readMore}</a>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+
+  // Reativa o scroll reveal observer do main.js, caso exista
+  if (typeof revealObserver !== 'undefined' && revealObserver.observe) {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+  }
+}
+
+function buildTagFilter() {
+  const controls = document.getElementById('blog-controls');
+  const lang     = (typeof currentLang !== 'undefined') ? currentLang : 'pt';
+  const isEn     = lang === 'en';
+  const allLabel = isEn ? 'All' : 'Todos';
+
+  // Captura as tags únicas baseadas no idioma ativo
+  const allTags  = [...new Set(POSTS.flatMap(p => isEn ? p.tags_en : p.tags_pt))];
+
+  // Se a tag anteriormente selecionada não existir no novo idioma, reseta o filtro
+  if (activeTagFilter && !allTags.includes(activeTagFilter)) {
+    activeTagFilter = null;
+  }
+
+  const buttons = [
+    `<button class="tag-btn ${!activeTagFilter ? 'active' : ''}" onclick="filterBy(null, this)">${allLabel}</button>`,
+    ...allTags.map(tag =>
+      `<button class="tag-btn ${activeTagFilter === tag ? 'active' : ''}" onclick="filterBy('${tag}', this)">${tag}</button>`
+    )
+  ];
+  controls.innerHTML = buttons.join('');
+}
+
+function filterBy(tag, btn) {
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeTagFilter = tag;
+  renderBlog();
+}
+
+// Handler de internacionalização adaptado para o fluxo do blog
+function setLangBlog(lang) {
+  if (typeof setLang === 'function') {
+    setLang(lang); // Executa a função global de tradução do main.js
+  } else {
+    window.currentLang = lang;
+  }
+  
+  // Atualiza controles visuais da navbar, caso existam
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `btn-${lang}`);
+  });
+  
+  buildTagFilter();
+  renderBlog();
+}
+
+// Inicialização da página
+document.addEventListener('DOMContentLoaded', () => {
+  buildTagFilter();
+  renderBlog();
+});
+</script>
+</body>
+</html>

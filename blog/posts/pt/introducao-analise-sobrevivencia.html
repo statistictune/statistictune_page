@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introdução à Análise de Sobrevivência: do conceito ao Kaplan-Meier — Statistictune Blog</title>
+
+<meta name="description" content="O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo.">
+<meta name="author" content="Rafael Aguilar Magalhães">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/blog/posts/introducao-analise-sobrevivencia.html">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://statistictune.com.br/blog/posts/introducao-analise-sobrevivencia.html">
+<meta property="og:title" content="Introdução à Análise de Sobrevivência: do conceito ao Kaplan-Meier">
+<meta property="og:description" content="O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+<meta property="article:published_time" content="2026-05-28">
+<meta property="article:author" content="Rafael Aguilar Magalhães">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-VSWKF5XT2K');
+</script>
+
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<style>
+  .post-header {
+    padding: 160px 80px 64px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .post-header .section-label { color: var(--gold); }
+  .post-header .section-label::after { background: rgba(201,168,76,0.3); }
+  .post-meta-line {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 28px; font-size: 0.78rem;
+    color: rgba(245,240,232,0.4); font-weight: 300;
+  }
+  .post-meta-line .sep { color: rgba(245,240,232,0.2); }
+  .post-tags-header { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .post-tag-h {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold-light);
+    border: 1px solid rgba(232,201,122,0.3); padding: 3px 10px;
+  }
+  .post-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--cream); max-width: 840px; margin-bottom: 24px;
+  }
+  .post-headline em { font-style: italic; color: var(--gold-light); }
+  .post-lead {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(245,240,232,0.65); font-weight: 300; max-width: 680px;
+  }
+
+  .post-body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 680px 1fr;
+    background: var(--cream);
+    padding: 80px 0;
+  }
+  .post-content { grid-column: 2; min-width: 0; }
+
+  .post-content h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.7rem;
+    font-weight: 800; line-height: 1.2; letter-spacing: -0.02em;
+    color: var(--ink); margin: 56px 0 20px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .post-content h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    font-weight: 700; color: var(--ink); margin: 36px 0 14px;
+  }
+  .post-content p {
+    font-size: 1rem; line-height: 1.85;
+    color: var(--ink-light); font-weight: 300; margin-bottom: 24px;
+  }
+  .post-content strong { font-weight: 500; color: var(--ink); }
+  .post-content em { font-style: italic; }
+
+  .post-content pre {
+    background: var(--ink); color: var(--cream);
+    padding: 24px 28px; font-family: 'DM Mono', monospace;
+    font-size: 0.82rem; line-height: 1.7; overflow-x: auto;
+    margin: 32px 0; border-left: 3px solid var(--teal);
+  }
+  .post-content code {
+    font-family: 'DM Mono', monospace; font-size: 0.85em;
+    background: var(--cream-dark); color: var(--teal);
+    padding: 2px 6px; border-radius: 2px;
+  }
+  .post-content pre code { background: none; color: var(--cream); padding: 0; font-size: 1em; }
+
+  .formula-block {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-left: 3px solid var(--gold); padding: 20px 24px;
+    font-family: 'DM Mono', monospace; font-size: 0.9rem;
+    margin: 32px 0; color: var(--ink); overflow-x: auto;
+  }
+  .formula-block .note {
+    font-size: 0.75rem; color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif; margin-top: 8px; font-style: italic;
+  }
+
+  .post-content blockquote {
+    border-left: 3px solid var(--teal); padding: 16px 24px;
+    margin: 32px 0; background: rgba(27,107,123,0.04);
+  }
+  .post-content blockquote p { color: var(--teal); font-size: 0.95rem; margin: 0; }
+
+  .callout {
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3);
+    border-left: 3px solid var(--gold); padding: 20px 24px;
+    margin: 32px 0; font-size: 0.88rem; color: var(--ink-light); line-height: 1.65;
+  }
+  .callout strong { color: var(--ink); }
+
+  .post-content ul, .post-content ol { padding-left: 24px; margin-bottom: 24px; }
+  .post-content li {
+    font-size: 1rem; line-height: 1.75;
+    color: var(--ink-light); font-weight: 300; margin-bottom: 6px;
+  }
+
+  .post-content figure { margin: 40px 0; }
+  .post-content figure img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+  .post-content figcaption {
+    font-size: 0.78rem; color: var(--text-muted); font-style: italic;
+    margin-top: 10px; text-align: center; font-weight: 300;
+  }
+
+  .post-cta {
+    grid-column: 2; margin-top: 80px; padding-top: 48px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .post-cta-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+  .post-cta-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.25; }
+  .post-cta-text em { color: var(--teal); font-style: italic; }
+  .post-cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 1100px) {
+    .post-header { padding: 140px 40px 48px; }
+    .post-body-wrapper { grid-template-columns: 40px 1fr 40px; }
+  }
+  @media (max-width: 700px) {
+    .post-header { padding: 120px 20px 40px; }
+    .post-body-wrapper { grid-template-columns: 20px 1fr 20px; padding: 48px 0; }
+    .post-headline { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="/#servicos" data-i18n="nav-services">Serviços</a></li>
+    <li><a href="/#processo" data-i18n="nav-process">Processo</a></li>
+    <li><a href="/#sobre" data-i18n="nav-team">Equipe</a></li>
+    <li><a href="/#publicacoes" data-i18n="nav-publications">Publicações</a></li>
+    <li><a href="/blog/" class="active" data-i18n="nav-blog">Blog</a></li>
+    <li>
+      <div class="lang-toggle" role="group">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+    <li><a href="/#contato" class="nav-cta" data-i18n="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<header class="post-header">
+  <div class="post-tags-header">
+    <span class="post-tag-h">Sobrevivência</span>
+    <span class="post-tag-h">Kaplan-Meier</span>
+    <span class="post-tag-h">Introdução</span>
+  </div>
+  <div class="post-meta-line">
+    <span>28 Mai 2026</span>
+    <span class="sep">·</span>
+    <span>Rafael Aguilar Magalhães</span>
+    <span class="sep">·</span>
+    <span>8 min de leitura</span>
+  </div>
+  <h1 class="post-headline">
+    Introdução à <em>Análise de Sobrevivência:</em><br>
+    do conceito ao Kaplan-Meier
+  </h1>
+  <p class="post-lead">
+    O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo — do zero ao gráfico publicável em R.
+  </p>
+</header>
+
+<div class="post-body-wrapper">
+  <article class="post-content">
+
+    <h2>Por que métodos especiais?</h2>
+    <p>
+      Em estudos clínicos, frequentemente o desfecho de interesse é o <strong>tempo até um evento</strong> — morte, recaída, hospitalização, progressão de doença. O problema central: nem todos os participantes experimentam o evento durante o período de acompanhamento. Alguns saem do estudo voluntariamente, outros são perdidos no seguimento, e outros simplesmente ainda não chegaram ao evento quando a coleta de dados encerrou.
+    </p>
+    <p>
+      Esse fenômeno se chama <strong>censura</strong>. Ignorar pacientes censurados seria desperdiçar informação valiosa — sabemos que eles sobreviveram <em>pelo menos</em> até o momento da censura. Tratá-los como se tivessem experimentado o evento seria introduzir um viés grave na análise. É exatamente para lidar com isso que existem os métodos de análise de sobrevivência.
+    </p>
+
+    <div class="callout">
+      <strong>Definição formal:</strong> Censura à direita ocorre quando o tempo de seguimento de um indivíduo termina antes do evento de interesse ser observado. O valor observado é um limite inferior para o verdadeiro tempo até o evento.
+    </div>
+
+    <h2>A função de sobrevivência</h2>
+    <p>
+      O objeto central da análise de sobrevivência é a <strong>função de sobrevivência S(t)</strong>, que representa a probabilidade de um indivíduo não ter experimentado o evento até o tempo t:
+    </p>
+
+    <div class="formula-block">
+      S(t) = P(T &gt; t) = 1 − F(t)
+      <div class="note">T = variável aleatória representando o tempo até o evento; F(t) = função de distribuição acumulada; S(0) = 1 e S(∞) → 0.</div>
+    </div>
+
+    <p>
+      Note que S(t) é uma função monotonicamente decrescente que começa em 1 (ninguém experimentou o evento no tempo zero) e tende a zero conforme o tempo avança. Na prática, com dados reais e censura, precisamos <em>estimar</em> essa função — e é aí que entra o Kaplan-Meier.
+    </p>
+
+    <h2>O estimador de Kaplan-Meier</h2>
+    <p>
+      Proposto por Edward Kaplan e Paul Meier em 1958, o estimador KM é o método não-paramétrico padrão para estimar S(t) a partir de dados com censura. A ideia central é calcular a probabilidade de sobrevivência como um <strong>produto de probabilidades condicionais</strong>, atualizando o estimador apenas nos instantes em que eventos ocorrem:
+    </p>
+
+    <div class="formula-block">
+      Ŝ(t) = ∏ (1 − dᵢ / nᵢ)
+             t(i) ≤ t
+      <div class="note">dᵢ = número de eventos no tempo t(i); nᵢ = número de indivíduos em risco imediatamente antes de t(i) (inclui censurados que ainda não saíram).</div>
+    </div>
+
+    <p>
+      A elegância do estimador está em como ele trata a censura: indivíduos censurados contribuem para o denominador (estavam em risco) até o momento em que saem, mas não contribuem para o numerador (não experimentaram o evento). Isso preserva toda a informação disponível sem introduzir suposições sobre o que aconteceria depois da censura.
+    </p>
+
+    <h3>Um exemplo numérico simples</h3>
+    <p>
+      Imagine 5 pacientes com os seguintes tempos de seguimento (+ = censurado):
+    </p>
+    <p>
+      <code>2, 3+, 5, 6+, 8</code>
+    </p>
+    <p>
+      Os eventos ocorrem nos tempos 2, 5 e 8. O cálculo do KM seria:
+    </p>
+    <ul>
+      <li><strong>t = 2:</strong> 1 evento, 5 em risco → S(2) = (1 − 1/5) = 0,80</li>
+      <li><strong>t = 5:</strong> 1 evento, 3 em risco (paciente censurado em t=3 saiu) → S(5) = 0,80 × (1 − 1/3) ≈ 0,53</li>
+      <li><strong>t = 8:</strong> 1 evento, 1 em risco → S(8) = 0,53 × (1 − 1/1) = 0,00</li>
+    </ul>
+
+    <h2>Implementação em R</h2>
+    <p>
+      O pacote <code>survival</code> é o padrão para análise de sobrevivência em R. Para visualização, o <code>survminer</code> oferece curvas prontas para publicação com tabela de risco integrada:
+    </p>
+
+    <pre><code>install.packages(c("survival", "survminer"))
+
+library(survival)
+library(survminer)
+
+# Ajustar curva KM estratificada por grupo
+km_fit <- survfit(Surv(time, status) ~ group, data = seu_dataset)
+
+# Resumo com medianas de sobrevivência e IC 95%
+summary(km_fit)
+
+# Visualização publicável
+ggsurvplot(
+  km_fit,
+  data        = seu_dataset,
+  pval        = TRUE,          # p-valor do log-rank
+  conf.int    = TRUE,          # intervalo de confiança 95%
+  risk.table  = TRUE,          # tabela de n em risco
+  palette     = c("#1B6B7B", "#C9A84C"),
+  xlab        = "Tempo (dias)",
+  ylab        = "Probabilidade de sobrevivência",
+  legend.labs = c("Grupo A", "Grupo B"),
+  ggtheme     = theme_minimal()
+)</code></pre>
+
+    <h2>Como ler a curva</h2>
+    <p>
+      Ao interpretar uma curva de Kaplan-Meier, atenção a quatro elementos:
+    </p>
+    <ul>
+      <li><strong>Mediana de sobrevivência:</strong> tempo em que S(t) = 0,5 — ou seja, metade dos indivíduos ainda não experimentou o evento. É preferível à média por ser robusta à censura.</li>
+      <li><strong>Intervalo de confiança:</strong> as bandas ao redor da curva. Alargam-se com o tempo porque há menos indivíduos em risco — as estimativas ficam menos precisas.</li>
+      <li><strong>Tabela de risco:</strong> mostra quantos indivíduos ainda estavam sendo acompanhados em cada ponto do tempo. Fundamental para avaliar a confiabilidade das estimativas na cauda da curva.</li>
+      <li><strong>Teste log-rank:</strong> compara as curvas entre grupos. Testa H₀: S₁(t) = S₂(t) para todo t. Não assume forma paramétrica, mas é mais sensível a diferenças proporcionais (hazards proporcionais).</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Atenção prática:</strong> Quando a tabela de risco mostra poucos indivíduos (n &lt; 5) na cauda da curva, as estimativas de S(t) naquela região são muito imprecisas. Evite interpretar ou comparar curvas nessa faixa — considere truncar o eixo x no tempo em que ainda há um número razoável de indivíduos em risco.
+    </div>
+
+    <h2>Próximos passos</h2>
+    <p>
+      O Kaplan-Meier é descritivo — estima e visualiza a sobrevivência, mas não ajusta para covariáveis. Para modelagem com múltiplos preditores, o próximo passo natural é o <strong>modelo de Cox</strong>, que estima hazard ratios ajustados mantendo a não-parametricidade da função de sobrevivência de base.
+    </p>
+    <p>
+      Quando há mais de um tipo de evento competindo (ex: morte por causa específica vs. outras causas), o modelo de <strong>Fine-Gray</strong> para riscos competitivos é a abordagem correta — o KM superestima a incidência cumulativa nesses cenários.
+    </p>
+
+    <blockquote>
+      <p>Análise de sobrevivência bem feita começa na coleta: definir o tempo zero, o evento de interesse e o critério de censura com precisão cirúrgica antes de abrir o banco de dados.</p>
+    </blockquote>
+
+  </article>
+
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="/#servicos" data-i18n="nav-services">Serviços</a>
+    <a href="/#sobre" data-i18n="nav-team">Equipe</a>
+    <a href="../">Blog</a>
+    <a href="/#contato" data-i18n="nav-cta-plain">Contato</a>
+  </div>
+</footer>
+
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

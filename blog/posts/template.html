@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+  ════════════════════════════════════════
+  INSTRUÇÕES PARA NOVO POST
+  ════════════════════════════════════════
+  1. Duplique este arquivo
+  2. Renomeie para: slug-do-post.html
+     ex: introducao-kaplan-meier.html
+  3. Preencha os campos marcados com ✏️
+  4. Escreva o conteúdo na seção <article>
+  5. Imagens vão em: blog/assets/img/
+  ════════════════════════════════════════
+-->
+
+<!-- ✏️ TÍTULO DA ABA -->
+<title>Título do Post — Statistictune Blog</title>
+
+<!-- ✏️ META SEO -->
+<meta name="description" content="Descrição do post em ~150 caracteres.">
+<meta name="author" content="Rafael Aguilar Magalhães">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/blog/posts/slug-do-post.html">
+
+<!-- ✏️ OPEN GRAPH -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://statistictune.com.br/blog/posts/slug-do-post.html">
+<meta property="og:title" content="Título do Post — Statistictune Blog">
+<meta property="og:description" content="Descrição do post.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+<!-- Se o post tiver imagem de capa: -->
+<!-- <meta property="og:image" content="https://statistictune.com.br/blog/assets/img/nome-da-imagem.png"> -->
+
+<meta property="article:published_time" content="2026-05-28"><!-- ✏️ DATA -->
+<meta property="article:author" content="Rafael Aguilar Magalhães">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-VSWKF5XT2K');
+</script>
+
+<!-- ✅ CSS compartilhado (sobe dois níveis) -->
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<!-- CSS exclusivo do post -->
+<style>
+
+  /* ── Post header ── */
+  .post-header {
+    padding: 160px 80px 64px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .post-header .section-label { color: var(--gold); }
+  .post-header .section-label::after { background: rgba(201,168,76,0.3); }
+  .post-meta-line {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.4);
+    font-weight: 300;
+  }
+  .post-meta-line .sep { color: rgba(245,240,232,0.2); }
+  .post-tags-header { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .post-tag-h {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid rgba(232,201,122,0.3);
+    padding: 3px 10px;
+  }
+  .post-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    max-width: 840px;
+    margin-bottom: 24px;
+  }
+  .post-headline em { font-style: italic; color: var(--gold-light); }
+  .post-lead {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.65);
+    font-weight: 300;
+    max-width: 680px;
+  }
+
+  /* ── Cover image ── */
+  .post-cover-section {
+    background: var(--cream-dark);
+    padding: 0;
+    line-height: 0;
+  }
+  .post-cover-img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Post body layout ── */
+  .post-body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 680px 1fr;
+    gap: 0;
+    background: var(--cream);
+    padding: 80px 0;
+  }
+  .post-content {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  /* ── Typography for article content ── */
+  .post-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 56px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 36px 0 14px;
+  }
+  .post-content p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink-light);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .post-content strong { font-weight: 500; color: var(--ink); }
+  .post-content em { font-style: italic; }
+
+  /* Code blocks */
+  .post-content pre {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 24px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 32px 0;
+    border-left: 3px solid var(--teal);
+  }
+  .post-content code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85em;
+    background: var(--cream-dark);
+    color: var(--teal);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .post-content pre code { background: none; color: var(--cream); padding: 0; font-size: 1em; }
+
+  /* Math / formula highlight */
+  .post-content .formula-block {
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    margin: 32px 0;
+    color: var(--ink);
+    overflow-x: auto;
+  }
+  .post-content .formula-block .note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* Blockquote / callout */
+  .post-content blockquote {
+    border-left: 3px solid var(--teal);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: rgba(27,107,123,0.04);
+  }
+  .post-content blockquote p { color: var(--teal); font-size: 0.95rem; margin: 0; }
+
+  /* Callout box */
+  .callout {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.65;
+  }
+  .callout strong { color: var(--ink); }
+
+  /* Images inside post */
+  .post-content figure {
+    margin: 40px 0;
+  }
+  .post-content figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+  }
+  .post-content figcaption {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 300;
+  }
+
+  /* Lists */
+  .post-content ul, .post-content ol {
+    padding-left: 24px;
+    margin-bottom: 24px;
+  }
+  .post-content li {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--ink-light);
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  /* ── Post footer / CTA ── */
+  .post-cta {
+    grid-column: 2;
+    margin-top: 80px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .post-cta-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+  .post-cta-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.25; }
+  .post-cta-text em { color: var(--teal); font-style: italic; }
+  .post-cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ── Sidebar / author (opcional — descomente se quiser) ── */
+  /*
+  .post-sidebar {
+    grid-column: 3;
+    padding: 0 40px;
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+  */
+
+  @media (max-width: 1100px) {
+    .post-header { padding: 140px 40px 48px; }
+    .post-body-wrapper { grid-template-columns: 40px 1fr 40px; }
+  }
+  @media (max-width: 700px) {
+    .post-header { padding: 120px 20px 40px; }
+    .post-body-wrapper { grid-template-columns: 20px 1fr 20px; padding: 48px 0; }
+    .post-headline { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="/#servicos" data-i18n="nav-services">Serviços</a></li>
+    <li><a href="/#processo" data-i18n="nav-process">Processo</a></li>
+    <li><a href="/#sobre" data-i18n="nav-team">Equipe</a></li>
+    <li><a href="/#publicacoes" data-i18n="nav-publications">Publicações</a></li>
+    <li><a href="/blog/" class="active" data-i18n="nav-blog">Blog</a></li>
+    <li>
+      <div class="lang-toggle" role="group">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+    <li><a href="/#contato" class="nav-cta" data-i18n="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     CABEÇALHO DO POST
+════════════════════════════════════════════ -->
+<header class="post-header">
+  <!-- ✏️ TAGS -->
+  <div class="post-tags-header">
+    <span class="post-tag-h">Sobrevivência</span>
+    <span class="post-tag-h">Kaplan-Meier</span>
+  </div>
+
+  <!-- ✏️ META: data · autor · tempo de leitura -->
+  <div class="post-meta-line">
+    <span>28 Mai 2026</span>
+    <span class="sep">·</span>
+    <span>Rafael Aguilar Magalhães</span>
+    <span class="sep">·</span>
+    <span>8 min de leitura</span>
+  </div>
+
+  <!-- ✏️ TÍTULO PRINCIPAL -->
+  <h1 class="post-headline">
+    Introdução à <em>Análise de Sobrevivência:</em><br>
+    do conceito ao Kaplan-Meier
+  </h1>
+
+  <!-- ✏️ LEAD (parágrafo de abertura / resumo) -->
+  <p class="post-lead">
+    O que é censura, por que dados de tempo-até-evento precisam de métodos especiais e como interpretar uma curva de Kaplan-Meier passo a passo — do zero ao gráfico publicável em R.
+  </p>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     IMAGEM DE CAPA (opcional)
+     Se não tiver imagem, delete este bloco inteiro
+════════════════════════════════════════════ -->
+<!-- 
+<div class="post-cover-section">
+  <img class="post-cover-img"
+       src="../assets/img/kaplan-meier-intro.png"
+       alt="Curva de Kaplan-Meier de exemplo">
+</div>
+-->
+
+<!-- ═══════════════════════════════════════════
+     CONTEÚDO DO POST
+     Escreva aqui o artigo completo.
+     Use as classes abaixo para formatar:
+       .formula-block  → fórmulas matemáticas
+       .callout        → caixas de destaque/aviso
+       <blockquote>    → citações
+       <figure><img>   → figuras com legenda
+       <pre><code>     → blocos de código R/Python
+════════════════════════════════════════════ -->
+<div class="post-body-wrapper">
+  <article class="post-content">
+
+    <h2>Por que métodos especiais?</h2>
+    <p>
+      Em estudos clínicos, frequentemente o desfecho de interesse é o <strong>tempo até um evento</strong> — morte, recaída, hospitalização, progressão de doença. O problema: nem todos os participantes experimentam o evento durante o período de acompanhamento. Alguns saem do estudo, outros simplesmente não chegaram ao evento quando a coleta encerrou.
+    </p>
+    <p>
+      Esse fenômeno se chama <strong>censura</strong>. Ignorar pacientes censurados seria desperdiçar informação valiosa; tratá-los como se tivessem experimentado o evento seria mentira estatística. É exatamente para isso que existem os métodos de análise de sobrevivência.
+    </p>
+
+    <!-- Exemplo de fórmula -->
+    <div class="formula-block">
+      S(t) = P(T &gt; t) = 1 − F(t)
+      <div class="note">S(t) = função de sobrevivência; T = tempo até o evento; F(t) = função de distribuição acumulada.</div>
+    </div>
+
+    <h2>O estimador de Kaplan-Meier</h2>
+    <p>
+      O estimador de Kaplan-Meier (KM) é o método não-paramétrico padrão para estimar a função de sobrevivência a partir de dados com censura. A ideia central é atualizar a probabilidade de sobrevivência apenas nos <strong>tempos em que eventos ocorrem</strong>, ignorando os instantes de censura.
+    </p>
+
+    <!-- Exemplo de callout -->
+    <div class="callout">
+      <strong>Atenção:</strong> O estimador KM assume que a censura é <em>não-informativa</em> — ou seja, o fato de um paciente sair do estudo não deve estar relacionado ao seu prognóstico. Violar essa suposição invalida a estimativa.
+    </div>
+
+    <!-- Exemplo de código R -->
+    <pre><code># Instalar se necessário
+# install.packages("survival")
+# install.packages("survminer")
+
+library(survival)
+library(survminer)
+
+# Ajustar curva KM
+km_fit &lt;- survfit(Surv(time, status) ~ group, data = seu_dataset)
+
+# Visualizar
+ggsurvplot(km_fit,
+           data       = seu_dataset,
+           pval       = TRUE,
+           conf.int   = TRUE,
+           risk.table = TRUE,
+           palette    = c("#1B6B7B", "#C9A84C"),
+           xlab       = "Tempo (dias)",
+           ylab       = "Probabilidade de sobrevivência")</code></pre>
+
+    <!-- Exemplo de figura -->
+    <!--
+    <figure>
+      <img src="../assets/img/km-curve-example.png" alt="Curva de Kaplan-Meier com intervalo de confiança 95%">
+      <figcaption>Figura 1. Curva de Kaplan-Meier estratificada por grupo de tratamento. Bandas representam IC 95% por método de Greenwood. Log-rank p &lt; 0.05.</figcaption>
+    </figure>
+    -->
+
+    <h2>Como interpretar a curva</h2>
+    <p>
+      ✏️ <em>Continue o conteúdo do post aqui...</em>
+    </p>
+
+  </article>
+
+  <!-- ═══════════════════════════════════════════
+       CTA NO RODAPÉ DO POST
+  ════════════════════════════════════════════ -->
+  <div class="post-cta">
+    <span class="post-cta-label">Precisando de ajuda com análise?</span>
+    <p class="post-cta-text">
+      Aplicamos esses métodos em <em>projetos reais.</em><br>
+      Fale com a gente.
+    </p>
+    <div class="post-cta-actions">
+      <a href="https://wa.me/5541998194868" class="btn-primary" target="_blank">WhatsApp — falar agora</a>
+      <a href="/blog/" class="btn-ghost">← Voltar ao blog</a>
+    </div>
+  </div>
+
+</div><!-- end post-body-wrapper -->
+
+<footer>
+  <a href="/" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="/#servicos" data-i18n="nav-services">Serviços</a>
+    <a href="/#sobre" data-i18n="nav-team">Equipe</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contato" data-i18n="nav-cta-plain">Contato</a>
+  </div>
+</footer>
+
+<!-- ✅ JS compartilhado (sobe dois níveis) -->
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
