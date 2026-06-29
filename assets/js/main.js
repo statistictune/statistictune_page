@@ -8,6 +8,7 @@ const i18n = {
   pt: {
     "nav-services": "Serviços", "nav-process": "Processo", "nav-team": "Equipe",
     "nav-publications": "Publicações", "nav-scope": "Escopo", "nav-blog": "Blog",
+    "nav-tools": "Ferramentas",
     "nav-cta": "Falar agora", "nav-cta-plain": "Contato",
     "hero-eyebrow": "Consultoria Estatística para Saúde",
     "hero-title-1": "Do dado bruto", "hero-title-2": "ao <em>artigo</em>", "hero-title-3": "publicado.",
@@ -80,11 +81,15 @@ const i18n = {
     "meta-desc": "Consultoria estatística ponta a ponta para graduandos, mestrandos e doutorandos da área da saúde.",
     "blog-label": "Blog", "blog-title-1": "Bioestatística", "blog-title-2": "na prática.",
     "blog-intro": "Artigos sobre análise de sobrevivência, bioestatística aplicada, dados do SUS e metodologia para pesquisa em saúde.",
-    "blog-read-more": "Ler artigo →", "blog-all-tags": "Todos"
+    "blog-read-more": "Ler artigo →", "blog-all-tags": "Todos",
+    "tools-label": "Ferramentas gratuitas",
+    "tools-title-1": "Calculadora de", "tools-title-2": "tamanho amostral",
+    "tools-intro": "Epidemiológica — suporte a estudos de coorte, caso-controle, transversal, sobrevivência (log-rank / HR) e ensaios clínicos randomizados."
   },
   en: {
     "nav-services": "Services", "nav-process": "Process", "nav-team": "Team",
     "nav-publications": "Publications", "nav-scope": "Scope", "nav-blog": "Blog",
+    "nav-tools": "Tools",
     "nav-cta": "Get in touch", "nav-cta-plain": "Contact",
     "hero-eyebrow": "Statistical Consulting for Health Research",
     "hero-title-1": "From raw data", "hero-title-2": "to the <em>published</em>", "hero-title-3": "article.",
@@ -157,7 +162,10 @@ const i18n = {
     "meta-desc": "End-to-end statistical consulting for health researchers.",
     "blog-label": "Blog", "blog-title-1": "Biostatistics", "blog-title-2": "in practice.",
     "blog-intro": "Articles on survival analysis, applied biostatistics, SUS data, and methodology for health research.",
-    "blog-read-more": "Read article →", "blog-all-tags": "All"
+    "blog-read-more": "Read article →", "blog-all-tags": "All",
+    "tools-label": "Free tools",
+    "tools-title-1": "Sample size", "tools-title-2": "calculator",
+    "tools-intro": "Epidemiological — supports cohort, case-control, cross-sectional, survival (log-rank / HR), and randomized clinical trial studies."
   }
 };
 
