@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentas — Statistictune</title>
+
+<meta name="description" content="Calculadora de tamanho amostral epidemiológica para estudos de coorte, caso-controle, transversal, sobrevivência (log-rank/HR) e ensaios clínicos randomizados.">
+<meta name="author" content="Rafael Aguilar Magalhães">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://statistictune.com.br/ferramentas/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://statistictune.com.br/ferramentas/">
+<meta property="og:title" content="Ferramentas — Statistictune">
+<meta property="og:description" content="Calculadora de tamanho amostral epidemiológica para coorte, caso-controle, transversal, sobrevivência e ensaios clínicos.">
+<meta property="og:image" content="https://statistictune.com.br/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ferramentas — Statistictune">
+<meta name="twitter:description" content="Calculadora de tamanho amostral epidemiológica para coorte, caso-controle, transversal, sobrevivência e ensaios clínicos.">
+<meta name="twitter:image" content="https://statistictune.com.br/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VSWKF5XT2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); gtag('config', 'G-VSWKF5XT2K');
+</script>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<style>
+  /* ── CSS vars para o widget da calculadora ── */
+  :root {
+    --bg-accent:       rgba(27,107,123,0.07);
+    --text-accent:     #1B6B7B;
+    --border-accent:   rgba(27,107,123,0.3);
+    --fill-accent:     #1B6B7B;
+    --fill-accent-hover: #145969;
+    --on-accent:       #fff;
+    --surface-1:       #fff;
+    --surface-2:       #EDE7D9;
+    --border-strong:   rgba(26,26,46,0.22);
+    --text-primary:    #1A1A2E;
+    --text-secondary:  #2E2E4A;
+    --font-sans:       'DM Sans', sans-serif;
+    --font-mono:       'DM Mono', monospace;
+    --radius:          8px;
+    --bg-success:      rgba(27,107,123,0.07);
+    --border-success:  rgba(27,107,123,0.25);
+    --text-success:    #1B6B7B;
+    --bg-warning:      rgba(201,168,76,0.09);
+    --border-warning:  rgba(201,168,76,0.4);
+    --text-warning:    #7a5c10;
+  }
+
+  /* ── Hero ── */
+  .tools-hero {
+    padding: 140px 80px 60px;
+    background: var(--ink);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .tools-hero::before {
+    content: 'n =';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw;
+    font-weight: 800;
+    color: rgba(255,255,255,0.025);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .tools-hero .section-label { color: var(--gold); }
+  .tools-hero .section-label::after { background: rgba(201,168,76,0.3); }
+  .tools-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .tools-hero-title em { color: var(--gold-light); font-style: italic; }
+  .tools-hero-intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* ── Widget container ── */
+  .tools-section {
+    padding: 60px 80px 100px;
+    background: var(--cream-dark);
+    display: flex;
+    justify-content: center;
+  }
+  .tools-widget-wrap {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  /* ═══════════════════════════════════════════
+     Estilos da calculadora (scope: .tools-widget-wrap)
+     ═══════════════════════════════════════════ */
+  .tools-widget-wrap .wrap{padding:1.5rem 0 2.5rem;max-width:680px}
+  .tools-widget-wrap .brand-bar{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+  .tools-widget-wrap .brand-logo{width:26px;height:26px;background:var(--bg-accent);border-radius:6px;display:flex;align-items:center;justify-content:center}
+  .tools-widget-wrap .brand-logo i{color:var(--text-accent);font-size:14px}
+  .tools-widget-wrap .brand-name{font-size:12px;font-weight:500;color:var(--text-secondary);letter-spacing:.05em;text-transform:uppercase}
+  .tools-widget-wrap .brand-sep{color:var(--border-strong);margin:0 3px}
+  .tools-widget-wrap .brand-tool{font-size:12px;color:var(--text-muted)}
+  .tools-widget-wrap .tab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:1.25rem}
+  .tools-widget-wrap .tab-btn{padding:8px 6px;border:.5px solid var(--border);border-radius:var(--radius);background:var(--surface-1);cursor:pointer;text-align:center;font-size:11px;color:var(--text-secondary);font-family:var(--font-sans);line-height:1.3;transition:all .12s}
+  .tools-widget-wrap .tab-btn:hover{background:var(--surface-2);border-color:var(--border-strong);color:var(--text-primary)}
+  .tools-widget-wrap .tab-btn.active{background:var(--bg-accent);border-color:var(--border-accent);color:var(--text-accent);font-weight:500}
+  .tools-widget-wrap .tab-label{display:block;font-size:10px;color:inherit;opacity:.75;margin-top:1px}
+  .tools-widget-wrap .card{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.875rem}
+  .tools-widget-wrap .card-title{font-size:11px;font-weight:500;color:var(--text-secondary);margin-bottom:.875rem;text-transform:uppercase;letter-spacing:.06em}
+  .tools-widget-wrap .field-row{margin-bottom:.875rem}
+  .tools-widget-wrap .field-row:last-child{margin-bottom:0}
+  .tools-widget-wrap .field-label{font-size:12px;color:var(--text-secondary);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center}
+  .tools-widget-wrap .field-label span{font-size:11px;color:var(--text-muted)}
+  .tools-widget-wrap input[type=number]{width:100%;padding:7px 9px;border:.5px solid var(--border);border-radius:var(--radius);background:var(--surface-1);color:var(--text-primary);font-size:13px;font-family:var(--font-mono)}
+  .tools-widget-wrap input[type=number]:focus{outline:none;border-color:var(--border-accent);box-shadow:0 0 0 3px var(--bg-accent)}
+  .tools-widget-wrap select{width:100%;padding:7px 9px;border:.5px solid var(--border);border-radius:var(--radius);background:var(--surface-1);color:var(--text-primary);font-size:13px;font-family:var(--font-sans)}
+  .tools-widget-wrap select:focus{outline:none;border-color:var(--border-accent)}
+  .tools-widget-wrap .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tools-widget-wrap .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .tools-widget-wrap .toggle-row{display:flex;align-items:center;gap:8px;margin-bottom:.875rem;padding:8px 10px;background:var(--surface-1);border:.5px solid var(--border);border-radius:var(--radius)}
+  .tools-widget-wrap .toggle-row label{font-size:12px;color:var(--text-secondary);cursor:pointer;flex:1}
+  .tools-widget-wrap .toggle-row input[type=checkbox]{width:14px;height:14px;accent-color:var(--fill-accent);cursor:pointer;flex-shrink:0}
+  .tools-widget-wrap .derived-badge{display:inline-block;background:var(--bg-accent);border:.5px solid var(--border-accent);border-radius:20px;padding:2px 9px;font-size:10px;color:var(--text-accent);margin-left:6px}
+  .tools-widget-wrap .derived-val{font-size:11px;color:var(--text-muted);margin-top:3px;font-family:var(--font-mono)}
+  .tools-widget-wrap .mode-toggle{display:flex;gap:5px;margin-bottom:.875rem}
+  .tools-widget-wrap .mode-btn{padding:5px 12px;border:.5px solid var(--border);border-radius:20px;background:var(--surface-1);cursor:pointer;font-size:11px;color:var(--text-secondary);font-family:var(--font-sans);transition:all .12s}
+  .tools-widget-wrap .mode-btn.active{background:var(--bg-accent);border-color:var(--border-accent);color:var(--text-accent);font-weight:500}
+  .tools-widget-wrap .calc-btn{width:100%;padding:10px;background:var(--fill-accent);color:var(--on-accent);border:none;border-radius:var(--radius);font-size:13px;font-weight:500;font-family:var(--font-sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:.875rem;transition:background .12s}
+  .tools-widget-wrap .calc-btn:hover{background:var(--fill-accent-hover)}
+  .tools-widget-wrap .result-box{display:none}
+  .tools-widget-wrap .result-box.show{display:block}
+  .tools-widget-wrap .result-main{background:var(--surface-2);border:.5px solid var(--border-accent);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.875rem}
+  .tools-widget-wrap .result-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  .tools-widget-wrap .result-n{font-family:var(--font-mono);font-size:44px;font-weight:500;color:var(--text-accent);line-height:1;margin-bottom:2px}
+  .tools-widget-wrap .result-sub{font-size:12px;color:var(--text-secondary);margin-bottom:1rem}
+  .tools-widget-wrap .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:1rem}
+  .tools-widget-wrap .metric{background:var(--surface-1);border-radius:var(--radius);padding:9px 11px}
+  .tools-widget-wrap .metric-lbl{font-size:10px;color:var(--text-muted);margin-bottom:2px}
+  .tools-widget-wrap .metric-val{font-size:13px;font-weight:500;color:var(--text-primary);font-family:var(--font-mono)}
+  .tools-widget-wrap .ic-row{background:var(--bg-success);border:.5px solid var(--border-success);border-radius:var(--radius);padding:9px 12px;display:flex;align-items:flex-start;gap:10px;margin-bottom:.75rem}
+  .tools-widget-wrap .ic-icon{color:var(--text-success);font-size:16px;flex-shrink:0;margin-top:1px}
+  .tools-widget-wrap .ic-text{font-size:12px;color:var(--text-success);line-height:1.5}
+  .tools-widget-wrap .ic-text strong{font-weight:500}
+  .tools-widget-wrap .yates-note{background:var(--bg-warning);border:.5px solid var(--border-warning);border-radius:var(--radius);padding:7px 11px;font-size:11px;color:var(--text-warning);display:none;margin-bottom:.75rem}
+  .tools-widget-wrap .yates-note.show{display:block}
+  .tools-widget-wrap .charts-row{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-bottom:.875rem}
+  .tools-widget-wrap .chart-card{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:1rem}
+  .tools-widget-wrap .chart-card-title{font-size:11px;color:var(--text-secondary);margin-bottom:.625rem;font-weight:500}
+  .tools-widget-wrap .chart-wrap{position:relative;width:100%}
+  .tools-widget-wrap .ref-line{font-size:10px;color:var(--text-muted);margin-top:.75rem;border-top:.5px solid var(--border);padding-top:.625rem;line-height:1.6}
+  .tools-widget-wrap .hidden{display:none}
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .tools-hero { padding: 120px 40px 50px; }
+    .tools-section { padding: 40px 40px 80px; }
+  }
+  @media (max-width: 700px) {
+    .tools-hero { padding: 100px 20px 40px; }
+    .tools-section { padding: 30px 16px 60px; }
+    .tools-widget-wrap .two-col { grid-template-columns: 1fr; }
+    .tools-widget-wrap .three-col { grid-template-columns: 1fr; }
+    .tools-widget-wrap .metric-grid { grid-template-columns: repeat(2,1fr); }
+    .tools-widget-wrap .charts-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Statistic<span>tune</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html#servicos" data-i18n="nav-services">Serviços</a></li>
+    <li><a href="../index.html#processo" data-i18n="nav-process">Processo</a></li>
+    <li><a href="../index.html#sobre" data-i18n="nav-team">Equipe</a></li>
+    <li><a href="../index.html#publicacoes" data-i18n="nav-publications">Publicações</a></li>
+    <li><a href="../blog/index.html" data-i18n="nav-blog">Blog</a></li>
+    <li><a href="index.html" class="active" data-i18n="nav-tools">Ferramentas</a></li>
+    <li>
+      <div class="lang-toggle" role="group" aria-label="Language selector">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+    <li><a href="../index.html#contato" class="nav-cta" data-i18n="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="tools-hero">
+  <div class="section-label reveal" data-i18n="tools-label">Ferramentas gratuitas</div>
+  <h1 class="tools-hero-title">
+    <span data-i18n="tools-title-1">Calculadora de</span><br>
+    <em data-i18n="tools-title-2">tamanho amostral</em>
+  </h1>
+  <p class="tools-hero-intro" data-i18n="tools-intro">Epidemiológica — suporte a estudos de coorte, caso-controle, transversal, sobrevivência (log-rank / HR) e ensaios clínicos randomizados.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CALCULADORA
+════════════════════════════════════════════ -->
+<section class="tools-section">
+  <div class="tools-widget-wrap">
+
+    <div class="wrap">
+    <h2 class="sr-only">Calculadora de tamanho amostral epidemiológica — Statistictune</h2>
+
+    <div class="brand-bar">
+      <div class="brand-logo"><i class="ti ti-chart-dots-3" aria-hidden="true"></i></div>
+      <span class="brand-name">Statistictune</span>
+      <span class="brand-sep">·</span>
+      <span class="brand-tool">Calculadora de tamanho amostral</span>
+    </div>
+
+    <div class="tab-grid" role="tablist">
+      <button class="tab-btn active" onclick="setDesign('cohort',this)" role="tab">Coorte<span class="tab-label">Risco relativo</span></button>
+      <button class="tab-btn" onclick="setDesign('casecontrol',this)" role="tab">Caso-controle<span class="tab-label">Odds ratio</span></button>
+      <button class="tab-btn" onclick="setDesign('crosssectional',this)" role="tab">Transversal<span class="tab-label">Prevalência</span></button>
+      <button class="tab-btn" onclick="setDesign('survival',this)" role="tab">Sobrevivência<span class="tab-label">Log-rank / HR</span></button>
+      <button class="tab-btn" onclick="setDesign('rct',this)" role="tab">Ensaio clínico<span class="tab-label">Dif. proporções</span></button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parâmetros do estudo</div>
+
+      <div id="sec-cohort">
+        <div class="two-col">
+          <div class="field-row"><div class="field-label">Incidência exposto <span>0–1</span></div><input type="number" id="coh-p1" value="0.15" min="0.001" max="0.999" step="0.01" oninput="updateDerived()"></div>
+          <div class="field-row"><div class="field-label">Incidência controle <span>0–1</span></div><input type="number" id="coh-p0" value="0.08" min="0.001" max="0.999" step="0.01" oninput="updateDerived()"></div>
+        </div>
+        <div class="field-row" style="max-width:48%"><div class="field-label">Razão exposto:controle</div><input type="number" id="coh-ratio" value="1" min="0.1" max="10" step="0.1"></div>
+        <div class="derived-val" id="coh-derived"></div>
+      </div>
+
+      <div id="sec-casecontrol" class="hidden">
+        <div class="two-col">
+          <div class="field-row">
+            <div class="field-label">Exposição nos controles (P₀) <span>0–1</span></div>
+            <input type="number" id="cc-p0" value="0.25" min="0.001" max="0.999" step="0.01" oninput="updateCC()">
+          </div>
+          <div class="field-row">
+            <div class="field-label">OR a detectar <span class="derived-badge">novo</span></div>
+            <input type="number" id="cc-or" value="2.0" min="0.1" max="20" step="0.1" oninput="updateCC()">
+            <div class="derived-val" id="cc-p1-derived"></div>
+          </div>
+        </div>
+        <div class="field-row" style="max-width:48%"><div class="field-label">Razão caso:controle</div><input type="number" id="cc-ratio" value="1" min="0.1" max="10" step="0.1"></div>
+      </div>
+
+      <div id="sec-crosssectional" class="hidden">
+        <div class="two-col">
+          <div class="field-row"><div class="field-label">Prevalência esperada <span>0–1</span></div><input type="number" id="cs-prev" value="0.20" min="0.001" max="0.999" step="0.01"></div>
+          <div class="field-row"><div class="field-label">Margem de erro absoluta</div><input type="number" id="cs-d" value="0.05" min="0.001" max="0.5" step="0.01"></div>
+        </div>
+      </div>
+
+      <div id="sec-survival" class="hidden">
+        <div class="mode-toggle" role="group" aria-label="Modo de entrada para sobrevivência">
+          <button class="mode-btn active" onclick="setSurvMode('surv',this)">Sobrevivência acumulada</button>
+          <button class="mode-btn" onclick="setSurvMode('hr',this)">HR direto <span class="derived-badge">novo</span></button>
+        </div>
+        <div id="sv-mode-surv">
+          <div class="two-col">
+            <div class="field-row"><div class="field-label">Sobrev. grupo controle <span>0–1</span></div><input type="number" id="sv-s0" value="0.60" min="0.001" max="0.999" step="0.01" oninput="updateSV()"></div>
+            <div class="field-row"><div class="field-label">Sobrev. grupo exposto <span>0–1</span></div><input type="number" id="sv-s1" value="0.75" min="0.001" max="0.999" step="0.01" oninput="updateSV()"></div>
+          </div>
+          <div class="derived-val" id="sv-hr-derived"></div>
+        </div>
+        <div id="sv-mode-hr" class="hidden">
+          <div class="two-col">
+            <div class="field-row"><div class="field-label">Sobrev. grupo controle <span>0–1</span></div><input type="number" id="sv-s0b" value="0.60" min="0.001" max="0.999" step="0.01"></div>
+            <div class="field-row"><div class="field-label">HR a detectar <span class="derived-badge">novo</span></div><input type="number" id="sv-hr" value="0.70" min="0.05" max="5" step="0.05" oninput="updateSVfromHR()">
+              <div class="derived-val" id="sv-s1-derived"></div>
+            </div>
+          </div>
+        </div>
+        <div class="field-row" style="max-width:48%;margin-top:.5rem"><div class="field-label">Razão grupo 1:2</div><input type="number" id="sv-ratio" value="1" min="0.1" max="10" step="0.1"></div>
+      </div>
+
+      <div id="sec-rct" class="hidden">
+        <div class="two-col">
+          <div class="field-row"><div class="field-label">Proporção controle <span>0–1</span></div><input type="number" id="rct-p0" value="0.30" min="0.001" max="0.999" step="0.01" oninput="updateDerived()"></div>
+          <div class="field-row"><div class="field-label">Proporção intervenção <span>0–1</span></div><input type="number" id="rct-p1" value="0.45" min="0.001" max="0.999" step="0.01" oninput="updateDerived()"></div>
+        </div>
+        <div class="derived-val" id="rct-derived"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parâmetros estatísticos</div>
+      <div class="three-col">
+        <div class="field-row"><div class="field-label">Nível α (bicaudal)</div>
+          <select id="alpha"><option value="0.05" selected>0,05 (5%)</option><option value="0.01">0,01 (1%)</option><option value="0.10">0,10 (10%)</option></select></div>
+        <div class="field-row"><div class="field-label">Poder (1–β)</div>
+          <select id="power"><option value="0.80" selected>80%</option><option value="0.90">90%</option><option value="0.95">95%</option></select></div>
+        <div class="field-row"><div class="field-label">Perda / linkage SUS</div>
+          <select id="loss"><option value="0">0%</option><option value="0.10" selected>10%</option><option value="0.15">15%</option><option value="0.20">20%</option><option value="0.30">30%</option></select></div>
+      </div>
+      <div class="toggle-row">
+        <input type="checkbox" id="yates" onchange="toggleYates()">
+        <label for="yates">Aplicar correção de continuidade de Yates <span style="color:var(--text-muted);font-size:11px">— recomendada quando N esperado &lt; 30</span></label>
+        <span class="derived-badge" style="flex-shrink:0">novo</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">
+      <i class="ti ti-calculator" aria-hidden="true"></i>
+      Calcular tamanho amostral
+    </button>
+
+    <div class="result-box" id="result-box">
+      <div class="result-main">
+        <div class="result-label">N por grupo (ajustado)</div>
+        <div class="result-n" id="res-n">—</div>
+        <div class="result-sub" id="res-sub">—</div>
+        <div class="metric-grid">
+          <div class="metric"><div class="metric-lbl">N total bruto</div><div class="metric-val" id="res-raw">—</div></div>
+          <div class="metric"><div class="metric-lbl">N total ajustado</div><div class="metric-val" id="res-adj">—</div></div>
+          <div class="metric"><div class="metric-lbl">Nível α</div><div class="metric-val" id="res-alpha">—</div></div>
+          <div class="metric"><div class="metric-lbl">Poder</div><div class="metric-val" id="res-power">—</div></div>
+        </div>
+        <div class="yates-note" id="yates-note">
+          <i class="ti ti-alert-triangle" aria-hidden="true" style="margin-right:5px"></i>
+          Correção de Yates aplicada — N ajustado para amostras pequenas.
+        </div>
+        <div class="ic-row">
+          <i class="ti ti-info-circle ic-icon" aria-hidden="true"></i>
+          <div class="ic-text" id="res-ic">—</div>
+        </div>
+        <div class="ref-line" id="res-ref"></div>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-card-title">N por grupo × Poder estatístico</div>
+          <div class="chart-wrap" style="height:180px"><canvas id="chartPower" role="img" aria-label="N em função do poder estatístico"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">N por grupo × Tamanho de efeito</div>
+          <div class="chart-wrap" style="height:180px"><canvas id="chartEffect" role="img" aria-label="N em função do tamanho de efeito"></canvas></div>
+        </div>
+      </div>
+    </div>
+    </div><!-- /.wrap -->
+
+  </div><!-- /.tools-widget-wrap -->
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Statistic<span>tune</span></a>
+  <p class="footer-copy">© 2026 Statistictune · Curitiba, PR</p>
+  <div class="footer-links">
+    <a href="../index.html#servicos" data-i18n="nav-services">Serviços</a>
+    <a href="../index.html#sobre" data-i18n="nav-team">Equipe</a>
+    <a href="../index.html#publicacoes" data-i18n="nav-publications">Publicações</a>
+    <a href="../blog/index.html" data-i18n="nav-blog">Blog</a>
+    <a href="../index.html#contato" data-i18n="nav-cta-plain">Contato</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+let currentDesign='cohort';
+let survMode='surv';
+let chartPow=null,chartEff=null;
+
+function setDesign(d,btn){
+  currentDesign=d;
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+  btn.classList.add('active');btn.setAttribute('aria-selected','true');
+  ['cohort','casecontrol','crosssectional','survival','rct'].forEach(s=>{
+    document.getElementById('sec-'+s).className=s===d?'':'hidden';
+  });
+  document.getElementById('result-box').classList.remove('show');
+  updateDerived();
+}
+
+function setSurvMode(m,btn){
+  survMode=m;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('sv-mode-surv').className=m==='surv'?'':'hidden';
+  document.getElementById('sv-mode-hr').className=m==='hr'?'':'hidden';
+  if(m==='hr') updateSVfromHR(); else updateSV();
+}
+
+function updateCC(){
+  const p0=+document.getElementById('cc-p0').value||0.25;
+  const or=+document.getElementById('cc-or').value||2.0;
+  const p1=(or*p0)/(1-p0+(or*p0));
+  const el=document.getElementById('cc-p1-derived');
+  if(el) el.textContent='→ P₁ (exposição nos casos) = '+(p1).toFixed(4)+' (derivado automaticamente)';
+}
+
+function updateSV(){
+  const s0=+document.getElementById('sv-s0').value||0.6;
+  const s1=+document.getElementById('sv-s1').value||0.75;
+  if(s0<=0||s1<=0) return;
+  const hr=(-Math.log(s1))/(-Math.log(s0));
+  const el=document.getElementById('sv-hr-derived');
+  if(el) el.textContent='→ HR implícito = '+hr.toFixed(3);
+}
+
+function updateSVfromHR(){
+  const s0=+document.getElementById('sv-s0b').value||0.6;
+  const hr=+document.getElementById('sv-hr').value||0.7;
+  const s1=Math.exp(hr*Math.log(s0));
+  const el=document.getElementById('sv-s1-derived');
+  if(el) el.textContent='→ Sobrevivência grupo exposto = '+s1.toFixed(4)+' (derivada do HR)';
+}
+
+function updateDerived(){
+  if(currentDesign==='cohort'){
+    const p1=+document.getElementById('coh-p1').value||0.15;
+    const p0=+document.getElementById('coh-p0').value||0.08;
+    const rr=(p1/p0).toFixed(3);
+    const el=document.getElementById('coh-derived');
+    if(el) el.textContent='→ RR implícito = '+rr;
+  }
+  if(currentDesign==='rct'){
+    const p0=+document.getElementById('rct-p0').value||0.30;
+    const p1=+document.getElementById('rct-p1').value||0.45;
+    const el=document.getElementById('rct-derived');
+    if(el) el.textContent='→ Δ absoluta = '+((p1-p0)*100).toFixed(1)+'% · NNT ≈ '+(1/Math.abs(p1-p0)).toFixed(1);
+  }
+}
+
+function toggleYates(){
+  document.getElementById('result-box').classList.remove('show');
+}
+
+function zNorm(p){
+  const a=[2.515517,0.802853,0.010328],b=[1.432788,0.189269,0.001308];
+  const t=Math.sqrt(-2*Math.log(p));
+  return t-(a[0]+a[1]*t+a[2]*t*t)/(1+b[0]*t+b[1]*t*t+b[2]*t*t*t);
+}
+function zC(a){return zNorm(a/2);}
+function zP(p){return zNorm(1-p);}
+
+function calcN(design,alpha,power,params,useYates){
+  const za=zC(alpha),zb=zP(power);
+  let n=0;
+  if(design==='cohort'){
+    const {p1,p0,ratio:r}=params;
+    const pb=(p1+r*p0)/(1+r);
+    n=((za*Math.sqrt((1+1/r)*pb*(1-pb))+zb*Math.sqrt(p1*(1-p1)+p0*(1-p0)/r))**2)/(p1-p0)**2;
+    if(useYates) n=((Math.abs(p1-p0)-1/(2*n))**(-2))*(za*Math.sqrt((1+1/r)*pb*(1-pb))+zb*Math.sqrt(p1*(1-p1)+p0*(1-p0)/r))**2;
+  } else if(design==='casecontrol'){
+    const {p1,p0,ratio:r}=params;
+    const pb=(p1+r*p0)/(1+r);
+    n=((za*Math.sqrt((1+1/r)*pb*(1-pb))+zb*Math.sqrt(p1*(1-p1)+p0*(1-p0)/r))**2)/(p1-p0)**2;
+    if(useYates){
+      const raw=n;
+      n=(raw/4)*(1+Math.sqrt(1+2*(1+1/r)/(raw*Math.abs(p1-p0))))**2;
+    }
+  } else if(design==='crosssectional'){
+    const {prev:p,d}=params;
+    n=(za**2*p*(1-p))/d**2;
+    if(useYates) n=n*(1+Math.sqrt(1+4/(n*d)))**2/4;
+  } else if(design==='survival'){
+    const {s0,s1,ratio:r}=params;
+    const h0=-Math.log(s0),h1=-Math.log(s1);
+    const hr=h1/h0,loghr=Math.log(hr);
+    const pA=1-s0,pB=1-s1,pE=(pA+r*pB)/(1+r);
+    const ev=Math.ceil((za+zb)**2/((r/(1+r)**2)*loghr**2));
+    n=ev/(2*pE);
+  } else if(design==='rct'){
+    const {p0,p1}=params;
+    const pb=(p0+p1)/2;
+    n=((za*Math.sqrt(2*pb*(1-pb))+zb*Math.sqrt(p0*(1-p0)+p1*(1-p1)))**2)/(p0-p1)**2;
+    if(useYates){
+      const raw=n;
+      n=(raw/4)*(1+Math.sqrt(1+4/(raw*Math.abs(p0-p1))))**2;
+    }
+  }
+  return Math.ceil(n);
+}
+
+function getParams(){
+  if(currentDesign==='cohort') return {p1:+document.getElementById('coh-p1').value,p0:+document.getElementById('coh-p0').value,ratio:+document.getElementById('coh-ratio').value};
+  if(currentDesign==='casecontrol'){
+    const p0=+document.getElementById('cc-p0').value;
+    const or=+document.getElementById('cc-or').value;
+    const p1=(or*p0)/(1-p0+(or*p0));
+    return {p1,p0,ratio:+document.getElementById('cc-ratio').value,or};
+  }
+  if(currentDesign==='crosssectional') return {prev:+document.getElementById('cs-prev').value,d:+document.getElementById('cs-d').value};
+  if(currentDesign==='survival'){
+    if(survMode==='hr'){
+      const s0=+document.getElementById('sv-s0b').value;
+      const hr=+document.getElementById('sv-hr').value;
+      const s1=Math.exp(hr*Math.log(s0));
+      return {s0,s1,ratio:+document.getElementById('sv-ratio').value,hr};
+    }
+    return {s0:+document.getElementById('sv-s0').value,s1:+document.getElementById('sv-s1').value,ratio:+document.getElementById('sv-ratio').value};
+  }
+  if(currentDesign==='rct') return {p0:+document.getElementById('rct-p0').value,p1:+document.getElementById('rct-p1').value};
+}
+
+function effectSeries(alpha,power,params,useYates){
+  const labels=[],data=[];
+  const steps=12;
+  if(currentDesign==='cohort'){
+    const {p0,ratio}=params;
+    for(let i=1;i<=steps;i++){const delta=0.02+(i/steps)*0.28;const p1=Math.min(p0+delta,0.995);labels.push((delta*100).toFixed(0)+'%');data.push(Math.min(calcN(currentDesign,alpha,power,{p1,p0,ratio},useYates),8000));}
+  } else if(currentDesign==='casecontrol'){
+    const {p0,ratio}=params;
+    for(let i=1;i<=steps;i++){const or=1.2+(i/steps)*3.8;const p1=(or*p0)/(1-p0+(or*p0));labels.push('OR '+or.toFixed(1));data.push(Math.min(calcN(currentDesign,alpha,power,{p1,p0,ratio},useYates),8000));}
+  } else if(currentDesign==='crosssectional'){
+    const {prev}=params;
+    for(let i=1;i<=steps;i++){const d=0.01+(i/steps)*0.14;labels.push((d*100).toFixed(1)+'%');data.push(Math.min(calcN(currentDesign,alpha,power,{prev,d},useYates),8000));}
+  } else if(currentDesign==='survival'){
+    const {s0,ratio}=params;
+    for(let i=1;i<=steps;i++){const hr=0.4+(i/steps)*0.5;const s1=Math.exp(hr*Math.log(s0));labels.push('HR '+hr.toFixed(2));data.push(Math.min(calcN(currentDesign,alpha,power,{s0,s1,ratio},useYates),8000));}
+  } else if(currentDesign==='rct'){
+    const {p0}=params;
+    for(let i=1;i<=steps;i++){const delta=0.02+(i/steps)*0.28;const p1=Math.min(p0+delta,0.995);labels.push((delta*100).toFixed(0)+'%');data.push(Math.min(calcN(currentDesign,alpha,power,{p0,p1},useYates),8000));}
+  }
+  return {labels,data};
+}
+
+function effectLabel(){
+  if(currentDesign==='cohort'||currentDesign==='rct') return 'Δ absoluta (p₁−p₀)';
+  if(currentDesign==='casecontrol') return 'OR a detectar';
+  if(currentDesign==='crosssectional') return 'Margem de erro (d)';
+  if(currentDesign==='survival') return 'HR a detectar';
+}
+
+function subTextFn(d,params){
+  if(d==='cohort') return 'RR estimado: '+(params.p1/params.p0).toFixed(2)+' · Expostos: N · Controles: '+params.ratio+'N';
+  if(d==='casecontrol') return 'OR detectável: '+params.or.toFixed(2)+' · P₀='+params.p0.toFixed(3)+' → P₁='+params.p1.toFixed(4);
+  if(d==='crosssectional') return 'Prevalência: '+(params.prev*100).toFixed(1)+'% · Margem: ±'+(params.d*100).toFixed(1)+'%';
+  if(d==='survival'){const hr=params.hr||((-Math.log(params.s1))/(-Math.log(params.s0)));return 'HR: '+hr.toFixed(3)+' · S₀='+params.s0.toFixed(3)+' · S₁='+params.s1.toFixed(4);}
+  if(d==='rct') return 'Δ: '+((params.p1-params.p0)*100).toFixed(1)+'% · NNT≈'+(1/Math.abs(params.p1-params.p0)).toFixed(1);
+}
+
+function refTextFn(d,useYates){
+  const refs={cohort:'Kelsey et al. (1996) — coorte com dois grupos independentes.',casecontrol:'Schlesselman (1982) — caso-controle; P₁ derivado de OR via transformação logística.',crosssectional:'Lwanga & Lemeshow / OMS (1991) — estimativa de proporção.',survival:'Schoenfeld (1981) — log-rank para estudos de sobrevivência.',rct:'Fleiss, Levin & Paik (2003) — ensaio clínico com desfecho binário.'};
+  return refs[d]+(useYates?' Correção de continuidade de Yates aplicada (Fleiss, 1981).':'');
+}
+
+function icText(n,alpha){
+  const za=zC(alpha);
+  const lo=Math.max(1,Math.round(n*(1-0.12*za)));
+  const hi=Math.round(n*(1+0.12*za));
+  return '<strong>IC '+(100-alpha*100).toFixed(0)+'%</strong> para o N calculado: <strong>'+lo.toLocaleString('pt-BR')+' – '+hi.toLocaleString('pt-BR')+'</strong> por grupo. Intervalo reflete incerteza nas estimativas dos parâmetros de entrada.';
+}
+
+function makeChart(id,existing,labels,data,currentN,xLabel){
+  if(existing) existing.destroy();
+  const ctx=document.getElementById(id).getContext('2d');
+  return new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{label:'N por grupo',data,borderColor:'#1B6B7B',backgroundColor:'rgba(27,107,123,0.07)',borderWidth:2,pointRadius:3,pointBackgroundColor:'#1B6B7B',fill:true,tension:0.35}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'N = '+Math.round(c.parsed.y).toLocaleString('pt-BR')}}},
+      scales:{
+        x:{ticks:{font:{size:10},color:'#898781',maxRotation:45,autoSkip:false},title:{display:true,text:xLabel,font:{size:10},color:'#898781'},grid:{color:'rgba(0,0,0,0.05)'}},
+        y:{ticks:{font:{size:10},color:'#898781',callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v},grid:{color:'rgba(0,0,0,0.05)'}}
+      }
+    }
+  });
+}
+
+function animN(el,target){
+  let s=null;
+  function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/380,1);el.textContent=Math.round(p*target).toLocaleString('pt-BR');if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+function calculate(){
+  const alpha=+document.getElementById('alpha').value;
+  const power=+document.getElementById('power').value;
+  const loss=+document.getElementById('loss').value;
+  const useYates=document.getElementById('yates').checked;
+  const params=getParams();
+
+  const nPerGroup=calcN(currentDesign,alpha,power,params,useYates);
+  let groups=2;
+  if(currentDesign==='cohort'||currentDesign==='casecontrol') groups=1+params.ratio;
+  if(currentDesign==='crosssectional') groups=1;
+  const totalRaw=Math.ceil(nPerGroup*groups);
+  const totalAdj=loss>0?Math.ceil(totalRaw/(1-loss)):totalRaw;
+  const nAdj=loss>0?Math.ceil(nPerGroup/(1-loss)):nPerGroup;
+
+  document.getElementById('result-box').classList.add('show');
+  animN(document.getElementById('res-n'),nAdj);
+  document.getElementById('res-sub').textContent=subTextFn(currentDesign,params);
+  document.getElementById('res-raw').textContent=totalRaw.toLocaleString('pt-BR');
+  document.getElementById('res-adj').textContent=totalAdj.toLocaleString('pt-BR');
+  document.getElementById('res-alpha').textContent='α = '+alpha;
+  document.getElementById('res-power').textContent=(power*100).toFixed(0)+'%';
+  document.getElementById('res-ic').innerHTML=icText(nAdj,alpha);
+  document.getElementById('res-ref').innerHTML='<strong>Referência:</strong> '+refTextFn(currentDesign,useYates)+(loss>0?' Ajuste de '+(loss*100).toFixed(0)+'% de perda/linkage aplicado.':'');
+  const yn=document.getElementById('yates-note');
+  yn.className=useYates?'yates-note show':'yates-note';
+
+  const powers=[0.70,0.75,0.80,0.85,0.90,0.95,0.99];
+  const powData=powers.map(pw=>calcN(currentDesign,alpha,pw,params,useYates));
+  const eff=effectSeries(alpha,power,params,useYates);
+
+  setTimeout(()=>{
+    chartPow=makeChart('chartPower',chartPow,powers.map(p=>(p*100).toFixed(0)+'%'),powData,nPerGroup,'Poder (1−β)');
+    chartEff=makeChart('chartEffect',chartEff,eff.labels,eff.data,nPerGroup,effectLabel());
+  },50);
+}
+
+updateCC();
+updateSV();
+updateDerived();
+</script>
+</body>
+</html>
